@@ -7,9 +7,17 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="max-w-[1400px] h-full w-full mx-auto pt-32 sm:px-6 lg:px-8 relative z-10">
+    <div
+      id="page-container"
+      className="max-w-[1400px] h-full w-full mx-auto pt-32 sm:px-6 lg:px-8 relative z-10 flex flex-col"
+    >
       <Breadcrumbs breadcrumbs={breadcrumbs} isHome={isHome} />
-      {children}
+      <div
+        id="page-content"
+        className="flex flex-col gap-6 w-full flex-1 overflow-hidden"
+      >
+        {children}
+      </div>
     </div>
   );
 };

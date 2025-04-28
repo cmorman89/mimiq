@@ -2,9 +2,9 @@ import { Navbar } from "../features/navbar/Navbar";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex flex-col h-screen min-h-screen max-h-screen wiscreen min-w-screen max-w-screen">
+    <div id="main-layout" className="relative flex flex-col h-full w-full">
       <Navbar />
-      {children}
+      <main id="main-content" className="flex w-full h-full pb-6">{children}</main>
     </div>
-  )
+  );
 }

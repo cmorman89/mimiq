@@ -17,7 +17,7 @@ body {
   }
 
   #root {
-    @apply min-h-screen relative isolate;
+    @apply h-screen relative isolate;
   }
 
   #root::before {
