@@ -13,7 +13,7 @@ body {
 }
 @layer base {
   body {
-    @apply bg-black text-gray-100;
+    @apply bg-gray-950 text-gray-100;
   }
 
   #root {
