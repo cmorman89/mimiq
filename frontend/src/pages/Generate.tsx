@@ -1,3 +1,4 @@
+import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 
@@ -6,7 +7,7 @@ export const Generate = () => {
     <PageContainer>
       <div className="h-full">
         <Card>
-          <h1>Generate</h1>
+          <Button to="" type="accent">Generate</Button>
         </Card>
       </div>
     </PageContainer>

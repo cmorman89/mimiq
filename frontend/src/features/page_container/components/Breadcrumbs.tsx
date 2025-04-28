@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowLeft, FaChevronRight } from "react-icons/fa";
 
 interface BreadcrumbsProps {
   breadcrumbs: string[];
@@ -21,16 +21,18 @@ export const Breadcrumbs = ({ breadcrumbs, isHome }: BreadcrumbsProps) => {
       </Link>
 
       {/* Breadcrumbs */}
-      <div className="ml-2 text-4xl font-bold text-white">
+      <div className="flex gap-2 ml-2 text-4xl font-bold text-white">
         {breadcrumbs.map((crumb, index) => (
-          <Link
-            key={index}
-            to={`/${breadcrumbs.slice(0, index + 1).join("/")}`}
-            className="hover:text-gray-700"
-          >
-            {capitalize(crumb)}
-            {index < breadcrumbs.length - 1 ? " > " : ""}
-          </Link>
+          <div key={index} className="flex items-center gap-2 ">
+            <Link
+              key={index}
+              to={`/${breadcrumbs.slice(0, index + 1).join("/")}`}
+              className="hover:text-gray-700"
+            >
+              {capitalize(crumb)}
+            </Link>
+            {index < breadcrumbs.length - 1 ? <FaChevronRight className="text-2xl" /> : ""}
+          </div>
         ))}
       </div>
     </div>
