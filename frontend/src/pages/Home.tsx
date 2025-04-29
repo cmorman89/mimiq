@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { PageContainer } from "../features/page_container/PageContainer";
-
+import { LogoButton } from "../components/LogoButton";
+import { Button } from "../components/Button";
+import { Logo } from "../components/Logo";
 export const Home = () => {
   return (
     <PageContainer>
@@ -15,10 +17,10 @@ export const Home = () => {
             Write more,
             <br />
             like{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent font-bold">
+            <span className="bg-gradient-mimiq bg-clip-text text-transparent font-bold">
               yourself
             </span>
-            <span className="animate-blink font-light">|</span>
+            <span className="animate-blink font-light text-gray-300">|</span>
           </h2>
           <p className="text-2xl text-gray-400 font-light max-w-xl">
             Generate authentic content that perfectly matches your unique voice
@@ -26,6 +28,7 @@ export const Home = () => {
           </p>
         </div>
         <div className="flex items-center space-x-4 pt-4">
+          <LogoButton type="inverted" />
           <Link
             to="/generate"
             className="px-6 py-3 text-base font-medium bg-white text-black rounded-lg hover:bg-gray-100 transition-colors"
@@ -38,6 +41,7 @@ export const Home = () => {
           >
             View Examples
           </Link>
+          <Button to="/generate" type="primary"><Logo /></Button>
         </div>
       </div>
     </PageContainer>
