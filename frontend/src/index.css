@@ -50,6 +50,9 @@ body {
     @apply relative overflow-hidden rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm;
   }
 
+  .bg-gradient-mimiq {
+    @apply bg-gradient-to-r from-fuchsia-700 via-purple-600 via-60% to-orange-500;
+  }
   .ai-glow {
     @apply relative;
   }
