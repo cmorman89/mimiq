@@ -13,7 +13,7 @@ export const Logo = ({
         className={`${
           type === "color"
             ? "bg-gradient-to-r from-fuchsia-400 via-fuchsia-500 to-purple-500 bg-clip-text text-transparent"
-            : "text-gray-300"
+            : "text-gray-100/70"
         }`}
       >
         MIM
@@ -22,7 +22,7 @@ export const Logo = ({
         className={`${
           type === "color"
             ? "bg-gradient-to-r from-rose-400 via-orange-500 to-pink-500 bg-clip-text text-transparent"
-            : "text-gray-300"
+            : "text-gray-100/90"
         }`}
       >
         IQ

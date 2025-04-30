@@ -1,19 +1,31 @@
+import { Link } from "react-router-dom";
 import { Logo } from "./Logo";
 
 export const LogoButton = ({
   type = "primary",
+  className = "",
+  to = "/",
+  children,
+  childPlacement = "left",
 }: {
   type?: "primary" | "inverted";
+  className?: string;
+  to?: string;
+  children?: React.ReactNode;
+  childPlacement?: "left" | "right";
 }) => {
   const buttonClass = {
-    primary: "bg-white/5 backdrop-blur-sm border border-white/10",
-    inverted: "bg-gradient-mimiq border border-white/10",
+    primary: "bg-white/5 backdrop-blur-sm border border-white/50",
+    inverted: "bg-gradient-mimiq ring-1 ring-white/50",
   };
   return (
-    <div
-      className={`flex flex-1 items-center justify-center px-2 py-2 rounded-md ${buttonClass[type]}`}
+    <Link
+      to={to}
+      className={`flex ml-0.5 flex-1 items-center justify-center px-2 py-2 rounded-md shimmer-hover ${buttonClass[type]} ${className}`}
     >
+      {childPlacement === "left" && children}
       <Logo className="text-3xl" type={type === "primary" ? "color" : "gray"} />
-    </div>
+      {childPlacement === "right" && children}
+    </Link>
   );
 };
