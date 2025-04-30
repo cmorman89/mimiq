@@ -1,12 +1,17 @@
 import { FaPlus } from "react-icons/fa";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
-import { capitalize } from "../../utils/stringFromatters";
+import { capitalize } from "../../utils/stringUtils";
+import { DefaultModel } from "../models/DefaultModel";
 
 export const KnowledgeDocListView = ({ docType }: { docType: string }) => {
   return (
     <Card className="flex flex-col gap-4">
-      <div className="flex justify-end">
+      {/* Header */}
+      <div className="flex justify-between">
+        <div className="flex gap-2">
+          <DefaultModel />
+        </div>
         <Button type="primary" to="/knowledge/new">
           <span className="flex gap-2 items-center justify-center">
             <FaPlus />
@@ -14,6 +19,7 @@ export const KnowledgeDocListView = ({ docType }: { docType: string }) => {
           </span>
         </Button>
       </div>
+      {/* Examples */}
       <Card type="dark">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
