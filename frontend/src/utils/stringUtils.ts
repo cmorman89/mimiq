@@ -30,3 +30,19 @@ export const toTitleCase = (str: string) => {
       .join(" ")
   );
 };
+
+/**
+ * Truncates a string to a maximum length with an optional ellipsis
+ * @param str - The string to truncate
+ * @param maxLength - The maximum length of the string
+ * @param ellipsis - Whether to include an ellipsis at the end of the truncated string
+ * @returns The truncated string
+ */
+export const truncate = (str: string, maxLength: number, ellipsis = true) => {
+  // If the string is empty, return it
+  if (!str) return str;
+  // Return truncated string with ellipsis if it's longer than the max length
+  return str.length > maxLength
+    ? str.slice(0, maxLength) + (ellipsis ? "..." : "")
+    : str;
+};
