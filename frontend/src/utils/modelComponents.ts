@@ -8,6 +8,7 @@ import {
   Mistral,
   OpenAI,
   Qwen,
+  Microsoft,
 } from "@lobehub/icons";
 
 import { ComponentType } from "react";
@@ -26,4 +27,5 @@ export const modelComponents: Record<
   mistral: [Mistral, Mistral.Color, Mistral.Text],
   openai: [OpenAI, OpenAI, OpenAI.Text],
   qwen: [Qwen, Qwen.Color, Qwen.Text],
+  phi: [Microsoft, Microsoft.Color, Microsoft.Text],
 };

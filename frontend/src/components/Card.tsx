@@ -17,7 +17,7 @@ export const Card = ({
   }[padding];
   return (
     <div
-      className={`relative flex flex-col overflow-auto w-full h-full rounded-xl border border-white/10 ${bgColor} backdrop-blur-sm ${paddingClass} ${className}`}
+      className={`relative flex flex-col overflow-auto w-full h-full rounded-xl border border-white/10 ${bgColor} backdrop-blur-sm ${paddingClass} ${className} shadow-lg`}
     >
       {children}
     </div>

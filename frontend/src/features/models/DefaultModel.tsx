@@ -25,15 +25,15 @@ export const DefaultModel = ({
       >
         <span className="text-sm text-white/50">Default Model:</span>
 
-        <div className={`flex gap-2 items-center  text-white`}>
+        <div className={`flex gap-2 items-center text-white`}>
           <ModelNameRenderer
-            modelName="openai"
+            modelName="llama"
             color={true}
             label={false}
-            className="text-sm"
+            className="text-lg"
           />
-          {truncate("GPT-4", 10)}
-          <FaChevronDown className="text-white/50 text-xx transition-transform duration-200" />
+          {truncate("Llama 3.2", 10)}
+          <FaChevronDown className="text-white/50 transition-transform duration-200" />
         </div>
       </div>
     </Card>
