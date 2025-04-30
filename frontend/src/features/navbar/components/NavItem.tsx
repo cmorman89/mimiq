@@ -12,7 +12,7 @@ export const NavItem = ({
     <Link
       to={to}
       className={`px-4 py-2 text-gray-400 hover:text-white transition-colors duration-200 ${
-        location.pathname.includes(to) ? "text-white" : "text-gray-300"
+        location.pathname.includes(to) ? "text-white border-b border-white" : "text-gray-300"
       }`}
     >
       {children}
