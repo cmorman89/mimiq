@@ -6,13 +6,14 @@ export const ModelNameRenderer = ({
   color = false,
   label = true,
   icon = true,
+  customText = null,
 }: {
   modelName: string;
   className?: string;
   color?: boolean;
   label?: boolean;
   icon?: boolean;
-  customText?: boolean;
+  customText?: string | null;
 }) => {
   const [MonoIcon, ColorIcon, Text] =
     modelComponents[modelName] || modelComponents.default;
@@ -20,6 +21,7 @@ export const ModelNameRenderer = ({
     <div className={`flex items-center gap-2 ${className}`}>
       {icon && (color ? <ColorIcon /> : <MonoIcon />)}
       {label && <Text />}
+      {customText && <span>{customText}</span>}
     </div>
   );
 };
