@@ -20,6 +20,14 @@ body {
     @apply h-screen relative isolate;
   }
 
+  #portal-root {
+    @apply fixed inset-0 pointer-events-none;
+  }
+
+  #portal-root > * {
+    @apply pointer-events-auto;
+  }
+
   #root::before {
     @apply content-[''] fixed inset-0 pointer-events-none;
     background-image: radial-gradient(
