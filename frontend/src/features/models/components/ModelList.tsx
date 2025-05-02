@@ -3,9 +3,13 @@ import ReactDOM from "react-dom";
 import { useModels } from "../../../hooks/useModels";
 import { useEffect, useState } from "react";
 import { ParsedModel, parseModelId } from "../../../utils/parseModelId";
-import { Button } from "../../../components/Button";
 import { ModelListRow } from "./ModelListRow";
-export const ModelList = () => {
+import { FaArrowLeft, FaSync, FaTimes } from "react-icons/fa";
+export const ModelList = ({
+  setShowModelList,
+}: {
+  setShowModelList: () => void;
+}) => {
   // Hook to fetch all models
   const { lmStudioModels, fetchModels } = useModels();
 
@@ -18,14 +22,25 @@ export const ModelList = () => {
   }, [lmStudioModels]);
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-50 w-1/2 h-1/2 mx-auto my-auto">
-      <Card className="p-6">
-        <h1>Model List</h1>
-        <Button onClick={() => fetchModels()}>Refresh</Button>
-        <div className="flex flex-col gap-2">
-          {parsedModels.map((model) => (
-            <ModelListRow key={model.original_model_id} model={model} />
-          ))}
+    <div className="fixed inset-0 z-10 w-1/2 h-1/2 mx-auto my-auto overflow-hidden">
+      <Card type="dark" className="relative p-6 flex-col gap-6 overflow-hidden">
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-2 text-2xl">
+            <FaArrowLeft className="text-lg" onClick={setShowModelList} />
+            <h1>Model List</h1>
+          </div>
+          <div className="flex items-center gap-6 text-lg">
+            <FaSync onClick={() => fetchModels()} className="cursor-pointer" />
+            <FaTimes onClick={setShowModelList} className="cursor-pointer" />
+          </div>
+        </div>
+        <div className="h-1 bg-gradient-mimiq w-full"></div>
+        <div className="flex flex-col gap-3 overflow-y-auto mimiq-scrollbar px-6">
+          <div className="flex flex-col gap-3 z-50">
+            {parsedModels.map((model) => (
+              <ModelListRow key={model.original_model_id} model={model} />
+            ))}
+          </div>
         </div>
       </Card>
     </div>,
