@@ -25,6 +25,10 @@ export const ModelDisplay = ({
     }
   }, [modelId]);
 
+  useEffect(() => {
+    setIsHovering(isParentHovering);
+  }, [isParentHovering]);
+
   const handleMouseEnter = () => {
     if (ref.current) {
       const rect = ref.current.getBoundingClientRect();
