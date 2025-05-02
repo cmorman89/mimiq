@@ -20,6 +20,10 @@ export const Navbar = () => {
               <NavItem to="/utilities">Utilities</NavItem>
               <NavItem to="/settings">Settings</NavItem>
             </div>
+            <div
+              id="navbar-divider"
+              className="absolute bottom-0 left-0 w-full h-1 bg-gradient-mimiq"
+            ></div>
           </div>
         </div>
       </div>
