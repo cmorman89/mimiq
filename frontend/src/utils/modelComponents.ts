@@ -18,6 +18,7 @@ export const modelComponents: Record<
   string,
   [ComponentType, ComponentType, ComponentType]
 > = {
+  default: [OpenAI, OpenAI, OpenAI.Text],
   claude: [Claude, Claude.Color, Claude.Text],
   deepseek: [DeepSeek, DeepSeek.Color, DeepSeek.Text],
   groq: [Groq, Groq, Groq.Text],

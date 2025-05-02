@@ -5,11 +5,13 @@ export function Button({
   children,
   type = "primary",
   className = "",
+  onClick = () => {},
 }: {
-  to: string | null;
-  children: React.ReactNode;
-  type: "primary" | "secondary" | "accent" | "danger" | "disabled";
+  to?: string | null;
+  children?: React.ReactNode;
+  type?: "primary" | "secondary" | "accent" | "danger" | "disabled";
   className?: string;
+  onClick?: () => void;
 }) {
   // Define button type styles
   const buttonClass = {
@@ -25,6 +27,7 @@ export function Button({
     <Link
       to={to ?? ""}
       className={`flex flex-col text-center gap-2 rounded-lg px-4 py-2 border transition-colors ease-in-out duration-300 ${buttonClass[type]} ${className} shadow-lg`}
+      onClick={onClick}
     >
       {children}
     </Link>
