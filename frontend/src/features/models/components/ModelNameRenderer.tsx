@@ -14,7 +14,8 @@ export const ModelNameRenderer = ({
   icon?: boolean;
   customText?: boolean;
 }) => {
-  const [MonoIcon, ColorIcon, Text] = modelComponents[modelName];
+  const [MonoIcon, ColorIcon, Text] =
+    modelComponents[modelName] || modelComponents.default;
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {icon && (color ? <ColorIcon /> : <MonoIcon />)}
