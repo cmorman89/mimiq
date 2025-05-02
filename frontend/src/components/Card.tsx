@@ -1,10 +1,10 @@
 export const Card = ({
-  children,
+  children = null,
   className = "",
   type = "light",
   padding = "default",
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   type?: "light" | "dark";
   padding?: "default" | "tight" | "none";
