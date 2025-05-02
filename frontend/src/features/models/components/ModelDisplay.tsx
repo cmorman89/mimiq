@@ -1,6 +1,5 @@
 import { toTitleCase, truncate } from "../../../utils/stringUtils";
 import { ModelNameRenderer } from "./ModelNameRenderer";
-import { useModels } from "../../../hooks/useModels";
 import { useEffect, useState, useRef } from "react";
 import { ParsedModel, parseModelId } from "../../../utils/parseModelId";
 import { createPortal } from "react-dom";
@@ -8,11 +7,11 @@ import { ModelDisplayHover } from "./ModelDisplayHover";
 
 export const ModelDisplay = ({
   isParentHovering = false,
+  modelId = "llama-3.2-8b-instruct",
 }: {
   isParentHovering: boolean;
+  modelId: string;
 }) => {
-  const { models, refresh } = useModels();
-  const [modelId, setModelId] = useState<string>("llama-3.2-8b-instruct");
   const [parsedModel, setParsedModel] = useState<ParsedModel | null>(null);
   const [isHovering, setIsHovering] = useState(isParentHovering);
   const [position, setPosition] = useState({ top: 0, left: 0 });
