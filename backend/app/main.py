@@ -10,11 +10,18 @@ app = FastAPI(
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=["*"],  # TODO: Change to specific origins in production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Import and include routers
+from app.api.routes import models
+
+app.include_router(models.router, prefix="/api/v1", tags=["models"])
+
+
 
 @app.get("/")
 async def root():
