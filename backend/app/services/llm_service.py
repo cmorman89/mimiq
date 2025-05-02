@@ -12,7 +12,6 @@ class LLMService:
         client (httpx.AsyncClient): The HTTP client for making requests to the LLM API.
     """
     def __init__(self, api_base_url: str):
-
         self.api_base_url = api_base_url
         self.api_models_url = f"{self.api_base_url}/v1/models"
         self.client = httpx.AsyncClient()
@@ -36,5 +35,7 @@ class LLMService:
             print(f"Failed to fetch models: {str(e)}")
             # Return a message indicating no connection to the API
             return {"data": [{"id": "no_connection", "name": "No connection to the API"}]}
-        finally:
-            await self.client.aclose()
+
+    async def close(self):
+        """Close the HTTP client."""
+        await self.client.aclose()

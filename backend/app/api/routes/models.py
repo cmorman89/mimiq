@@ -1,11 +1,7 @@
 from fastapi import APIRouter
-from app.services.llm_service import LLMService
-from app.global_settings import API_BASE_URL
+from app.main import llm_service
 
 router = APIRouter()
-
-# Initialize the service
-llm_service = LLMService(api_base_url=API_BASE_URL)
 
 @router.get("/models")
 async def get_models():
