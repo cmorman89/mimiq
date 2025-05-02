@@ -29,5 +29,5 @@ export const useModels = () => {
     fetchModels();
   }, [fetchModels]);
 
-  return { models: lmStudioModels, refresh: fetchModels };
+  return { lmStudioModels, fetchModels };
 };

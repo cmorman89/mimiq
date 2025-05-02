@@ -3,6 +3,7 @@ import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { capitalize } from "../../utils/stringUtils";
 import { DefaultModel } from "../models/DefaultModel";
+import ModelList from "../models/components/ModelList";
 
 export const KnowledgeDocListView = ({ docType }: { docType: string }) => {
   return (
@@ -24,6 +25,7 @@ export const KnowledgeDocListView = ({ docType }: { docType: string }) => {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <h2 className="text-lg font-bold">Example 1</h2>
+            <ModelList />
           </div>
         </div>
       </Card>

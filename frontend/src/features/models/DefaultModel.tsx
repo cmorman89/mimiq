@@ -28,7 +28,7 @@ export const DefaultModel = ({
         <span className="text-sm text-white/50">Default Model:</span>
 
         <div className={`flex gap-2 items-center text-white`}>
-          <ModelDisplay isParentHovering={isHovering} />
+          <ModelDisplay modelId="default" isParentHovering={isHovering} />
           <FaChevronDown className="text-white/50 transition-transform duration-200" />
         </div>
       </div>
