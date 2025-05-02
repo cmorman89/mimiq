@@ -8,8 +8,16 @@ import { Utilities } from "./pages/Utilities";
 import { Settings } from "./pages/Settings";
 import { KnowledgeDocListView } from "./features/knowledge/KnowledgeDocListView";
 import { KnowledgeTypeSelectionView } from "./features/knowledge/KnowledgeTypeSelectionView";
+import { useState } from "react";
+import ModelList from "./features/models/components/ModelList";
 
 function App() {
+  const [showModelList, setShowModelList] = useState(true);
+  const handleClose = (menuName: string) => {
+    if (menuName === "modelList") {
+      setShowModelList(false);
+    }
+  };
   return (
     <Router>
       <MainLayout>
@@ -52,8 +60,11 @@ function App() {
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </MainLayout>
+      {showModelList && (
+        <ModelList setShowModelList={() => handleClose("modelList")} />
+      )}
     </Router>
   );
-};
+}
 
 export default App;
