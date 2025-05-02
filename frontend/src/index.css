@@ -74,6 +74,29 @@ body {
     @apply content-[''] absolute -inset-1 bg-gradient-to-r from-blue-400 to-purple-500 blur-2xl opacity-20;
     z-index: -1;
   }
+
+  .mimiq-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  }
+
+  .mimiq-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .mimiq-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .mimiq-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+
+  .mimiq-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
 }
 
 @keyframes blink {
