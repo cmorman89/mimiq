@@ -23,7 +23,11 @@ export const ModelList = ({
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-10 w-1/2 h-1/2 mx-auto my-auto overflow-hidden">
-      <Card type="dark" className="relative p-6 flex-col gap-6 overflow-hidden">
+      <Card
+        type="dark"
+        transparent={false}
+        className="relative p-6 flex-col gap-6 overflow-hidden"
+      >
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-2xl">
             <FaArrowLeft className="text-lg" onClick={setShowModelList} />

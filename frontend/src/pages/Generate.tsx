@@ -67,8 +67,7 @@ export const Generate = () => {
             Generate
           </Button>
         </Card>
-        <Card>
-        </Card>
+        <Card></Card>
       </div>
     </PageContainer>
   );
