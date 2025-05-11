@@ -6,13 +6,18 @@ import { useState } from "react";
 
 export const Generate = () => {
   const [activeStep, setActiveStep] = useState(0);
-  const [steps, setSteps] = useState<string[]>([
+  const steps = [
     "Blog Topic",
-    "Blog Description",
-    "Blog Tone",
-    "Blog Audience",
-    "Blog Length",
-  ]);
+    "Blog Structure",
+    "Blog Style",
+    "Blog Examples",
+    "Finalize Blog Post",
+  ];
+  const contents = [<Card />, <Card />, <Card />, <Card />, <Card />];
+
+  const useContent = (step: number) => {
+    return step <= steps.length ? contents[step] : null;
+  };
 
   return (
     <PageContainer>
@@ -28,6 +33,7 @@ export const Generate = () => {
       <div className="flex gap-4">
         <Card className="flex-col w-2/3 gap-2">
           The active step is {activeStep + 1}: {steps[activeStep]}
+          {useContent(activeStep)}
         </Card>
         <Card className="flex-col w-1/3 gap-2">ddd</Card>
       </div>

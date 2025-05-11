@@ -93,7 +93,11 @@ export const StepNode = ({
       >
         {index + 1}
       </div>
-      <div className="text-xs text-center">{steps[index]}</div>
+      <div
+        className={`${isActive ? "text-white font-semibold" : "text-gray-400"} text-xs transition-all duration-300 text-center`}
+      >
+        {steps[index]}
+      </div>
     </div>
   );
 };
