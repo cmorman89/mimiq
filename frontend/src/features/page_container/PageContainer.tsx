@@ -14,7 +14,7 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
       <Breadcrumbs breadcrumbs={breadcrumbs} isHome={isHome} />
       <div
         id="page-content"
-        className="flex flex-col gap-6 w-full flex-1 overflow-hidden"
+        className="flex flex-col gap-4 w-full flex-1 overflow-hidden"
       >
         {children}
       </div>
