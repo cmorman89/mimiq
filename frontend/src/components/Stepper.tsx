@@ -14,6 +14,8 @@ interface StepLineProps {
 
 interface StepperProps {
   steps: string[];
+  activeIndex: number;
+  onStepChange: (index: number) => void;
 }
 
 const STATUS_CLASSES = {
@@ -26,18 +28,18 @@ const STATUS_CLASSES = {
 const NODE_GLOW =
   "hover:scale-110 shadow hover:shadow-[0_0_20px_rgba(192,38,211,0.8)]";
 
-export const Stepper = ({ steps = [] }: StepperProps) => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-
-  const handleStepClick = (index: number) => setActiveIndex(index);
-  const handleNextStep = () => setActiveIndex((prev) => prev + 1);
-  const handlePreviousStep = () => setActiveIndex((prev) => prev - 1);
+export const Stepper = ({
+  steps = [],
+  activeIndex = 0,
+  onStepChange,
+}: StepperProps) => {
+  const handleStepClick = (index: number) => onStepChange(index);
 
   return (
     <div className="flex flex-col items-center justify-center px-4">
       <div className="relative w-full">
         <StepLine stepsCount={steps.length} activeIndex={activeIndex} />
-        <div className="flex justify-between items-center relative">
+        <div className="flex justify-between items-start relative">
           {steps.map((step, index) => (
             <StepNode
               key={index}
