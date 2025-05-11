@@ -1,13 +1,14 @@
-import Markdown from "react-markdown";
 import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
+import { GenerateWorkflow } from "../features/generate/components/GenerateWorkflow";
 
 export const Generate = () => {
   return (
     <PageContainer>
       <div className="h-full flex gap-6">
         <Card className="flex-col gap-2">
+          <GenerateWorkflow nodeArray={["Blog Topic", "Blog Description", "Blog Tone", "Blog Audience", "Blog Length"]} />
           <label htmlFor="blog-topic" className="text-xl text-white/90">
             Blog Topic
           </label>
