@@ -12,7 +12,7 @@ import { useState } from "react";
 import ModelList from "./features/models/components/ModelList";
 
 function App() {
-  const [showModelList, setShowModelList] = useState(true);
+  const [showModelList, setShowModelList] = useState(false);
   const handleClose = (menuName: string) => {
     if (menuName === "modelList") {
       setShowModelList(false);
@@ -23,7 +23,7 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/generate" element={<Generate />} />
+          <Route path="/generate" element={<Generate setShowModelList={setShowModelList}/>} />
           <Route path="/knowledge" element={<Knowledge />}>
             <Route path="/knowledge" element={<KnowledgeTypeSelectionView />} />
             <Route

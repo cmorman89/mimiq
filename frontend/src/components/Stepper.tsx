@@ -4,7 +4,7 @@ interface StepNodeProps {
   index: number;
   activeIndex: number;
   onClick: () => void;
-  steps: string[];
+  step: string;
 }
 
 interface StepLineProps {
@@ -46,7 +46,7 @@ export const Stepper = ({
               index={index}
               activeIndex={activeIndex}
               onClick={() => handleStepClick(index)}
-              steps={steps}
+              step={step}
             />
           ))}
         </div>
@@ -59,7 +59,7 @@ export const StepNode = ({
   index,
   activeIndex,
   onClick,
-  steps,
+  step,
 }: StepNodeProps) => {
   const [isActive, setIsActive] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
@@ -96,7 +96,7 @@ export const StepNode = ({
       <div
         className={`${isActive ? "text-white font-semibold" : "text-gray-400"} text-xs transition-all duration-300 text-center`}
       >
-        {steps[index]}
+        {step}
       </div>
     </div>
   );
@@ -112,6 +112,7 @@ export const StepLine = ({ stepsCount, activeIndex }: StepLineProps) => {
     return `w-[${(numerator / denominator) * 100}%]`;
   };
 
+    
   useEffect(() => {
     setN(activeIndex);
     setD(stepsCount - 1);
@@ -129,7 +130,7 @@ export const StepLine = ({ stepsCount, activeIndex }: StepLineProps) => {
           className={`${getProgressWidth(
             n,
             d
-          )} h-2 bg-gradient-mimiq transition-all duration-300`}
+          )} h-2 bg-gradient-mimiq-30 transition-all duration-300`}
         />
       </div>
     </div>
