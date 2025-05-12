@@ -4,13 +4,15 @@ export const Card = ({
   type = "light",
   padding = "default",
   transparent = true,
+  onClick = () => {},
 }: {
   children?: React.ReactNode;
   className?: string;
   type?: "light" | "dark";
   padding?: "default" | "tight" | "none";
   transparent?: boolean;
-  }) => {
+  onClick?: () => void;
+}) => {
   const bgColor =
     type === "light"
       ? transparent
@@ -27,6 +29,7 @@ export const Card = ({
   return (
     <div
       className={`relative flex overflow-auto w-full h-full rounded-xl border border-white/10 ${bgColor} backdrop-blur-md ${paddingClass} ${className} shadow-lg`}
+      onClick={onClick}
     >
       {children}
     </div>

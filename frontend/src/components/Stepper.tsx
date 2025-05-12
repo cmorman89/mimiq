@@ -26,7 +26,7 @@ const STATUS_CLASSES = {
 } as const;
 
 const NODE_GLOW =
-  "hover:scale-110 shadow hover:shadow-[0_0_20px_rgba(192,38,211,0.8)]";
+  "hover:scale-110 shadow hover:shadow-[0_0_20px_rgba(235,97,0,0.8)]";
 
 export const Stepper = ({
   steps = [],
