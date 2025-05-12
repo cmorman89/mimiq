@@ -7,8 +7,12 @@ import { ModelListRow } from "./ModelListRow";
 import { FaArrowLeft, FaSync, FaTimes } from "react-icons/fa";
 export const ModelList = ({
   setShowModelList,
+  currentModel,
+  setCurrentModel,
 }: {
-  setShowModelList: () => void;
+  setShowModelList: (show: boolean) => void;
+  currentModel: string;
+  setCurrentModel: (model: string) => void;
 }) => {
   // Hook to fetch all models
   const { lmStudioModels, fetchModels } = useModels();
@@ -30,19 +34,31 @@ export const ModelList = ({
       >
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2 text-2xl">
-            <FaArrowLeft className="text-lg" onClick={setShowModelList} />
+            <FaArrowLeft
+              className="text-lg cursor-pointer"
+              onClick={() => setShowModelList(false)}
+            />
             <h1>Model List</h1>
           </div>
           <div className="flex items-center gap-6 text-lg">
             <FaSync onClick={() => fetchModels()} className="cursor-pointer" />
-            <FaTimes onClick={setShowModelList} className="cursor-pointer" />
+            <FaTimes
+              onClick={() => setShowModelList(false)}
+              className="cursor-pointer"
+            />
           </div>
         </div>
         <div className="h-1 bg-gradient-mimiq w-full"></div>
         <div className="flex flex-col gap-3 overflow-y-auto mimiq-scrollbar px-6">
           <div className="flex flex-col gap-3 z-50">
             {parsedModels.map((model) => (
-              <ModelListRow key={model.original_model_id} model={model} />
+              <ModelListRow
+                key={model.original_model_id}
+                model={model}
+                currentModel={currentModel}
+                setCurrentModel={setCurrentModel}
+                setShowModelList={setShowModelList}
+              />
             ))}
           </div>
         </div>

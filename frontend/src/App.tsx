@@ -12,6 +12,7 @@ import { useState } from "react";
 import ModelList from "./features/models/components/ModelList";
 
 function App() {
+  const [currentModel, setCurrentModel] = useState("No Model Selected");
   const [showModelList, setShowModelList] = useState(false);
   const handleClose = (menuName: string) => {
     if (menuName === "modelList") {
@@ -23,7 +24,15 @@ function App() {
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/generate" element={<Generate setShowModelList={setShowModelList}/>} />
+          <Route
+            path="/generate"
+            element={<Generate
+                setShowModelList={setShowModelList}
+                currentModel={currentModel}
+                setCurrentModel={setCurrentModel}
+              />
+            }
+          />
           <Route path="/knowledge" element={<Knowledge />}>
             <Route path="/knowledge" element={<KnowledgeTypeSelectionView />} />
             <Route
@@ -61,7 +70,11 @@ function App() {
         </Routes>
       </MainLayout>
       {showModelList && (
-        <ModelList setShowModelList={() => handleClose("modelList")} />
+        <ModelList
+          setShowModelList={() => handleClose("modelList")}
+          currentModel={currentModel}
+          setCurrentModel={setCurrentModel}
+        />
       )}
     </Router>
   );

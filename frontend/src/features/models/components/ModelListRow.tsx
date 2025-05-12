@@ -3,12 +3,27 @@ import { ParsedModel } from "../../../utils/parseModelId";
 import { toTitleCase } from "../../../utils/stringUtils";
 import { ModelNameRenderer } from "./ModelNameRenderer";
 
-export const ModelListRow = ({ model }: { model: ParsedModel }) => {
+export const ModelListRow = ({
+  model,
+  currentModel,
+  setCurrentModel,
+  setShowModelList,
+}: {
+  model: ParsedModel;
+  currentModel: string;
+  setCurrentModel: (model: string) => void;
+  setShowModelList: (show: boolean) => void;
+}) => {
   return (
     <Card
-      type="light"
       padding="tight"
       className="relative flex items-center hover:bg-fuchsia-500/40 hover:border-fuchsia-400/30 hover:cursor-pointer hover:scale-105 transition-all duration-300 shadow-lg"
+      onClick={() => {
+        if (model.original_model_id) {
+          setCurrentModel(model.original_model_id);
+          setShowModelList(false);
+        }
+      }}
     >
       <div className="flex flex-1 items-center gap-1 flex-wrap">
         <ModelNameRenderer
