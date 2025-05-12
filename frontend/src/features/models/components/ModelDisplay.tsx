@@ -54,12 +54,12 @@ export const ModelDisplay = ({
             label={false}
             className="text-lg"
           />
-          <span>
+          <span className="text-sm">
             {toTitleCase(
               truncate(parsedModel?.model_family || "Default Model", 8)
             )}{" "}
             {parsedModel?.version && (
-              <span className="text-white/80">v{parsedModel.version}</span>
+              <span className="text-white/80 text-xs">v{parsedModel.version}</span>
             )}
           </span>
         </div>
