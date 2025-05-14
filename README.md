@@ -28,7 +28,12 @@ MIMIQ is not yet ready for public use.
 ![MIMIQ Screenshot](docs/images/home.png)
 ![MIMIQ Screenshot](docs/images/generate.png)
 
-<!-- 
+### Prior Versions
+
+![MIMIQ Screenshot](docs/images/prior-version.png)
+Prior/internal/PoC version of MIMIQ showing actual content generation and knowledge base retrieval.
+
+<!--
 To get started with MIMIQ, follow these steps:
 
 1. Clone the repository
@@ -44,4 +49,3 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details. -->
-
