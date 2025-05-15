@@ -28,6 +28,24 @@ const STATUS_CLASSES = {
 const NODE_GLOW =
   "hover:scale-110 shadow hover:shadow-[0_0_20px_rgba(235,97,0,0.8)]";
 
+/**
+ * A multi-step progress indicator component that shows the current position in a process.
+ *
+ * Features:
+ * - Interactive step nodes with hover effects
+ * - Progress line with gradient animation
+ * - Step completion tracking
+ * - Customizable step labels
+ * - Responsive design
+ * - Visual feedback for active, completed, and inactive states
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string[]} props.steps - Array of step labels
+ * @param {number} props.activeIndex - Current active step index
+ * @param {(index: number) => void} props.onStepChange - Callback when step is changed
+ * @returns {JSX.Element} A stepper component with progress tracking
+ */
 export const Stepper = ({
   steps = [],
   activeIndex = 0,
@@ -55,6 +73,23 @@ export const Stepper = ({
   );
 };
 
+/**
+ * Individual step node component within the stepper.
+ *
+ * Features:
+ * - Dynamic state management (active, completed, inactive)
+ * - Hover effects with scaling and glow
+ * - Click interaction
+ * - Step number and label display
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.index - Step index
+ * @param {number} props.activeIndex - Current active step index
+ * @param {() => void} props.onClick - Click handler for step selection
+ * @param {string} props.step - Step label
+ * @returns {JSX.Element} A step node component
+ */
 export const StepNode = ({
   index,
   activeIndex,
@@ -94,7 +129,9 @@ export const StepNode = ({
         {index + 1}
       </div>
       <div
-        className={`${isActive ? "text-white font-semibold" : "text-gray-400"} text-xs transition-all duration-300 text-center`}
+        className={`${
+          isActive ? "text-white font-semibold" : "text-gray-400"
+        } text-xs transition-all duration-300 text-center`}
       >
         {step}
       </div>
@@ -102,6 +139,20 @@ export const StepNode = ({
   );
 };
 
+/**
+ * Progress line component that connects steps in the stepper.
+ *
+ * Features:
+ * - Dynamic width calculation based on progress
+ * - Gradient background
+ * - Smooth transitions
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.stepsCount - Total number of steps
+ * @param {number} props.activeIndex - Current active step index
+ * @returns {JSX.Element} A progress line component
+ */
 export const StepLine = ({ stepsCount, activeIndex }: StepLineProps) => {
   const [n, setN] = useState(0);
   const [d, setD] = useState(stepsCount - 1);
@@ -112,7 +163,6 @@ export const StepLine = ({ stepsCount, activeIndex }: StepLineProps) => {
     return `w-[${(numerator / denominator) * 100}%]`;
   };
 
-    
   useEffect(() => {
     setN(activeIndex);
     setD(stepsCount - 1);

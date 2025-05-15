@@ -1,5 +1,25 @@
 import { Link } from "react-router-dom";
 
+/**
+ * A flexible button component that can function as either a button or a link.
+ *
+ * Features:
+ * - Multiple button types (primary, secondary, accent, danger, disabled)
+ * - Optional navigation using React Router's Link
+ * - Customizable styling through className prop
+ * - Hover effects and transitions
+ * - Shadow effects for depth
+ * - Gradient support for accent type
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string | null} [props.to] - Optional route path for navigation
+ * @param {React.ReactNode} [props.children] - Content to be rendered inside the button
+ * @param {'primary' | 'secondary' | 'accent' | 'danger' | 'disabled'} [props.type='primary'] - Button style variant
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {() => void} [props.onClick] - Click event handler
+ * @returns {JSX.Element} A styled button or link component
+ */
 export function Button({
   to = null,
   children,

@@ -6,6 +6,32 @@ import { ModelBadge } from "../features/models/ModelBadge";
 import { BlogSkeleton } from "../components/BlogSkeleton";
 import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
 
+/**
+ * The Generate page component that provides a multi-step blog generation workflow.
+ *
+ * Features:
+ * - Multi-step blog generation process
+ * - Interactive workflow navigation
+ * - Model selection and display
+ * - Split-pane layout
+ * - Step-specific content rendering
+ * - Progress tracking
+ * - Model output preview
+ *
+ * This page implements a guided blog generation workflow with multiple steps:
+ * 1. Blog Topic selection
+ * 2. Blog Structure definition
+ * 3. Blog Style configuration
+ * 4. Blog Examples review
+ * 5. Final blog post generation
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {(show: boolean) => void} props.setShowModelList - Function to control model selection modal
+ * @param {string} props.currentModel - ID of the currently selected model
+ * @param {(model: string) => void} props.setCurrentModel - Function to update the selected model
+ * @returns {JSX.Element} The blog generation page with workflow steps and model output
+ */
 export const Generate = ({
   setShowModelList,
   currentModel,

@@ -5,6 +5,31 @@ import { useEffect, useState } from "react";
 import { ParsedModel, parseModelId } from "../../../utils/parseModelId";
 import { ModelListRow } from "./ModelListRow";
 import { FaArrowLeft, FaSync, FaTimes } from "react-icons/fa";
+
+/**
+ * A modal component that displays a list of available models for selection.
+ *
+ * Features:
+ * - Portal-based modal rendering
+ * - Model list with scrollable content
+ * - Model selection functionality
+ * - Model refresh capability
+ * - Current model highlighting
+ * - Close and back navigation
+ * - Gradient separator
+ * - Custom scrollbar styling
+ *
+ * This component provides a modal interface for users to browse and select
+ * from available models, with the ability to refresh the model list and
+ * navigate back to the previous view.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {(show: boolean) => void} props.setShowModelList - Function to control modal visibility
+ * @param {string} props.currentModel - ID of the currently selected model
+ * @param {(model: string) => void} props.setCurrentModel - Function to update the selected model
+ * @returns {JSX.Element} A modal component displaying the list of available models
+ */
 export const ModelList = ({
   setShowModelList,
   currentModel,

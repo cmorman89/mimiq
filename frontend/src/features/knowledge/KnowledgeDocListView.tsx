@@ -4,6 +4,25 @@ import { Card } from "../../components/Card";
 import { capitalize } from "../../utils/stringUtils";
 import { DefaultModel } from "../models/DefaultModel";
 
+/**
+ * A view component that displays a list of knowledge documents of a specific type.
+ *
+ * Features:
+ * - Document type-specific filtering
+ * - Add new document button with dynamic label
+ * - Default model selection
+ * - Card-based layout for document examples
+ * - Responsive design
+ *
+ * This component is used to display and manage different types of knowledge documents
+ * such as blogs, books, videos, podcasts, and articles. It provides a consistent
+ * interface for viewing and adding new examples of each document type.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.docType - Type of documents to display (e.g., 'blog', 'books', 'videos', 'podcasts', 'articles', 'all')
+ * @returns {JSX.Element} A view component for displaying knowledge documents
+ */
 export const KnowledgeDocListView = ({ docType }: { docType: string }) => {
   return (
     <Card className="flex flex-col gap-4">

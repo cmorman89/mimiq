@@ -13,7 +13,27 @@ import {
 
 import { ComponentType } from "react";
 
-// [MonoIcon, ColorIcon, Text]
+/**
+ * A mapping of model families to their associated icon components.
+ *
+ * This utility provides a centralized mapping of model families to their
+ * corresponding icon components, including monochrome and color variants,
+ * as well as text representations.
+ *
+ * Each model family maps to a tuple of three components:
+ * 1. MonoIcon: The monochrome version of the model's icon
+ * 2. ColorIcon: The colored version of the model's icon
+ * 3. Text: The text representation component
+ *
+ * @constant
+ * @type {Record<string, [ComponentType, ComponentType, ComponentType]>}
+ *
+ * @example
+ * // Accessing components for a specific model
+ * const [MonoIcon, ColorIcon, Text] = modelComponents['claude'];
+ * // Use the components in your JSX
+ * <ColorIcon /> // Renders the colored Claude icon
+ */
 export const modelComponents: Record<
   string,
   [ComponentType, ComponentType, ComponentType]

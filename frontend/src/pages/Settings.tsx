@@ -1,6 +1,26 @@
 import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 
+/**
+ * The Settings page component that provides LMStudio connection configuration.
+ *
+ * Features:
+ * - Connection protocol selection (HTTP/HTTPS)
+ * - Server address configuration
+ * - API endpoint customization
+ * - Endpoint prefix management
+ * - Models endpoint configuration
+ * - Completions endpoint setup
+ * - Embeddings endpoint setup
+ * - Styled form inputs
+ *
+ * This page allows users to configure their LMStudio connection settings,
+ * including the server address and various API endpoints used throughout
+ * the application.
+ *
+ * @component
+ * @returns {JSX.Element} The settings page with LMStudio connection configuration forms
+ */
 export const Settings = () => {
   return (
     <PageContainer>

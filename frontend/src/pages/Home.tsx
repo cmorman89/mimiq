@@ -1,6 +1,26 @@
 import { PageContainer } from "../features/page_container/PageContainer";
 import { Button } from "../components/Button";
 import { FaArrowRight } from "react-icons/fa";
+
+/**
+ * The Home page component that serves as the landing page for the application.
+ *
+ * Features:
+ * - Hero section with animated text
+ * - Feature announcement banner
+ * - Gradient text effects
+ * - Call-to-action buttons
+ * - Responsive layout
+ * - Animated cursor effect
+ * - Navigation to key features
+ *
+ * This page serves as the main entry point to the application, showcasing
+ * the AI-powered content generation capabilities and providing quick access
+ * to the core features: content generation and example management.
+ *
+ * @component
+ * @returns {JSX.Element} The landing page with hero section and feature navigation
+ */
 export const Home = () => {
   return (
     <PageContainer>

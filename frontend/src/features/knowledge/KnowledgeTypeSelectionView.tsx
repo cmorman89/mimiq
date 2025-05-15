@@ -10,6 +10,22 @@ import {
 } from "react-icons/fa";
 import { KnowledgeTypeCard } from "./components/KnowledgeTypeCard";
 
+/**
+ * A grid view component that displays different types of knowledge content categories.
+ *
+ * Features:
+ * - Grid layout with responsive columns
+ * - Visual icons for each content type
+ * - Navigation cards for different knowledge categories
+ * - Consistent styling across all category cards
+ *
+ * This component serves as the main navigation interface for the knowledge base,
+ * allowing users to browse different types of content such as blog posts, books,
+ * videos, podcasts, articles, and discussions.
+ *
+ * @component
+ * @returns {JSX.Element} A grid of knowledge type selection cards
+ */
 export const KnowledgeTypeSelectionView = () => {
   return (
     <div className="grid grid-cols-3 gap-6">

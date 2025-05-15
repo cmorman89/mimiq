@@ -2,6 +2,24 @@ import { Link } from "react-router-dom";
 import { NavItem } from "./components/NavItem";
 import { Logo } from "../../components/Logo";
 
+/**
+ * The main navigation bar component that provides site-wide navigation.
+ *
+ * Features:
+ * - Fixed positioning at the top of the viewport
+ * - Responsive design with mobile considerations
+ * - Logo branding with home link
+ * - Navigation items for main sections
+ * - Gradient divider line
+ * - Transparent background with blur effect
+ * - Consistent spacing and alignment
+ *
+ * This component serves as the primary navigation interface,
+ * providing access to all major sections of the application.
+ *
+ * @component
+ * @returns {JSX.Element} The main navigation bar component
+ */
 export const Navbar = () => {
   return (
     <nav

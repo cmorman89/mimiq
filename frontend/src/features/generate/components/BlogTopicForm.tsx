@@ -4,6 +4,24 @@ import { FaList, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
 
+/**
+ * A form component for generating blog content with topic selection and input options.
+ *
+ * Features:
+ * - Two input modes: AI-assisted and manual entry
+ * - Form fields for topic, details, and keywords
+ * - Interactive input clearing
+ * - Responsive layout
+ * - Visual feedback for user interactions
+ * - Gradient styling for AI-assisted mode
+ *
+ * This component provides a user interface for blog content generation,
+ * allowing users to either get AI assistance in topic selection or
+ * manually enter their blog details.
+ *
+ * @component
+ * @returns {JSX.Element} A form component for blog topic generation
+ */
 export const BlogTopicForm = () => {
   const [formValues, setFormValues] = useState<{
     topic: string;

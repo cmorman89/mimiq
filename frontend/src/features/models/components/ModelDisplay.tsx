@@ -5,6 +5,27 @@ import { ParsedModel, parseModelId } from "../../../utils/parseModelId";
 import { createPortal } from "react-dom";
 import { ModelDisplayHover } from "./ModelDisplayHover";
 
+/**
+ * A component that displays model information with interactive hover details.
+ *
+ * Features:
+ * - Model name and version display
+ * - Interactive hover state
+ * - Portal-based hover card
+ * - Position-aware hover card placement
+ * - Model ID parsing and formatting
+ * - Parent hover state synchronization
+ * - Responsive text sizing
+ *
+ * This component provides a consistent way to display model information
+ * throughout the application, with additional details available on hover.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} [props.isParentHovering=false] - Whether the parent component is being hovered
+ * @param {string} [props.modelId='llama-3.2-8b-instruct'] - ID of the model to display
+ * @returns {JSX.Element} A model information display component with hover details
+ */
 export const ModelDisplay = ({
   isParentHovering = false,
   modelId = "llama-3.2-8b-instruct",
@@ -59,7 +80,9 @@ export const ModelDisplay = ({
               truncate(parsedModel?.model_family || "Default Model", 8)
             )}{" "}
             {parsedModel?.version && (
-              <span className="text-white/80 text-xs">v{parsedModel.version}</span>
+              <span className="text-white/80 text-xs">
+                v{parsedModel.version}
+              </span>
             )}
           </span>
         </div>

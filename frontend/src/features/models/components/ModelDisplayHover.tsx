@@ -8,6 +8,27 @@ interface ModelDisplayHoverProps {
   position: { top: number; left: number };
 }
 
+/**
+ * A hover card component that displays detailed information about a model.
+ *
+ * Features:
+ * - Position-aware rendering
+ * - Detailed model information display
+ * - Parameter and version information
+ * - Subversion and type details
+ * - Original model ID display
+ * - Styled card with backdrop blur
+ * - Non-interactive overlay
+ *
+ * This component provides a detailed view of model information when hovering
+ * over a model display component, showing all relevant model specifications.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {ParsedModel} props.parsedModel - Parsed model information object
+ * @param {{ top: number; left: number }} props.position - Position coordinates for the hover card
+ * @returns {JSX.Element} A hover card displaying detailed model information
+ */
 export const ModelDisplayHover = ({
   parsedModel,
   position,

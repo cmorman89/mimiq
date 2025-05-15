@@ -4,6 +4,24 @@ import { ModelDisplay } from "./components/ModelDisplay";
 import { useState } from "react";
 // import { useState } from "react";
 
+/**
+ * A component that displays the default model selection with hover interaction.
+ *
+ * Features:
+ * - Configurable orientation (horizontal/vertical)
+ * - Hover state management
+ * - Model display with dropdown indicator
+ * - Responsive text sizing
+ * - Dark theme styling
+ *
+ * This component is used to show and manage the default model selection,
+ * providing a consistent interface for model selection across the application.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {'horizontal' | 'vertical'} [props.orientation='horizontal'] - Layout orientation of the component
+ * @returns {JSX.Element} A component displaying the default model with selection interface
+ */
 export const DefaultModel = ({
   orientation = "horizontal",
 }: {

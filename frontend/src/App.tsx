@@ -11,6 +11,26 @@ import { KnowledgeTypeSelectionView } from "./features/knowledge/KnowledgeTypeSe
 import { useState } from "react";
 import ModelList from "./features/models/components/ModelList";
 
+/**
+ * Main application component that serves as the root of the React application.
+ *
+ * This component handles:
+ * - Application routing using React Router
+ * - Global state management for model selection
+ * - Layout structure with MainLayout wrapper
+ * - Modal management for model selection
+ *
+ * The application consists of several main sections:
+ * - Home: Landing page
+ * - Generate: Content generation interface
+ * - Knowledge: Knowledge base with different document types
+ * - Workflow: Workflow management
+ * - Utilities: Utility tools
+ * - Settings: Application settings
+ *
+ * @component
+ * @returns {JSX.Element} The root application component
+ */
 function App() {
   const [currentModel, setCurrentModel] = useState("No Model Selected");
   const [showModelList, setShowModelList] = useState(false);
@@ -26,7 +46,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/generate"
-            element={<Generate
+            element={
+              <Generate
                 setShowModelList={setShowModelList}
                 currentModel={currentModel}
                 setCurrentModel={setCurrentModel}

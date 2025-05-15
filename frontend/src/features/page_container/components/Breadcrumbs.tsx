@@ -8,6 +8,27 @@ interface BreadcrumbsProps {
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
 
+/**
+ * A breadcrumb navigation component that shows the current page's location in the site hierarchy.
+ *
+ * Features:
+ * - Dynamic breadcrumb generation from route path
+ * - Back button navigation
+ * - Capitalized breadcrumb labels
+ * - Chevron separators between items
+ * - Hover effects on navigation items
+ * - Home page detection and conditional rendering
+ * - Responsive text sizing
+ *
+ * This component provides hierarchical navigation context, allowing users
+ * to understand their current location and navigate to parent sections.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string[]} props.breadcrumbs - Array of path segments for the current route
+ * @param {boolean} props.isHome - Whether the current page is the home page
+ * @returns {JSX.Element} A breadcrumb navigation component
+ */
 export const Breadcrumbs = ({ breadcrumbs, isHome }: BreadcrumbsProps) => {
   if (isHome) return null;
 
@@ -31,7 +52,11 @@ export const Breadcrumbs = ({ breadcrumbs, isHome }: BreadcrumbsProps) => {
             >
               {capitalize(crumb)}
             </Link>
-            {index < breadcrumbs.length - 1 ? <FaChevronRight className="text-2xl" /> : ""}
+            {index < breadcrumbs.length - 1 ? (
+              <FaChevronRight className="text-2xl" />
+            ) : (
+              ""
+            )}
           </div>
         ))}
       </div>

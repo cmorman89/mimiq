@@ -1,3 +1,19 @@
+/**
+ * Application logo component that displays the MIMIQ brand name.
+ *
+ * Features:
+ * - Gradient text effects for color mode
+ * - Monochrome option for gray mode
+ * - Customizable styling through className prop
+ * - Responsive text sizing
+ * - Split color treatment for brand name
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} [props.className] - Additional CSS classes to apply
+ * @param {'color' | 'gray'} [props.type='color'] - Logo style variant
+ * @returns {JSX.Element} A styled logo component
+ */
 export const Logo = ({
   className = "",
   type = "color",
