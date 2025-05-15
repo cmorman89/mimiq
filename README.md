@@ -31,6 +31,8 @@ MIMIQ is not yet ready for public use.
 ### Prior Versions
 
 ![MIMIQ Screenshot](docs/images/prior-version.png)
+![MIMIQ Screenshot](docs/images/metadata-old.png)
+
 Prior/internal/PoC version of MIMIQ showing actual content generation and knowledge base retrieval.
 
 <!--
