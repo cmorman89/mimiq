@@ -14,9 +14,12 @@ from langchain_core.messages import AIMessage, AIMessageChunk, BaseMessage, Huma
 from langchain_core.outputs import ChatGeneration, ChatGenerationChunk, ChatResult
 from langchain_core.callbacks import CallbackManagerForChainRun
 from pydantic import Field
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Base URL for the LM Studio API
-API_BASE_URL = "http://127.0.0.1:1234"
+API_BASE_URL = os.getenv("LM_STUDIO_API_BASE_URL") or "http://127.0.0.1:1234"
 
 
 class LmStudioChatModel(BaseChatModel):

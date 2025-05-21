@@ -1,7 +1,8 @@
 from fastapi import APIRouter
-from app.main import llm_service
+from app.services.service_container import llm_service
 
 router = APIRouter()
+
 
 @router.get("/models")
 async def get_models():

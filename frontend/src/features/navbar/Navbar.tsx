@@ -37,6 +37,10 @@ export const Navbar = () => {
               <NavItem to="/workflow">Workflow</NavItem>
               <NavItem to="/utilities">Utilities</NavItem>
               <NavItem to="/settings">Settings</NavItem>
+              <div className="w-px h-4 bg-gray-700"></div>
+              <NavItem to="/login" className="border-2 border-gray-700 rounded-full px-2 py-1">
+                Login / Signup
+              </NavItem>
             </div>
             <div
               id="navbar-divider"

@@ -18,6 +18,7 @@ export const capitalize = (str: string) => {
 export const toTitleCase = (str: string) => {
   // If the string is empty, return it
   if (!str) return str;
+  if (str === "gpt") return "GPT";
   return (
     str
       // Standardize to lowercase

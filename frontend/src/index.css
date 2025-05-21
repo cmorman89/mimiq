@@ -97,6 +97,28 @@ body {
   .mimiq-scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: rgba(255, 255, 255, 0.3);
   }
+
+  .markdown {
+    @apply mimiq-scrollbar px-2;
+  }
+
+  .markdown h1 {
+    @apply text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-fuchsia-400 border-b border-rose-400/50 pb-6  ;
+  }
+
+  .markdown h2 {
+    @apply text-2xl font-bold text-pink-300 pt-4;
+  }
+
+  .markdown h3 {
+    @apply text-lg font-bold text-violet-200;
+  }
+
+  .markdown p {
+    @apply text-gray-300 leading-relaxed pb-3 ;
+  }
+  
+  
 }
 
 @keyframes blink {

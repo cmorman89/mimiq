@@ -26,6 +26,7 @@ export const Card = ({
   padding = "default",
   transparent = true,
   onClick = () => {},
+  overrideDims = false,
 }: {
   children?: React.ReactNode;
   className?: string;
@@ -33,6 +34,7 @@ export const Card = ({
   padding?: "default" | "tight" | "none";
   transparent?: boolean;
   onClick?: () => void;
+  overrideDims?: boolean;
 }) => {
   const bgColor =
     type === "light"
@@ -49,7 +51,7 @@ export const Card = ({
   }[padding];
   return (
     <div
-      className={`relative flex overflow-auto w-full h-full rounded-xl border border-white/10 ${bgColor} backdrop-blur-md ${paddingClass} ${className} shadow-lg`}
+      className={`relative flex overflow-auto ${overrideDims ? "" : "w-full h-full"} rounded-xl border border-white/10 ${bgColor} backdrop-blur-md ${paddingClass} ${className} shadow-lg`}
       onClick={onClick}
     >
       {children}

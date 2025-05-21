@@ -22,19 +22,21 @@ import { Button } from "../../../components/Button";
  * @component
  * @returns {JSX.Element} A form component for blog topic generation
  */
-export const BlogTopicForm = () => {
-  const [formValues, setFormValues] = useState<{
+export const BlogTopicForm = ({
+  formValues,
+  setFormValues,
+  handleGenerate,
+}: {
+  formValues: {
     topic: string;
     details: string;
-    keywords: string;
-  }>({
-    topic: "",
-    details: "",
-    keywords: "",
-  });
-
+    keywords: string[];
+  };
+  setFormValues: (formValues: { topic: string; details: string; keywords: string[] }) => void;
+  handleGenerate: () => void;
+}) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-
+  
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
   };
@@ -42,6 +44,11 @@ export const BlogTopicForm = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
+  };
+
+  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormValues({ ...formValues, [name]: value.split(",").map((keyword) => keyword.trim()) });
   };
 
   return (
@@ -57,15 +64,15 @@ export const BlogTopicForm = () => {
           <Card
             type="dark"
             padding="tight"
-            className="flex gap-4 items-center hover:scale-105 transition-all duration-300 cursor-pointer bg-orange-400/80 bg-gradient-to-r from-transparent to-rose-400/80 border-orange-700"
+            className="flex items-center gap-4 overflow-hidden transition-all duration-300 border-orange-700 cursor-pointer hover:scale-105 bg-orange-400/80 bg-gradient-to-r from-transparent to-rose-400/80"
             onClick={() => handleOptionClick("wizard")}
           >
-            <FaWandMagicSparkles className="text-rose-950 text-4xl" />
-            <div className="flex flex-col gap-1 border-l-2 border-rose-900 pl-4">
+            <FaWandMagicSparkles className="text-4xl text-rose-950" />
+            <div className="flex flex-col gap-1 pl-4 overflow-hidden border-l-2 border-rose-900">
               <h3 className="text-xl font-semibold text-rose-950">
                 Help Me Decide
               </h3>
-              <p className="text-rose-950 text-sm">
+              <p className="text-sm text-rose-950">
                 Use AI to generate topics and keywords
               </p>
             </div>
@@ -74,27 +81,27 @@ export const BlogTopicForm = () => {
           <Card
             type="dark"
             padding="tight"
-            className="flex gap-4 items-center hover:scale-105 transition-all duration-300 cursor-pointer"
+            className="flex items-center gap-4 transition-all duration-300 cursor-pointer hover:scale-105"
             onClick={() => handleOptionClick("manual")}
           >
-            <FaList className="text-gray-400 text-4xl" />
-            <div className="flex flex-col gap-1 border-l-2 border-gray-700 pl-4">
+            <FaList className="text-4xl text-gray-400" />
+            <div className="flex flex-col gap-1 pl-4 border-l-2 border-gray-700">
               <h3 className="text-lg font-semibold">I Have a Topic</h3>
-              <p className="text-gray-400 text-sm">
+              <p className="text-sm text-gray-400">
                 I have a topic and keywords in mind
               </p>
             </div>
           </Card>
         </div>
       ) : (
-        <div className="flex flex-col gap-4 px-4 w-full">
+        <div className="flex flex-col w-full gap-4 px-4">
           <div className="flex flex-col gap-4">
             <Card
               type="dark"
               padding="tight"
-              className="flex flex-col gap-2 w-full"
+              className="flex flex-col w-full gap-2"
             >
-              <div className="flex gap-2 items-center rounded-2xl w-full justify-between">
+              <div className="flex items-center justify-between w-full gap-2 rounded-2xl">
                 <label
                   htmlFor="topic"
                   className="text-sm text-gray-400 whitespace-nowrap min-w-20"
@@ -106,7 +113,7 @@ export const BlogTopicForm = () => {
                   id="topic"
                   name="topic"
                   placeholder="Enter blog topic"
-                  className="text-sm text-gray-200 bg-transparent rounded-md p-2 outline-none w-full placeholder:text-gray-600"
+                  className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                   autoComplete="off"
                   value={formValues.topic}
                   onChange={(e) => handleInputChange(e)}
@@ -124,9 +131,9 @@ export const BlogTopicForm = () => {
             <Card
               type="dark"
               padding="tight"
-              className="flex flex-col gap-2 w-full"
+              className="flex flex-col w-full gap-2"
             >
-              <div className="flex gap-2 items-center rounded-2xl w-full">
+              <div className="flex items-center w-full gap-2 rounded-2xl">
                 <label
                   htmlFor="details"
                   className="text-sm text-gray-400 whitespace-nowrap min-w-20"
@@ -138,7 +145,7 @@ export const BlogTopicForm = () => {
                   id="details"
                   name="details"
                   placeholder="Enter details (optional)"
-                  className="text-sm text-gray-200 bg-transparent rounded-md p-2 outline-none w-full placeholder:text-gray-600"
+                  className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                   autoComplete="off"
                   value={formValues.details}
                   onChange={(e) => handleInputChange(e)}
@@ -159,9 +166,9 @@ export const BlogTopicForm = () => {
             <Card
               type="dark"
               padding="tight"
-              className="flex flex-col gap-2 w-full"
+              className="flex flex-col w-full gap-2"
             >
-              <div className="flex gap-2 items-center rounded-2xl w-full">
+              <div className="flex items-center w-full gap-2 rounded-2xl">
                 <label
                   htmlFor="keywords"
                   className="text-sm text-gray-400 whitespace-nowrap min-w-20"
@@ -173,25 +180,25 @@ export const BlogTopicForm = () => {
                   id="keywords"
                   name="keywords"
                   placeholder="Enter keywords separated by commas (optional)"
-                  className="text-sm text-gray-200 bg-transparent rounded-md p-2 outline-none w-full placeholder:text-gray-600"
+                  className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                   autoComplete="off"
-                  value={formValues.keywords}
-                  onChange={(e) => handleInputChange(e)}
+                  value={formValues.keywords.join(", ")}
+                  onChange={(e) => handleKeywordChange(e)}
                 />
                 <div className="flex">
                   <FaTimes
                     className={`${
-                      formValues.keywords ? "opacity-100" : "opacity-0"
+                      formValues.keywords.length > 0 ? "opacity-100" : "opacity-0"
                     } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
                     onClick={() =>
-                      setFormValues({ ...formValues, keywords: "" })
+                      setFormValues({ ...formValues, keywords: [] })
                     }
                   />
                 </div>
               </div>
             </Card>
           </div>
-          <Button type="accent" className="w-full">
+          <Button type="accent" className="w-full" onClick={handleGenerate}>
             Generate Blog
           </Button>
         </div>

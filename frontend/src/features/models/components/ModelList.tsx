@@ -51,13 +51,13 @@ export const ModelList = ({
   }, [lmStudioModels]);
 
   return ReactDOM.createPortal(
-    <div className="fixed inset-0 z-10 w-1/2 h-1/2 mx-auto my-auto overflow-hidden">
+    <div className="fixed inset-0 z-10 w-1/2 mx-auto my-auto overflow-hidden h-1/2">
       <Card
         type="dark"
         transparent={false}
-        className="relative p-6 flex-col gap-6 overflow-hidden"
+        className="relative flex-col gap-6 p-6 overflow-hidden"
       >
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-2xl">
             <FaArrowLeft
               className="text-lg cursor-pointer"
@@ -73,9 +73,13 @@ export const ModelList = ({
             />
           </div>
         </div>
-        <div className="h-1 bg-gradient-mimiq w-full"></div>
-        <div className="flex flex-col gap-3 overflow-y-auto mimiq-scrollbar px-6">
-          <div className="flex flex-col gap-3 z-50">
+        <div className="w-full h-1 bg-gradient-mimiq"></div>
+        {/* Model lists */}
+        {/* Ollama Models */}
+        <div className="flex flex-col gap-3 px-6 overflow-y-auto mimiq-scrollbar">
+          <div className="z-50 flex flex-col gap-3">
+            {/* LM Studio Models */}
+            LM Studio Models:
             {parsedModels.map((model) => (
               <ModelListRow
                 key={model.original_model_id}
@@ -85,6 +89,28 @@ export const ModelList = ({
                 setShowModelList={setShowModelList}
               />
             ))}
+          </div>
+          {/* OpenAI Models */}
+          <div className="z-50 flex flex-col gap-3 pt-2 border-t border-neutral-600">
+            OpenAI Models
+            <ModelListRow
+              model={"GPT-4.1"}
+              currentModel={currentModel}
+              setCurrentModel={setCurrentModel}
+              setShowModelList={setShowModelList}
+            />
+            <ModelListRow
+              model={"GPT-4.1-mini"}
+              currentModel={currentModel}
+              setCurrentModel={setCurrentModel}
+              setShowModelList={setShowModelList}
+            />
+            <ModelListRow
+              model={"GPT-4.1-nano"}
+              currentModel={currentModel}
+              setCurrentModel={setCurrentModel}
+              setShowModelList={setShowModelList}
+            />
           </div>
         </div>
       </Card>

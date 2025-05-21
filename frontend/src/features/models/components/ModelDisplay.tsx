@@ -80,8 +80,8 @@ export const ModelDisplay = ({
               truncate(parsedModel?.model_family || "Default Model", 8)
             )}{" "}
             {parsedModel?.version && (
-              <span className="text-white/80 text-xs">
-                v{parsedModel.version}
+              <span className="text-white/80">
+                {parsedModel.version}
               </span>
             )}
           </span>

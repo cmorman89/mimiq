@@ -1,5 +1,5 @@
 import { Card } from "../../../components/Card";
-import { ParsedModel } from "../../../utils/parseModelId";
+import { ParsedModel, parseModelId } from "../../../utils/parseModelId";
 import { toTitleCase } from "../../../utils/stringUtils";
 import { ModelNameRenderer } from "./ModelNameRenderer";
 
@@ -33,15 +33,20 @@ export const ModelListRow = ({
   setCurrentModel,
   setShowModelList,
 }: {
-  model: ParsedModel;
+  model: ParsedModel | string;
   currentModel: string;
   setCurrentModel: (model: string) => void;
   setShowModelList: (show: boolean) => void;
-}) => {
+  }) => {
+  
+  if (typeof model === "string") {
+    model = parseModelId(model);
+  }
+  
   return (
     <Card
       padding="tight"
-      className="relative flex items-center hover:bg-fuchsia-500/40 hover:border-fuchsia-400/30 hover:cursor-pointer hover:scale-105 transition-all duration-300 shadow-lg"
+      className="relative flex items-center transition-all duration-300 shadow-lg hover:bg-fuchsia-500/40 hover:border-fuchsia-400/30 hover:cursor-pointer"
       onClick={() => {
         if (model.original_model_id) {
           setCurrentModel(model.original_model_id);
@@ -49,31 +54,31 @@ export const ModelListRow = ({
         }
       }}
     >
-      <div className="flex flex-1 items-center gap-1 flex-wrap">
+      <div className="flex flex-wrap items-center flex-1 gap-1">
         <ModelNameRenderer
           modelName={model.model_family}
           color={true}
           label={false}
-          className="text-2xl mr-2"
+          className="mr-2 text-2xl"
         />
         <span className="text-lg">{toTitleCase(model.model_family)}</span>
         <span className="text-lg">{model.version}</span>
         {model.params && (
-          <span className="text-sm px-2 py-1 rounded-full bg-white/10 ml-2">
-            <span className="opacity-50 mr-1">Parameters:</span>
+          <span className="px-2 py-1 ml-2 text-sm rounded-full bg-white/10">
+            <span className="mr-1 opacity-50">Parameters:</span>
             {model.params}
           </span>
         )}
         {model.subversion && (
-          <span className="text-sm px-2 py-1 rounded-full bg-white/10 ml-2">
-            <span className="opacity-50 mr-1">Subtype:</span>
+          <span className="px-2 py-1 ml-2 text-sm rounded-full bg-white/10">
+            <span className="mr-1 opacity-50">Subtype:</span>
             {model.subversion}
           </span>
         )}
         <span className="flex-grow" />
         {model.original_model_id && (
-          <span className="text-sm px-2 py-1 rounded-full bg-white/10 ml-2">
-            <span className="opacity-50 mr-1">ID:</span>
+          <span className="px-2 py-1 ml-2 text-sm rounded-full bg-white/10">
+            <span className="mr-1 opacity-50">ID:</span>
             {model.original_model_id}
           </span>
         )}
