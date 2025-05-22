@@ -1,3 +1,4 @@
+import { FaSpinner } from "react-icons/fa";
 import { Card } from "./Card";
 
 /**
@@ -16,10 +17,15 @@ import { Card } from "./Card";
  * @component
  * @returns {JSX.Element} A skeleton loading state for blog content
  */
-export const BlogSkeleton = () => {
+export const BlogSkeleton = ({ isGenerating }: { isGenerating: boolean }) => {
   return (
     <Card type="dark" padding="tight" className="flex-col gap-2">
-      <div className="w-4/5 h-12 mb-4 bg-gray-800 rounded-md shimmer-skeleton"></div>
+      <div className="w-4/5 h-12 mb-4 bg-gray-800 rounded-md shimmer-skeleton">
+        <div className={`flex items-center gap-2 justify-center w-full h-full text-lg transition-all duration-300 ${isGenerating ? "opacity-100" : "opacity-0"}`}>
+          <FaSpinner className="animate-spin" />
+          <span>Loading...</span>
+        </div>
+      </div>
       <div className="w-full h-6 mb-2 bg-gray-800 rounded-md shimmer-skeleton"></div>
       <div className="w-11/12 h-6 mb-2 bg-gray-800 rounded-md shimmer-skeleton"></div>
       <div className="w-full h-6 mb-4 bg-gray-800 rounded-md shimmer-skeleton"></div>

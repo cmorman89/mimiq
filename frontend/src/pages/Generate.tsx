@@ -58,7 +58,7 @@ export const Generate = ({
   const [generatedBlog, setGeneratedBlog] = useState<string>(() => {
     return localStorage.getItem("generatedBlog") || "";
   });
-
+  const [isGenerating, setIsGenerating] = useState(false);
   // Constants
   const steps = [
     "Blog Topic",
@@ -79,8 +79,16 @@ export const Generate = ({
     setWordCount(wordCount);
   }, [generatedBlog]);
 
+  // Auto scroll to bottom when generating
+  useEffect(() => {
+    if (generatedBlog && isGenerating) {
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  }, [generatedBlog, isGenerating]);
+
   // Handlers
   const handleGenerate = async () => {
+    setIsGenerating(true);
     const response = await fetch(`${apiBaseUrl}/api/v1/generate`, {
       method: "POST",
       headers: {
@@ -105,6 +113,7 @@ export const Generate = ({
       const text = decoder.decode(value, { stream: true });
       setGeneratedBlog((prev) => prev + text);
     }
+    setIsGenerating(false);
   };
 
   // Content Components
@@ -162,7 +171,7 @@ export const Generate = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FaExpandArrowsAlt onClick={() => setExpanded(!expanded)} />
-              <h2 className="text-lg font-semibold">Model Output</h2>
+              <h2 className="text-lg font-semibold">AI Output</h2>
             </div>
             <div
               className={`${
@@ -183,7 +192,7 @@ export const Generate = ({
             {!generatedBlog ? (
               <div className="mb-2 text-sm text-gray-400">
                 Your blog post will be generated here!
-                <BlogSkeleton />
+                <BlogSkeleton isGenerating={isGenerating} />
               </div>
             ) : (
               <div className="markdown flex flex-col flex-1 gap-2 overflow-y-auto h-full pt-2 pb-8">

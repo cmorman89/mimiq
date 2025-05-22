@@ -24,7 +24,7 @@ import { FaArrowRight } from "react-icons/fa";
 export const Home = () => {
   return (
     <PageContainer>
-      <div className="max-w-2xl space-y-8 text-left pt-20">
+      <div className="max-w-2xl space-y-8 text-left lg:pt-20">
         <div>
           <span className="inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-white/5 text-gray-300 border border-white/10">
             New: AI-powered content generation in your unique style →
