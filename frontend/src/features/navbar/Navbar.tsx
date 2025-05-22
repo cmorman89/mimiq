@@ -48,7 +48,7 @@ export const Navbar = () => {
               <NavItem to="/generate">Generate</NavItem>
               <NavItem to="/knowledge">Knowledge</NavItem>
               <NavItem to="/workflow" className="hidden sm:block">Workflow</NavItem>
-              <NavItem to="/utilities">Utilities</NavItem>
+              {/* <NavItem to="/utilities">Utilities</NavItem> */}
               <NavItem to="/settings" className="hidden sm:block">Settings</NavItem>
               <div className="w-px h-4 bg-gray-700 mx-1 sm:mx-2"></div>
               <NavItem
