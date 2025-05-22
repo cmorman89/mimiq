@@ -7,6 +7,7 @@ import { BlogSkeleton } from "../components/BlogSkeleton";
 import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
 import Markdown from "react-markdown";
 import { FaExpandArrowsAlt } from "react-icons/fa";
+import { UnderDev } from "../components/UnderDev";
 
 interface FormValues {
   topic: string;
@@ -89,6 +90,7 @@ export const Generate = ({
   // Handlers
   const handleGenerate = async () => {
     setIsGenerating(true);
+    setGeneratedBlog("");
     const response = await fetch(`${apiBaseUrl}/api/v1/generate`, {
       method: "POST",
       headers: {
@@ -122,11 +124,13 @@ export const Generate = ({
       formValues={formValues}
       setFormValues={setFormValues}
       handleGenerate={handleGenerate}
+      isGenerating={isGenerating}
     />,
-    <Card />,
-    <Card />,
-    <Card />,
-    <Card />,
+    <UnderDev name="Blog Structure" />,
+    <UnderDev name="Blog Style" />,
+    <UnderDev name="Blog Examples" />,
+    <UnderDev name="Fact Checking" />,
+    <UnderDev name="Finalize Blog Post" />,
   ];
 
   const useContent = (step: number) => {
@@ -175,8 +179,8 @@ export const Generate = ({
             </div>
             <div
               className={`${
-                wordCount > 0 ? "opacity-100" : "opacity-0"
-              } transition-opacity duration-300 text-sm text-gray-400 rounded-full bg-gray-700 px-2 py-1 border border-white/10`}
+                wordCount > 1 ? "opacity-100" : "opacity-0"
+              } transition-opacity duration-1000 text-sm text-gray-400 rounded-full bg-gray-700 px-2 py-1 border border-white/10`}
             >
               {wordCount} words
             </div>

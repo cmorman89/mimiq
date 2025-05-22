@@ -26,6 +26,7 @@ export const BlogTopicForm = ({
   formValues,
   setFormValues,
   handleGenerate,
+  isGenerating,
 }: {
   formValues: {
     topic: string;
@@ -34,6 +35,7 @@ export const BlogTopicForm = ({
   };
   setFormValues: (formValues: { topic: string; details: string; keywords: string[] }) => void;
   handleGenerate: () => void;
+  isGenerating: boolean;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
   
@@ -198,8 +200,12 @@ export const BlogTopicForm = ({
               </div>
             </Card>
           </div>
-          <Button type="accent" className="w-full" onClick={handleGenerate}>
-            Generate Blog
+          <Button
+            type={isGenerating ? "disabled" : "accent"}
+            className="w-full"
+            onClick={handleGenerate}
+          >
+            {isGenerating ? "Generating..." : "Generate Blog"}
           </Button>
         </div>
       )}
