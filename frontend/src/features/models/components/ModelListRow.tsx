@@ -37,16 +37,19 @@ export const ModelListRow = ({
   currentModel: string;
   setCurrentModel: (model: string) => void;
   setShowModelList: (show: boolean) => void;
-  }) => {
-  
+}) => {
   if (typeof model === "string") {
     model = parseModelId(model);
   }
-  
+
   return (
     <Card
       padding="tight"
-      className="relative flex items-center transition-all duration-300 shadow-lg hover:bg-fuchsia-500/40 hover:border-fuchsia-400/30 hover:cursor-pointer"
+      className={`relative flex items-center transition-all duration-300 shadow-lg hover:bg-fuchsia-500/40 hover:border-fuchsia-400/30 hover:cursor-pointer ${
+        model.original_model_id === currentModel
+          ? "bg-fuchsia-500/20 border-fuchsia-400/30"
+          : ""
+      }`}
       onClick={() => {
         if (model.original_model_id) {
           setCurrentModel(model.original_model_id);

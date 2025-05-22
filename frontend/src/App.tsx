@@ -49,8 +49,6 @@ function App() {
             element={
               <Generate
                 setShowModelList={setShowModelList}
-                currentModel={currentModel}
-                setCurrentModel={setCurrentModel}
               />
             }
           />
