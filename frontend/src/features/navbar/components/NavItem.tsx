@@ -32,7 +32,7 @@ export const NavItem = ({
   return (
     <Link
       to={to}
-      className={`px-4 py-2 text-gray-400 hover:text-white transition-colors duration-200 ${className} ${
+      className={`text-sm lg:text-base px-1 sm:px-2 md:px-3 lg:px-4 py-2 text-gray-400 hover:text-white transition-all duration-200 ${className} ${
         location.pathname.includes(to)
           ? "text-white border-b border-white"
           : "text-gray-300"
