@@ -73,7 +73,7 @@ export const BlogTopicForm = ({
                 Help Me Decide
               </h3>
               <p className="text-sm text-rose-950">
-                Use AI to generate topics and keywords
+                Use AI to generate topics and keywords (Coming Soon)
               </p>
             </div>
           </Card>
