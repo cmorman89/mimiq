@@ -3,6 +3,7 @@ import { Button } from "../components/Button";
 import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 import { toTitleCase } from "../utils/stringUtils";
+import React from "react";
 
 /**
  * The Utilities page component that provides a Mad Libs story generator.
@@ -30,15 +31,16 @@ import { toTitleCase } from "../utils/stringUtils";
  * @returns {JSX.Element} The Mad Libs generator page with input form and story display
  */
 export const Utilities = () => {
-  const [madLib, setMadLib] = useState<string>(
-    "The day started like any other: I wrestled myself out of bed, narrowly avoiding a [PLURAL NOUN] attack from under the covers. My dog, a creature of pure [ADJECTIVE] energy, sensed impending doom—I mean, a walk—and began to [VERB ENDING IN -ING] at an alarming rate. We leashed up and headed toward the park, only to be confronted by the neighborhood's biggest obstacle: Mrs. Higgins' prize-winning [TYPE OF BIRD].\n\nThis bird, armed with a gaze that could curdle milk and a vocabulary consisting solely of surprisingly accurate insults, always made our journey a challenge. Today was no different. It squawked, I gulped, and my dog, forgetting all prior training, began attempting to perform [A DIFFICULT ATHLETIC FEAT]. The leash slipped, my shoes went [COLOR], and for a brief, shining moment, I considered running away and becoming a professional [OCCUPATION].\n\nBut then, a miracle! A rogue gust of wind snatched Mrs. Higgins' toupee, depositing it squarely on the bird's head. The bird, utterly humiliated, retreated in a flurry of feathers. My dog and I exchanged a look of pure, unadulterated [EMOTION], picked up my [ITEM OF CLOTHING], and finished our walk in relative peace, occasionally looking over our shoulders, half-expecting a feathered reign of terror to begin anew, possibly involving drones."
-  );
+  const [madLib, setMadLib] = useState<string>("");
 
   const placeholderRegex = /\[(.*?)\]/g;
   const [parts, setParts] = useState<{ value: string; type: string }[]>([]);
   const [story, setStory] = useState<{ value: string; type: string }[]>([]);
   const [storyRevealed, setStoryRevealed] = useState<boolean>(false);
 
+  setMadLib(
+    "The day started like any other: I wrestled myself out of bed, narrowly avoiding a [PLURAL NOUN] attack from under the covers. My dog, a creature of pure [ADJECTIVE] energy, sensed impending doom—I mean, a walk—and began to [VERB ENDING IN -ING] at an alarming rate. We leashed up and headed toward the park, only to be confronted by the neighborhood's biggest obstacle: Mrs. Higgins' prize-winning [TYPE OF BIRD].\n\nThis bird, armed with a gaze that could curdle milk and a vocabulary consisting solely of surprisingly accurate insults, always made our journey a challenge. Today was no different. It squawked, I gulped, and my dog, forgetting all prior training, began attempting to perform [A DIFFICULT ATHLETIC FEAT]. The leash slipped, my shoes went [COLOR], and for a brief, shining moment, I considered running away and becoming a professional [OCCUPATION].\n\nBut then, a miracle! A rogue gust of wind snatched Mrs. Higgins' toupee, depositing it squarely on the bird's head. The bird, utterly humiliated, retreated in a flurry of feathers. My dog and I exchanged a look of pure, unadulterated [EMOTION], picked up my [ITEM OF CLOTHING], and finished our walk in relative peace, occasionally looking over our shoulders, half-expecting a feathered reign of terror to begin anew, possibly involving drones."
+  );
   useEffect(() => {
     const parseMadLib = (madLib: string) => {
       const parts = [];
@@ -110,28 +112,34 @@ export const Utilities = () => {
         piece.value
       )
     );
-    return formattedStory.reduce((paragraphs: JSX.Element[], piece, index) => {
-      const lastParagraph = paragraphs[paragraphs.length - 1];
+    return formattedStory.reduce((paragraphs: React.ReactElement[], piece) => {
+      const lastParagraph = paragraphs[
+        paragraphs.length - 1
+      ] as React.ReactElement<{ children: React.ReactNode }>;
       if (!lastParagraph) {
         return [<p key={0}>{piece}</p>];
       }
 
       if (typeof piece === "string" && piece.includes("\n")) {
         const [current, ...rest] = piece.split("\n");
+        const lastParagraphChildren = React.Children.toArray(
+          lastParagraph.props.children
+        );
         return [
           ...paragraphs.slice(0, -1),
           <p key={paragraphs.length - 1}>
-            {[...lastParagraph.props.children, current]}
+            {[...lastParagraphChildren, current]}
           </p>,
           ...rest.map((text, i) => <p key={paragraphs.length + i}>{text}</p>),
         ];
       }
 
+      const lastParagraphChildren = React.Children.toArray(
+        lastParagraph.props.children
+      );
       return [
         ...paragraphs.slice(0, -1),
-        <p key={paragraphs.length - 1}>
-          {[...lastParagraph.props.children, piece]}
-        </p>,
+        <p key={paragraphs.length - 1}>{[...lastParagraphChildren, piece]}</p>,
       ];
     }, []);
   };
@@ -167,7 +175,7 @@ export const Utilities = () => {
                           handleInputChange(index, e.target.value)
                         }
                         autoComplete="off"
-                        aria-autocomplete="off"
+                        aria-autocomplete="none"
                       />
                     </div>
                   ) : null

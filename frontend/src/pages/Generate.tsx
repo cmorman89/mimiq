@@ -43,6 +43,7 @@ export const Generate = ({
 }: {
   setShowModelList: (show: boolean) => void;
 }) => {
+  const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
   // UI States
   const [expanded, setExpanded] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -80,7 +81,7 @@ export const Generate = ({
 
   // Handlers
   const handleGenerate = async () => {
-    const response = await fetch("http://localhost:8000/api/v1/generate", {
+    const response = await fetch(`${apiBaseUrl}/api/v1/generate`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -134,10 +135,10 @@ export const Generate = ({
           />
         </Card>
       </div>
-      <div className="flex gap-4 h-full w-full overflow-y-hidden justify-between">
+      <div className="flex flex-col lg:flex-row gap-4 h-full w-full overflow-y-hidden justify-between">
         <Card
           className={`flex flex-col ${
-            expanded ? "w-1/12 opacity-20" : "w-1/3 opacity-100"
+            expanded ? "lg:w-1/12 opacity-20" : "lg:w-1/3 opacity-100"
           } gap-2 h-full transition-all duration-300`}
           overrideDims={true}
         >
@@ -145,7 +146,7 @@ export const Generate = ({
             {activeStep + 1}. {steps[activeStep]}
           </h2>
           <div className="w-full h-px bg-gray-700 "></div>
-          <div className="flex flex-col h-full gap-2">
+          <div className="flex flex-col lg:h-full gap-2">
             <div className="mb-2 text-sm text-gray-400">
               Set the topic and details for your blog post.
             </div>
@@ -154,7 +155,7 @@ export const Generate = ({
         </Card>
         <Card
           className={`flex flex-col ${
-            expanded ? "w-11/12" : "w-2/3"
+            expanded ? "lg:w-11/12" : "lg:w-2/3"
           } gap-2 h-full overflow-y-hidden transition-all duration-300`}
           overrideDims={true}
         >
