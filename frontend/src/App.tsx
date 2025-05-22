@@ -10,6 +10,7 @@ import { KnowledgeDocListView } from "./features/knowledge/KnowledgeDocListView"
 import { KnowledgeTypeSelectionView } from "./features/knowledge/KnowledgeTypeSelectionView";
 import { useState } from "react";
 import ModelList from "./features/models/components/ModelList";
+import { Login } from "./pages/Login";
 
 /**
  * Main application component that serves as the root of the React application.
@@ -86,6 +87,7 @@ function App() {
           <Route path="/workflow" element={<Workflow />} />
           <Route path="/utilities" element={<Utilities />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </MainLayout>
       {showModelList && (

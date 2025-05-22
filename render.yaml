@@ -1,13 +1,24 @@
 services:
-  - type: web
-    name: fastapi-backend
-    env: python
+  - name: mimiq-dev
+    type: static
+    rootDir: frontend
+    buildCommand: "npm install && npm run build"
+    staticPublishPath: dist
+    plan: free
+    branch: main
+    autoDeploy: commit
+    envVars:
+      - fromGroup: mimiq-env-vars
+
+  - name: mimiq-dev-api
+    type: web
+    runtime: python
     rootDir: backend
     buildCommand: "pip install -r requirements.txt"
     startCommand: "uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    plan: free
+    branch: main
+    autoDeploy: commit
+    envVars:
+      - fromGroup: mimiq-env-vars
 
-  - type: static
-    name: react-frontend
-    rootDir: frontend
-    buildCommand: "npm install && npm run build"
-    staticPublishPath: build

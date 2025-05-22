@@ -34,15 +34,20 @@ export const KnowledgeTypeCard = ({
   className?: string;
 }) => {
   return (
-    <Link to={to}>
-      <Card className={className}>
+    <Card
+      className={`${className} h-fit`}
+      type="dark"
+      padding="tight"
+      overrideDims={true}
+    >
+      <Link to={to} className="flex flex-col flex-shrink w-full">
         <div className="flex gap-4 items-center">
-          <div className="p-4 rounded-lg bg-teal-900 bg-gradient-to-br from-white/40 to-transparent">
+          <div className="p-4 rounded-lg bg-neutral-800 bg-gradient-to-br from-white/40 to-transparent">
             {icon}
           </div>
           {children}
         </div>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
