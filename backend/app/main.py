@@ -16,6 +16,10 @@ app.add_middleware(
     allow_origins=[
         "http://127.0.0.1:5173",
         "http://localhost:5173",
+        "https://mimiq.onrender.com",
+        "https://mimiq-test.onrender.com",
+        "https://mimiq-dev.onrender.com",
+        "https://mimiq-api.onrender.com",
     ],  # Explicitly allow frontend origins
     allow_credentials=True,
     allow_methods=["*"],
