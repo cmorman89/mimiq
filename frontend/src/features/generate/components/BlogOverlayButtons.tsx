@@ -1,6 +1,6 @@
 // GlobalOverlayButtons.tsx
 import { createPortal } from "react-dom";
-import { FaCheck, FaChevronDown, FaChevronUp, FaCopy } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp, FaCopy } from "react-icons/fa";
 import { Button } from "../../../components/Button";
 import { useEffect, useState } from "react";
 
