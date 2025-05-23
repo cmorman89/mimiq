@@ -1,7 +1,7 @@
 import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 import { GenerateWorkflow } from "../features/generate/components/GenerateWorkflow";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { ModelBadge } from "../features/models/ModelBadge";
 import { BlogSkeleton } from "../components/BlogSkeleton";
 import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
@@ -52,7 +52,6 @@ export const Generate = ({
   const [wordCount, setWordCount] = useState(0);
   const [scrollInterupted, setScrollInterupted] = useState(false);
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [scrollAtBottom, setScrollAtBottom] = useState(false);
 
   // Form and Content States
   const [formValues, setFormValues] = useState<FormValues>({
@@ -102,9 +101,6 @@ export const Generate = ({
 
       const atBottom = newPosition >= bottomPosition;
       const wasInterrupted = newPosition < lastPosition;
-
-      // Update "at bottom" state
-      setScrollAtBottom(atBottom);
 
       // Detect interruption
       if (wasInterrupted && !scrollInterupted) {
