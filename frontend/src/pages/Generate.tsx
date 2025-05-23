@@ -1,13 +1,14 @@
 import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 import { GenerateWorkflow } from "../features/generate/components/GenerateWorkflow";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { ModelBadge } from "../features/models/ModelBadge";
 import { BlogSkeleton } from "../components/BlogSkeleton";
 import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
 import Markdown from "react-markdown";
-import { FaExpandArrowsAlt } from "react-icons/fa";
+import { FaCopy, FaExpandArrowsAlt } from "react-icons/fa";
 import { UnderDev } from "../components/UnderDev";
+import { Button } from "../components/Button";
 
 interface FormValues {
   topic: string;
@@ -49,6 +50,9 @@ export const Generate = ({
   const [expanded, setExpanded] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [wordCount, setWordCount] = useState(0);
+  const [scrollInterupted, setScrollInterupted] = useState(false);
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [scrollAtBottom, setScrollAtBottom] = useState(false);
 
   // Form and Content States
   const [formValues, setFormValues] = useState<FormValues>({
@@ -83,14 +87,48 @@ export const Generate = ({
   // Auto scroll to bottom when generating
   useEffect(() => {
     if (generatedBlog && isGenerating) {
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+      if (!scrollInterupted) {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+
+      const lastPosition = scrollPosition;
+      const newPosition = window.scrollY;
+      const bottomOffset = 20;
+      const bottomPosition =
+        document.body.scrollHeight - window.innerHeight - bottomOffset;
+
+      const atBottom = newPosition >= bottomPosition;
+      const wasInterrupted = newPosition < lastPosition;
+
+      // Update "at bottom" state
+      setScrollAtBottom(atBottom);
+
+      // Detect interruption
+      if (wasInterrupted && !scrollInterupted) {
+        setScrollInterupted(true);
+      }
+
+      // Detect re-engagement
+      if (atBottom && scrollInterupted) {
+        setScrollInterupted(false);
+      }
+
+      // console.log(
+      //   `newPosition: ${newPosition}\nlastPosition: ${lastPosition}\nbottomPosition: ${bottomPosition}\natBottom: ${atBottom}\nwasInterrupted: ${wasInterrupted}\nscrollInterupted: ${scrollInterupted}`
+      // );
+
+      setScrollPosition(newPosition);
     }
-  }, [generatedBlog, isGenerating]);
+  }, [generatedBlog, isGenerating, scrollPosition, scrollInterupted]);
 
   // Handlers
   const handleGenerate = async () => {
     setIsGenerating(true);
     setGeneratedBlog("");
+    setScrollInterupted(false);
     const response = await fetch(`${apiBaseUrl}/api/v1/generate`, {
       method: "POST",
       headers: {
@@ -103,7 +141,10 @@ export const Generate = ({
       }),
     });
 
-    if (!response.body) return;
+    if (!response.body) {
+      setIsGenerating(false);
+      return;
+    }
 
     setGeneratedBlog("");
     const reader = response.body.getReader();
@@ -116,6 +157,10 @@ export const Generate = ({
       setGeneratedBlog((prev) => prev + text);
     }
     setIsGenerating(false);
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(generatedBlog);
   };
 
   // Content Components
@@ -159,7 +204,7 @@ export const Generate = ({
             {activeStep + 1}. {steps[activeStep]}
           </h2>
           <div className="w-full h-px bg-gray-700 "></div>
-          <div className="flex flex-col lg:h-full gap-2">
+          <div className="flex flex-col  gap-2">
             <div className="mb-2 text-sm text-gray-400">
               Set the topic and details for your blog post.
             </div>
@@ -169,7 +214,7 @@ export const Generate = ({
         <Card
           className={`flex flex-col ${
             expanded ? "lg:w-11/12" : "lg:w-2/3"
-          } gap-2 h-full overflow-y-hidden transition-all duration-300`}
+          } gap-2 h-full overflow-y-hidden transition-all duration-300 pb-2`}
           overrideDims={true}
         >
           <div className="flex items-center justify-between">
@@ -184,22 +229,34 @@ export const Generate = ({
             >
               {wordCount} words
             </div>
-            <div className="flex flex-col">
+            <div className="flex flex-col transition-all duration-300">
               <ModelBadge
                 activeModel={"GPT-4.1"}
                 onClick={() => setShowModelList(true)}
               />
             </div>
+            {generatedBlog && (
+              <div className="flex items-center gap-2 absolute bottom-0 right-0 bg-gray-950/50 backdrop-blur-lg p-2 rounded-lg">
+                <Button
+                  type="primary"
+                  onClick={handleCopy}
+                  itemsRow={true}
+                  className="opacity-50 hover:opacity-100 transition-opacity duration-300 backdrop-blur-lg aspect-square items-center justify-center"
+                >
+                  <FaCopy className="text-base" />
+                </Button>
+              </div>
+            )}
           </div>
           <div className="w-full h-px bg-gray-700 "></div>
-          <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full pb-4 overflow-y-auto">
             {!generatedBlog ? (
               <div className="mb-2 text-sm text-gray-400">
                 Your blog post will be generated here!
                 <BlogSkeleton isGenerating={isGenerating} />
               </div>
             ) : (
-              <div className="markdown flex flex-col flex-1 gap-2 overflow-y-auto h-full pt-2 pb-8">
+              <div className="markdown flex flex-col flex-1 gap-2 overflow-y-auto h-full pt-2 relative">
                 <Markdown>{generatedBlog}</Markdown>
               </div>
             )}
