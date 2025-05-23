@@ -16,6 +16,7 @@ import { UnderDev } from "../components/UnderDev";
 import { Button } from "../components/Button";
 import { useBlogGeneration } from "../hooks/useBlogGeneration";
 import { FormValues } from "../types/blog";
+import { BlogOverlayButtons } from "../features/generate/components/BlogOverlayButtons";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.
@@ -62,6 +63,13 @@ export const Generate = ({
   const { generatedBlog, isGenerating, handleGenerate, handleCopy } =
     useBlogGeneration();
 
+  const handleGenerateClick = () => {
+    if (formValues.topic === "" || isGenerating) {
+      return;
+    }
+    setScrollInterupted(false);
+    handleGenerate(formValues);
+  };
   // Effects
   useEffect(() => {
     localStorage.setItem("generatedBlog", generatedBlog);
@@ -194,14 +202,17 @@ export const Generate = ({
             {useContent(activeStep)}
             <div className="w-full h-px bg-gray-700 my-4"></div>
             <div className="flex items-center gap-2 justify-between">
-              {" "}
+              {/* Generate Button */}
               <Button
                 type={isGenerating ? "disabled" : "accent"}
-                className="w-full"
-                onClick={() => handleGenerate(formValues)}
+                className={`w-full transition-all duration-300 ${
+                  formValues.topic !== "" ? "opacity-100" : "opacity-0"
+                }`}
+                onClick={handleGenerateClick}
               >
                 {isGenerating ? "Generating..." : "Generate Blog"}
               </Button>
+              {/* Navigation Buttons */}
               <div className="flex items-center gap-2 justify-between">
                 <Button
                   type="primary"
@@ -274,6 +285,12 @@ export const Generate = ({
           </div>
         </Card>
       </div>
+      <BlogOverlayButtons
+        isGenerating={isGenerating}
+        scrollInterupted={scrollInterupted}
+        setScrollInterupted={setScrollInterupted}
+        generatedBlog={generatedBlog}
+      />
     </PageContainer>
   );
 };

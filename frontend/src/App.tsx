@@ -47,11 +47,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route
             path="/generate"
-            element={
-              <Generate
-                setShowModelList={setShowModelList}
-              />
-            }
+            element={<Generate setShowModelList={setShowModelList} />}
           />
           <Route path="/knowledge" element={<Knowledge />}>
             <Route path="/knowledge" element={<KnowledgeTypeSelectionView />} />
