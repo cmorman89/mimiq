@@ -10,12 +10,7 @@ import { FaCopy, FaExpandArrowsAlt } from "react-icons/fa";
 import { UnderDev } from "../components/UnderDev";
 import { Button } from "../components/Button";
 import { useBlogGeneration } from "../hooks/useBlogGeneration";
-
-interface FormValues {
-  topic: string;
-  details: string;
-  keywords: string[];
-}
+import { FormValues } from "../types/blog";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.

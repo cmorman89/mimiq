@@ -1,10 +1,5 @@
 import { useState } from "react";
-
-interface FormValues {
-  topic: string;
-  details: string;
-  keywords: string[];
-}
+import { FormValues } from "../types/blog";
 
 interface UseBlogGenerationReturn {
   generatedBlog: string;

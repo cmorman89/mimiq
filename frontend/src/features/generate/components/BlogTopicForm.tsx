@@ -3,6 +3,7 @@ import { Card } from "../../../components/Card";
 import { FaList, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { Button } from "../../../components/Button";
+import { FormValues } from "../../../types/blog";
 
 /**
  * A form component for generating blog content with topic selection and input options.
@@ -28,21 +29,9 @@ export const BlogTopicForm = ({
   handleGenerate,
   isGenerating,
 }: {
-  formValues: {
-    topic: string;
-    details: string;
-    keywords: string[];
-  };
-  setFormValues: (formValues: {
-    topic: string;
-    details: string;
-    keywords: string[];
-  }) => void;
-  handleGenerate: (formValues: {
-    topic: string;
-    details: string;
-    keywords: string[];
-  }) => Promise<void>;
+  formValues: FormValues;
+  setFormValues: (formValues: FormValues) => void;
+  handleGenerate: (formValues: FormValues) => Promise<void>;
   isGenerating: boolean;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
