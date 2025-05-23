@@ -2,7 +2,6 @@ import { FaWandMagicSparkles } from "react-icons/fa6";
 import { Card } from "../../../components/Card";
 import { FaList, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-import { Button } from "../../../components/Button";
 import { FormValues } from "../../../types/blog";
 
 /**
@@ -26,13 +25,9 @@ import { FormValues } from "../../../types/blog";
 export const BlogTopicForm = ({
   formValues,
   setFormValues,
-  handleGenerate,
-  isGenerating,
 }: {
   formValues: FormValues;
   setFormValues: (formValues: FormValues) => void;
-  handleGenerate: (formValues: FormValues) => Promise<void>;
-  isGenerating: boolean;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
 
@@ -202,13 +197,6 @@ export const BlogTopicForm = ({
               </div>
             </Card>
           </div>
-          <Button
-            type={isGenerating ? "disabled" : "accent"}
-            className="w-full"
-            onClick={() => handleGenerate(formValues)}
-          >
-            {isGenerating ? "Generating..." : "Generate Blog"}
-          </Button>
         </div>
       )}
     </div>
