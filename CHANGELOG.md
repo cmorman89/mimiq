@@ -9,84 +9,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Blog generation workflow with multi-step process:
+- Pages:
 
-  - Blog topic selection
-  - Blog structure definition
-  - Blog style configuration
-  - Blog examples review
-  - Final blog post generation
-  - Model selection and output preview
-  - Split-pane layout for content and preview
+  - Home
+  - Generate (Blog, for now)
+  - Knowledge (placeholder)
+  - Workflow (placeholder)
+  - Settings (placeholder)
+  - Login (placeholder)
 
-- Mad Libs generator utility:
-
-  - Interactive story generation
-  - Dynamic placeholder parsing
-  - Real-time input handling
-  - Story reveal functionality
-  - Story reset capability
-  - Formatted story display with styled placeholders
-
-- LMStudio integration:
-
-  - Model management and selection
-  - Automatic model data fetching
-  - Manual model refresh capability
-  - Model metadata display
-  - Model family icons and branding
-  - Connection configuration:
-    - Protocol selection (HTTP/HTTPS)
-    - Server address configuration
-    - API endpoint customization
-    - Endpoint prefix management
-    - Models endpoint configuration
-    - Completions endpoint setup
-    - Embeddings endpoint setup
-
-- Knowledge management system:
-
-  - Nested route structure
-  - Knowledge base management
-  - Example content management
-  - Consistent layout container
-
-- Landing page features:
+- Landing page:
 
   - Hero section with animated text
   - Feature announcement banner
-  - Gradient text effects
-  - Call-to-action buttons
-  - Animated cursor effect
-  - Quick access to core features
 
-- Model display features:
-  - Model name and version display
-  - Interactive hover state
-  - Portal-based hover card
-  - Position-aware hover card placement
-  - Model ID parsing and formatting
-  - Parent hover state synchronization
-  - Color-coded model family indicators
-  - Monochrome and color icon variants
+- Integrations:
 
-### Changed
+  - LMStudio
+  - OpenAI
+  - Ollama
 
-- Improved model ID parsing:
-  - Enhanced version number detection
-  - Better parameter count handling
-  - Improved subversion parsing
-  - More accurate model family detection
-  - Support for embedded versions
-  - Fallback to default components
-
-### Fixed
-
-- Model list error handling:
-  - Graceful fallback on fetch errors
-  - Empty state management
-  - Error logging
-  - State reset on failure
+- Blog Generation:
+  - Custom, animated stepper for workflow
+  - Blog topic selection
+  - Blog structure definition (placeholder)
+  - Blog style configuration (placeholder)
+  - Blog examples review (placeholder)
+  - Final blog post generation (placeholder)
+  - Model selection and output preview
 
 ### Technical
 
@@ -109,3 +59,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - OpenAI
   - Qwen
   - Phi
+- FastAPI routing
