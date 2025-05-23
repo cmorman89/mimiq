@@ -25,13 +25,15 @@ export function Button({
   children,
   type = "primary",
   className = "",
-  onClick = () => {},
+  onClick = () => { },
+  itemsRow = false,
 }: {
   to?: string | null;
   children?: React.ReactNode;
   type?: "primary" | "secondary" | "accent" | "danger" | "disabled";
   className?: string;
   onClick?: () => void;
+  itemsRow?: boolean;
 }) {
   // Define button type styles
   const buttonClass = {
@@ -46,7 +48,7 @@ export function Button({
     // Safely handle a null target
     <Link
       to={to ?? ""}
-      className={`flex flex-col text-center gap-2 rounded-lg px-4 py-2 border transition-colors ease-in-out duration-300 ${buttonClass[type]} ${className} shadow-lg`}
+      className={`flex ${itemsRow ? "flex-row" : "flex-col"} text-center gap-2 rounded-lg px-4 py-2 border transition-colors ease-in-out duration-300 ${buttonClass[type]} ${className} shadow-lg`}
       onClick={onClick}
     >
       {children}
