@@ -33,12 +33,20 @@ export const BlogTopicForm = ({
     details: string;
     keywords: string[];
   };
-  setFormValues: (formValues: { topic: string; details: string; keywords: string[] }) => void;
-  handleGenerate: () => void;
+  setFormValues: (formValues: {
+    topic: string;
+    details: string;
+    keywords: string[];
+  }) => void;
+  handleGenerate: (formValues: {
+    topic: string;
+    details: string;
+    keywords: string[];
+  }) => Promise<void>;
   isGenerating: boolean;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-  
+
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
   };
@@ -50,7 +58,10 @@ export const BlogTopicForm = ({
 
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value.split(",").map((keyword) => keyword.trim()) });
+    setFormValues({
+      ...formValues,
+      [name]: value.split(",").map((keyword) => keyword.trim()),
+    });
   };
 
   return (
@@ -190,7 +201,9 @@ export const BlogTopicForm = ({
                 <div className="flex">
                   <FaTimes
                     className={`${
-                      formValues.keywords.length > 0 ? "opacity-100" : "opacity-0"
+                      formValues.keywords.length > 0
+                        ? "opacity-100"
+                        : "opacity-0"
                     } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
                     onClick={() =>
                       setFormValues({ ...formValues, keywords: [] })
@@ -203,7 +216,7 @@ export const BlogTopicForm = ({
           <Button
             type={isGenerating ? "disabled" : "accent"}
             className="w-full"
-            onClick={handleGenerate}
+            onClick={() => handleGenerate(formValues)}
           >
             {isGenerating ? "Generating..." : "Generate Blog"}
           </Button>

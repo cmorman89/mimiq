@@ -9,6 +9,7 @@ import Markdown from "react-markdown";
 import { FaCopy, FaExpandArrowsAlt } from "react-icons/fa";
 import { UnderDev } from "../components/UnderDev";
 import { Button } from "../components/Button";
+import { useBlogGeneration } from "../hooks/useBlogGeneration";
 
 interface FormValues {
   topic: string;
@@ -45,7 +46,6 @@ export const Generate = ({
 }: {
   setShowModelList: (show: boolean) => void;
 }) => {
-  const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
   // UI States
   const [expanded, setExpanded] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
@@ -59,10 +59,10 @@ export const Generate = ({
     details: "",
     keywords: [],
   });
-  const [generatedBlog, setGeneratedBlog] = useState<string>(() => {
-    return localStorage.getItem("generatedBlog") || "";
-  });
-  const [isGenerating, setIsGenerating] = useState(false);
+
+  const { generatedBlog, isGenerating, handleGenerate, handleCopy } =
+    useBlogGeneration();
+
   // Constants
   const steps = [
     "Blog Topic",
@@ -120,45 +120,6 @@ export const Generate = ({
     }
   }, [generatedBlog, isGenerating, scrollPosition, scrollInterupted]);
 
-  // Handlers
-  const handleGenerate = async () => {
-    setIsGenerating(true);
-    setGeneratedBlog("");
-    setScrollInterupted(false);
-    const response = await fetch(`${apiBaseUrl}/api/v1/generate`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        topic: formValues.topic,
-        details: formValues.details,
-        keywords: formValues.keywords,
-      }),
-    });
-
-    if (!response.body) {
-      setIsGenerating(false);
-      return;
-    }
-
-    setGeneratedBlog("");
-    const reader = response.body.getReader();
-    const decoder = new TextDecoder();
-
-    while (reader) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      const text = decoder.decode(value, { stream: true });
-      setGeneratedBlog((prev) => prev + text);
-    }
-    setIsGenerating(false);
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(generatedBlog);
-  };
-
   // Content Components
   const contents = [
     <BlogTopicForm
@@ -192,7 +153,9 @@ export const Generate = ({
       <div className="flex flex-col lg:flex-row gap-4 h-full w-full overflow-y-hidden justify-between">
         <Card
           className={`flex flex-col ${
-            expanded ? "h-px lg:w-1/12 opacity-20 overflow-hidden" : "lg:w-1/3 opacity-100"
+            expanded
+              ? "h-px lg:w-1/12 opacity-20 overflow-hidden"
+              : "lg:w-1/3 opacity-100"
           } gap-2 h-full transition-all duration-300`}
           overrideDims={true}
         >
