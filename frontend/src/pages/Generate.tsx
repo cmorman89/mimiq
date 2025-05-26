@@ -2,21 +2,14 @@ import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 import { GenerateWorkflow } from "../features/generate/components/GenerateWorkflow";
 import { useState, useEffect } from "react";
-import { ModelBadge } from "../features/models/ModelBadge";
-import { BlogSkeleton } from "../components/BlogSkeleton";
 import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
-import Markdown from "react-markdown";
-import {
-  FaArrowLeft,
-  FaArrowRight,
-  FaCopy,
-  FaExpandArrowsAlt,
-} from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { UnderDev } from "../components/UnderDev";
 import { Button } from "../components/Button";
 import { useBlogGeneration } from "../hooks/useBlogGeneration";
 import { FormValues } from "../types/blog";
 import { BlogOverlayButtons } from "../features/generate/components/BlogOverlayButtons";
+import { BlogCard } from "../features/generate/components/BlogCard";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.
@@ -233,57 +226,14 @@ export const Generate = ({
           </div>
         </Card>
         {/* Right Side */}
-        <Card
-          className={`flex flex-col ${
-            expanded ? "lg:w-11/12" : "lg:w-2/3"
-          } gap-2 h-full overflow-y-hidden transition-all duration-300 pb-2`}
-          overrideDims={true}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <FaExpandArrowsAlt onClick={() => setExpanded(!expanded)} />
-              <h2 className="text-lg font-semibold">AI Output</h2>
-            </div>
-            <div
-              className={`${
-                wordCount > 1 ? "opacity-100" : "opacity-0"
-              } transition-opacity duration-1000 text-sm text-gray-400 rounded-full bg-gray-700 px-2 py-1 border border-white/10`}
-            >
-              {wordCount} words
-            </div>
-            <div className="flex flex-col transition-all duration-300">
-              <ModelBadge
-                activeModel={"GPT-4.1"}
-                onClick={() => setShowModelList(true)}
-              />
-            </div>
-            {generatedBlog && (
-              <div className="flex items-center gap-2 absolute bottom-0 right-0 bg-gray-950/50 backdrop-blur-lg p-2 rounded-lg">
-                <Button
-                  type="primary"
-                  onClick={handleCopy}
-                  itemsRow={true}
-                  className="opacity-50 hover:opacity-100 transition-opacity duration-300 backdrop-blur-lg aspect-square items-center justify-center"
-                >
-                  <FaCopy className="text-base" />
-                </Button>
-              </div>
-            )}
-          </div>
-          <div className="w-full h-px bg-gray-700 "></div>
-          <div className="flex flex-col h-full pb-4 overflow-y-auto">
-            {!generatedBlog ? (
-              <div className="mb-2 text-sm text-gray-400">
-                Your blog post will be generated here!
-                <BlogSkeleton isGenerating={isGenerating} />
-              </div>
-            ) : (
-              <div className="markdown flex flex-col flex-1 gap-2 overflow-y-auto h-full pt-2 relative">
-                <Markdown>{generatedBlog}</Markdown>
-              </div>
-            )}
-          </div>
-        </Card>
+        <BlogCard
+          generatedBlog={generatedBlog}
+          isGenerating={isGenerating}
+          wordCount={wordCount}
+          expanded={expanded}
+          setExpanded={setExpanded}
+          setShowModelList={setShowModelList}
+        />
       </div>
       <BlogOverlayButtons
         isGenerating={isGenerating}
