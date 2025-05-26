@@ -115,7 +115,7 @@ body {
   }
 
   .markdown p {
-    @apply text-content;
+    @apply text-content pb-3;
   }
   .text-heading-1 {
     @apply font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-fuchsia-400;
@@ -127,7 +127,7 @@ body {
     @apply font-semibold text-violet-200;
   }
   .text-content {
-    @apply text-gray-300 leading-relaxed pb-3;
+    @apply text-gray-300 leading-relaxed;
   }
 }
 
