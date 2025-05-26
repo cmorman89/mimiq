@@ -53,8 +53,7 @@ export const Generate = ({
     keywords: [],
   });
 
-  const { generatedBlog, isGenerating, handleGenerate } =
-    useBlogGeneration();
+  const { generatedBlog, isGenerating, handleGenerate } = useBlogGeneration();
 
   const handleGenerateClick = () => {
     if (formValues.topic === "" || isGenerating) {
