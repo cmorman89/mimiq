@@ -119,6 +119,7 @@ export const BlogTopicWizardMenu = () => {
     const [ideas, setIdeas] = useState<BlogTopicWizardResultItem[]>([]);
 
     const handleGenerate = (direction: string = "") => {
+      console.log(direction);
       setResult(example_result.content.toString());
     };
 
@@ -144,9 +145,11 @@ export const BlogTopicWizardMenu = () => {
     };
   };
 
-  const { direction, setDirection, result, ideas, handleGenerate } =
-    useBlogTopicWizard();
+  // const { direction, setDirection, result, ideas, handleGenerate } =
+  //   useBlogTopicWizard();
 
+  const { direction, setDirection } =
+    useBlogTopicWizard();
   return (
     <div className="flex flex-col w-full gap-4">
       <Card type="dark" padding="tight" className="flex flex-col w-full gap-2">
