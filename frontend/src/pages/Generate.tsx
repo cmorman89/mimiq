@@ -156,7 +156,7 @@ export const Generate = ({
   const stepComponents = steps.map((step) => step.component);
 
   const useContent = (step: number) => {
-    return step <= steps.length ? stepComponents[step] : null;
+    return step < steps.length ? stepComponents[step] : null;
   };
 
   return (
