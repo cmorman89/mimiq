@@ -3,6 +3,7 @@ import { Card } from "../../../components/Card";
 import { FaList, FaTimes } from "react-icons/fa";
 import { useState } from "react";
 import { FormValues } from "../../../types/blog";
+import { BlogTopicWizardMenu } from "./BlogTopicWizardMenu";
 
 /**
  * A form component for generating blog content with topic selection and input options.
@@ -29,7 +30,7 @@ export const BlogTopicForm = ({
   formValues: FormValues;
   setFormValues: (formValues: FormValues) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>("wizard");
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -47,8 +48,6 @@ export const BlogTopicForm = ({
       [name]: value.split(",").map((keyword) => keyword.trim()),
     });
   };
-
-
 
   return (
     <div
@@ -94,111 +93,116 @@ export const BlogTopicForm = ({
         </div>
       ) : (
         <div className="flex flex-col w-full gap-4 px-4">
-          <div className="flex flex-col gap-4">
-            <Card
-              type="dark"
-              padding="tight"
-              className="flex flex-col w-full gap-2"
-            >
-              <div className="flex items-center justify-between w-full gap-2 rounded-2xl">
-                <label
-                  htmlFor="topic"
-                  className="text-sm text-gray-400 whitespace-nowrap min-w-20"
-                >
-                  Blog Topic
-                </label>
-                <input
-                  type="text"
-                  id="topic"
-                  name="topic"
-                  placeholder="Enter blog topic"
-                  className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
-                  autoComplete="off"
-                  value={formValues.topic}
-                  onChange={(e) => handleInputChange(e)}
-                />
-                <div className="flex">
-                  <FaTimes
-                    className={`${
-                      formValues.topic ? "opacity-100" : "opacity-0"
-                    } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
-                    onClick={() => setFormValues({ ...formValues, topic: "" })}
+          {selectedOption === "wizard" && <BlogTopicWizardMenu />}
+          {selectedOption === "manual" && (
+            <div className="flex flex-col gap-4">
+              <Card
+                type="dark"
+                padding="tight"
+                className="flex flex-col w-full gap-2"
+              >
+                <div className="flex items-center justify-between w-full gap-2 rounded-2xl">
+                  <label
+                    htmlFor="topic"
+                    className="text-sm text-gray-400 whitespace-nowrap min-w-20"
+                  >
+                    Blog Topic
+                  </label>
+                  <input
+                    type="text"
+                    id="topic"
+                    name="topic"
+                    placeholder="Enter blog topic"
+                    className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
+                    autoComplete="off"
+                    value={formValues.topic}
+                    onChange={(e) => handleInputChange(e)}
                   />
+                  <div className="flex">
+                    <FaTimes
+                      className={`${
+                        formValues.topic ? "opacity-100" : "opacity-0"
+                      } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
+                      onClick={() =>
+                        setFormValues({ ...formValues, topic: "" })
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            </Card>
-            <Card
-              type="dark"
-              padding="tight"
-              className="flex flex-col w-full gap-2"
-            >
-              <div className="flex items-center w-full gap-2 rounded-2xl">
-                <label
-                  htmlFor="details"
-                  className="text-sm text-gray-400 whitespace-nowrap min-w-20"
-                >
-                  Details
-                </label>
-                <input
-                  type="text"
-                  id="details"
-                  name="details"
-                  placeholder="Enter details (optional)"
-                  className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
-                  autoComplete="off"
-                  value={formValues.details}
-                  onChange={(e) => handleInputChange(e)}
-                />
-                <div className="flex">
-                  <FaTimes
-                    className={`${
-                      formValues.details ? "opacity-100" : "opacity-0"
-                    } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
-                    onClick={() =>
-                      setFormValues({ ...formValues, details: "" })
-                    }
+              </Card>
+              <Card
+                type="dark"
+                padding="tight"
+                className="flex flex-col w-full gap-2"
+              >
+                <div className="flex items-center w-full gap-2 rounded-2xl">
+                  <label
+                    htmlFor="details"
+                    className="text-sm text-gray-400 whitespace-nowrap min-w-20"
+                  >
+                    Details
+                  </label>
+                  <input
+                    type="text"
+                    id="details"
+                    name="details"
+                    placeholder="Enter details (optional)"
+                    className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
+                    autoComplete="off"
+                    value={formValues.details}
+                    onChange={(e) => handleInputChange(e)}
                   />
+                  <div className="flex">
+                    <FaTimes
+                      className={`${
+                        formValues.details ? "opacity-100" : "opacity-0"
+                      } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
+                      onClick={() =>
+                        setFormValues({ ...formValues, details: "" })
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            </Card>
+              </Card>
 
-            <Card
-              type="dark"
-              padding="tight"
-              className="flex flex-col w-full gap-2"
-            >
-              <div className="flex items-center w-full gap-2 rounded-2xl">
-                <label
-                  htmlFor="keywords"
-                  className="text-sm text-gray-400 whitespace-nowrap min-w-20"
-                >
-                  Keywords
-                </label>
-                <input
-                  type="text"
-                  id="keywords"
-                  name="keywords"
-                  placeholder="Enter keywords separated by commas (optional)"
-                  className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
-                  autoComplete="off"
-                  value={formValues.keywords.join(", ")}
-                  onChange={(e) => handleKeywordChange(e)}
-                />
-                <div className="flex">
-                  <FaTimes
-                    className={`${
-                      formValues.keywords.length > 0
-                        ? "opacity-100"
-                        : "opacity-0"
-                    } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
-                    onClick={() =>
-                      setFormValues({ ...formValues, keywords: [] })
-                    }
+              <Card
+                type="dark"
+                padding="tight"
+                className="flex flex-col w-full gap-2"
+              >
+                <div className="flex items-center w-full gap-2 rounded-2xl">
+                  <label
+                    htmlFor="keywords"
+                    className="text-sm text-gray-400 whitespace-nowrap min-w-20"
+                  >
+                    Keywords
+                  </label>
+                  <input
+                    type="text"
+                    id="keywords"
+                    name="keywords"
+                    placeholder="Enter keywords separated by commas (optional)"
+                    className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
+                    autoComplete="off"
+                    value={formValues.keywords.join(", ")}
+                    onChange={(e) => handleKeywordChange(e)}
                   />
+                  <div className="flex">
+                    <FaTimes
+                      className={`${
+                        formValues.keywords.length > 0
+                          ? "opacity-100"
+                          : "opacity-0"
+                      } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
+                      onClick={() =>
+                        setFormValues({ ...formValues, keywords: [] })
+                      }
+                    />
+                  </div>
                 </div>
-              </div>
-            </Card>
-          </div>
+              </Card>
+            </div>
+          )}
         </div>
       )}
     </div>
