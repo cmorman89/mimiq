@@ -172,13 +172,13 @@ export const Generate = ({
         </Card>
       </div>
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-4 h-full w-full overflow-y-hidden justify-between">
+      <div className="flex flex-col xl:flex-row gap-4 h-full w-full overflow-y-hidden justify-between">
         {/* Left Side */}
         <Card
           className={`flex flex-col ${
             expanded
-              ? "h-px lg:w-1/12 opacity-20 overflow-hidden"
-              : "lg:w-1/3 opacity-100"
+              ? "h-px xl:w-1/12 opacity-20 overflow-hidden"
+              : "xl:w-1/3 opacity-100"
           } gap-2 h-full transition-all duration-300`}
           overrideDims={true}
         >

@@ -51,7 +51,9 @@ export const Card = ({
   }[padding];
   return (
     <div
-      className={`relative flex overflow-auto ${overrideDims ? "" : "w-full h-full"} rounded-xl border border-white/10 ${bgColor} backdrop-blur-md ${paddingClass} ${className} shadow-lg mimiq-scrollbar`}
+      className={`relative flex overflow-auto ${
+        overrideDims ? "" : "w-full h-full"
+      } rounded-xl border border-white/10 ${bgColor} backdrop-blur-md ${paddingClass} ${className} shadow-lg mimiq-scrollbar`}
       onClick={onClick}
     >
       {children}

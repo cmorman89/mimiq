@@ -28,7 +28,7 @@ export const BlogCard = ({
   return (
     <Card
       className={`flex flex-col ${
-        expanded ? "lg:w-11/12" : "lg:w-2/3"
+        expanded ? "xl:w-11/12" : "xl:w-2/3"
       } gap-2 h-full overflow-y-hidden transition-all duration-300 pb-2`}
       overrideDims={true}
     >
