@@ -31,9 +31,9 @@ export const BlockTopicWixardItem = ({
       <Card
         type="dark"
         padding="tight"
-        className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out group"
+        className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px]"
         style={{
-          maxHeight: isOpen ? `${contentHeight + 100}px` : "200px",
+          maxHeight: isOpen ? `${contentHeight + 100}px` : "",
         }}
       >
         {/* Header */}
@@ -60,16 +60,18 @@ export const BlockTopicWixardItem = ({
           <Card
             type="light"
             padding="tight"
-            className="flex w-full gap-2"
+            className="flex w-full gap-2 items-center"
+            overrideDims={true}
           >
             <span className="text-sm text-gray-400 px-2">Title:</span>
-            <h4 className="text-heading-2 text-base">{item.title}</h4>
+            <h4 className="text-heading-2 text-sm font-semibold">{item.title}</h4>
           </Card>
           {/* Keyword Chips*/}
           <Card
             type="light"
             padding="tight"
             className="flex flex-col w-full gap-2"
+            overrideDims={true}
           >
             <p className="text-sm text-gray-400 px-2">Keywords:</p>
             <div className="flex flex-wrap gap-2 px-6">
@@ -89,6 +91,7 @@ export const BlockTopicWixardItem = ({
             type="light"
             padding="tight"
             className="flex flex-col w-full gap-2"
+            overrideDims={true}
           >
             {/* Details */}
             <p className="text-sm text-gray-400 px-2">Details:</p>
@@ -98,6 +101,7 @@ export const BlockTopicWixardItem = ({
             type="light"
             padding="tight"
             className="flex flex-col w-full gap-2"
+            overrideDims={true}
           >
             {/* Sections */}
             <p className="text-sm text-gray-400 px-2">Sections:</p>
@@ -119,7 +123,7 @@ export const BlockTopicWixardItem = ({
           </Card>
         </div>
         {!isOpen && (
-          <div className="absolute bottom-0 left-0 w-full bg-gradient-to-b from-transparent to-black/50 xl:to-black h-20 z-20"></div>
+          <div className="absolute bottom-0 left-0 w-full bg-gradient-to-b from-transparent to-black/50 h-10 z-20"></div>
         )}
       </Card>
     </div>

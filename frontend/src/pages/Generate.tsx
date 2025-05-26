@@ -178,7 +178,7 @@ export const Generate = ({
           className={`flex flex-col ${
             expanded
               ? "h-px xl:w-1/12 opacity-20 overflow-hidden"
-              : "xl:w-1/3 opacity-100"
+              : "xl:w-1/2 opacity-100"
           } gap-2 h-full transition-all duration-300`}
           overrideDims={true}
         >
