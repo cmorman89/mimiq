@@ -2,7 +2,7 @@ import { FaWandMagicSparkles } from "react-icons/fa6";
 import { Card } from "../../../components/Card";
 import { FaList, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-import { Button } from "../../../components/Button";
+import { FormValues } from "../../../types/blog";
 
 /**
  * A form component for generating blog content with topic selection and input options.
@@ -25,20 +25,12 @@ import { Button } from "../../../components/Button";
 export const BlogTopicForm = ({
   formValues,
   setFormValues,
-  handleGenerate,
-  isGenerating,
 }: {
-  formValues: {
-    topic: string;
-    details: string;
-    keywords: string[];
-  };
-  setFormValues: (formValues: { topic: string; details: string; keywords: string[] }) => void;
-  handleGenerate: () => void;
-  isGenerating: boolean;
+  formValues: FormValues;
+  setFormValues: (formValues: FormValues) => void;
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>("");
-  
+
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
   };
@@ -50,8 +42,13 @@ export const BlogTopicForm = ({
 
   const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value.split(",").map((keyword) => keyword.trim()) });
+    setFormValues({
+      ...formValues,
+      [name]: value.split(",").map((keyword) => keyword.trim()),
+    });
   };
+
+
 
   return (
     <div
@@ -190,7 +187,9 @@ export const BlogTopicForm = ({
                 <div className="flex">
                   <FaTimes
                     className={`${
-                      formValues.keywords.length > 0 ? "opacity-100" : "opacity-0"
+                      formValues.keywords.length > 0
+                        ? "opacity-100"
+                        : "opacity-0"
                     } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
                     onClick={() =>
                       setFormValues({ ...formValues, keywords: [] })
@@ -200,13 +199,6 @@ export const BlogTopicForm = ({
               </div>
             </Card>
           </div>
-          <Button
-            type={isGenerating ? "disabled" : "accent"}
-            className="w-full"
-            onClick={handleGenerate}
-          >
-            {isGenerating ? "Generating..." : "Generate Blog"}
-          </Button>
         </div>
       )}
     </div>
