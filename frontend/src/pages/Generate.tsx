@@ -53,7 +53,7 @@ export const Generate = ({
     keywords: [],
   });
 
-  const { generatedBlog, isGenerating, handleGenerate, handleCopy } =
+  const { generatedBlog, isGenerating, handleGenerate } =
     useBlogGeneration();
 
   const handleGenerateClick = () => {
