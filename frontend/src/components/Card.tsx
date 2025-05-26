@@ -27,6 +27,7 @@ export const Card = ({
   transparent = true,
   onClick = () => {},
   overrideDims = false,
+  style = {},
 }: {
   children?: React.ReactNode;
   className?: string;
@@ -35,6 +36,7 @@ export const Card = ({
   transparent?: boolean;
   onClick?: () => void;
   overrideDims?: boolean;
+  style?: React.CSSProperties;
 }) => {
   const bgColor =
     type === "light"
@@ -55,6 +57,7 @@ export const Card = ({
         overrideDims ? "" : "w-full h-full"
       } rounded-xl border border-white/10 ${bgColor} backdrop-blur-md ${paddingClass} ${className} shadow-lg mimiq-scrollbar`}
       onClick={onClick}
+      style={style}
     >
       {children}
     </div>
