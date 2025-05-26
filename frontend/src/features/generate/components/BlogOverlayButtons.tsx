@@ -43,6 +43,9 @@ export const BlogOverlayButtons = ({
       setScrollUpVisible(window.scrollY > window.innerHeight * 0.5);
     };
     window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   return createPortal(
