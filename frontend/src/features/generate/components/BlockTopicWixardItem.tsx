@@ -16,22 +16,37 @@ export const BlockTopicWixardItem = ({
   const [contentHeight, setContentHeight] = useState<number>(0);
 
   useEffect(() => {
-    if (contentRef.current) {
-      setContentHeight(contentRef.current.scrollHeight);
-    }
+    const updateHeight = () => {
+      if (contentRef.current) {
+        setContentHeight(contentRef.current.scrollHeight);
+      }
+    };
+
+    // Initial height calculation
+    updateHeight();
+
+    // Add resize listener
+    window.addEventListener("resize", updateHeight);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("resize", updateHeight);
+    };
   }, []);
 
   return (
-    <div
-    // className="transition-all duration-300 ease-in-out overflow-hidden"
-    // style={{
-    //   maxHeight: isOpen ? `${contentHeight + 100}px` : "200px",
-    // }}
+    <Card
+      type="dark"
+      padding="tight"
+      className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px]"
+      style={{
+        maxHeight: isOpen ? `${contentHeight + 100}px` : "",
+      }}
     >
-      <Card
-        type="dark"
-        padding="tight"
-        className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px]"
+      <div
+        className={`flex flex-col w-full gap-4 relative overflow-hidden ${
+          !isOpen && "fade-mask"
+        }`}
         style={{
           maxHeight: isOpen ? `${contentHeight + 100}px` : "",
         }}
@@ -64,7 +79,9 @@ export const BlockTopicWixardItem = ({
             overrideDims={true}
           >
             <span className="text-sm text-gray-400 px-2">Title:</span>
-            <h4 className="text-heading-2 text-sm font-semibold">{item.title}</h4>
+            <h4 className="text-heading-2 text-sm font-semibold">
+              {item.title}
+            </h4>
           </Card>
           {/* Keyword Chips*/}
           <Card
@@ -122,10 +139,7 @@ export const BlockTopicWixardItem = ({
             </div>
           </Card>
         </div>
-        {!isOpen && (
-          <div className="absolute bottom-0 left-0 w-full bg-gradient-to-b from-transparent to-black/50 h-10 z-20"></div>
-        )}
-      </Card>
-    </div>
+      </div>
+    </Card>
   );
 };
