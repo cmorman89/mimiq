@@ -160,7 +160,7 @@ export const Generate = ({
   const stepDescriptions = steps.map((step) => step.description);
   const stepComponents = steps.map((step) => step.component);
 
-  const useContent = (step: number, isWizard: boolean) => {
+  const useContent = (step: number, isWizard: boolean | null) => {
     if (isWizard) {
       return <BlogTopicWizardMenu />;
     }

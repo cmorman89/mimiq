@@ -34,12 +34,11 @@ export const BlogTopicForm = ({
   isWizard?: boolean;
   setIsWizard?: (isWizard: boolean) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>(
-    isWizard ? "wizard" : "manual"
-  );
+  const [initialChoice, setInitialChoice] = useState<boolean>(false);
 
-  const handleOptionClick = (option: string) => {
-    setSelectedOption(option);
+  const handleOptionClick = (wizard: boolean = false) => {
+    setInitialChoice(true);
+    setIsWizard?.(wizard);
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,18 +57,18 @@ export const BlogTopicForm = ({
   return (
     <div
       className={`flex flex-col ${
-        selectedOption === ""
+        initialChoice === false
           ? "items-center justify-center"
           : "items-start justify-start"
       } h-full`}
     >
-      {selectedOption === "" ? (
+      {initialChoice === false ? (
         <div className="flex flex-col gap-4 px-4">
           <Card
             type="dark"
             padding="tight"
             className="flex items-center gap-4 overflow-hidden transition-all duration-300 border-orange-700 cursor-pointer hover:scale-105 bg-orange-400/80 bg-gradient-to-r from-transparent to-rose-400/80"
-            onClick={() => handleOptionClick("wizard")}
+            onClick={() => handleOptionClick(true)}
           >
             <FaWandMagicSparkles className="text-4xl text-rose-950" />
             <div className="flex flex-col gap-1 pl-4 overflow-hidden border-l-2 border-rose-900">
@@ -86,7 +85,7 @@ export const BlogTopicForm = ({
             type="dark"
             padding="tight"
             className="flex items-center gap-4 transition-all duration-300 cursor-pointer hover:scale-105"
-            onClick={() => handleOptionClick("manual")}
+            onClick={() => handleOptionClick(false)}
           >
             <FaList className="text-4xl text-gray-400" />
             <div className="flex flex-col gap-1 pl-4 border-l-2 border-gray-700">
@@ -99,8 +98,8 @@ export const BlogTopicForm = ({
         </div>
       ) : (
         <div className="flex flex-col w-full gap-4">
-          {selectedOption === "wizard" && <BlogTopicWizardMenu />}
-          {selectedOption === "manual" && (
+          {isWizard === true && <BlogTopicWizardMenu />}
+          {isWizard === false && (
             <div className="flex flex-col gap-4">
               <Card
                 type="dark"
