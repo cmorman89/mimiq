@@ -47,6 +47,15 @@ async def root():
     return {"message": "Welcome to Mimiq API"}
 
 
-@app.on_event("shutdown")
-async def shutdown_event():
-    await llm_service.close()
+@app.get("/health")
+async def health():
+    health = {
+        "status": "ok",
+        "CORS_ORIGINS": get_cors_origins(),
+    }
+    return health
+
+
+# @app.on_event("shutdown")
+# async def shutdown_event():
+#     await llm_service.close()
