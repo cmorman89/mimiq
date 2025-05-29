@@ -88,6 +88,17 @@ def generate_blog(
     return chain.stream(input_data) if stream else chain.invoke(input_data)
 
 
+class BlogTopicIdeas(BaseModel):
+    topic: str
+    title: str = Field(default="")
+    details: str = Field(default="")
+    sections: list[str] = Field(default=[])
+    keywords: list[str] = Field(default=[])
+
+
+class BlogTopicIdeasResponse(BaseModel):
+    content: list[BlogTopicIdeas]
+
 # Testing/demo purposes
 if __name__ == "__main__":
     BLOG_TOPIC = "The future of AI"
