@@ -54,7 +54,7 @@ export const Generate = ({
     keywords: [],
   });
 
-  const { generatedBlog, isGenerating, handleGenerate } = useBlogGeneration();
+  const { generatedBlog, isGenerating, handleGenerate, setGeneratedBlog } = useBlogGeneration();
 
   const handleGenerateClick = () => {
     if (formValues.topic === "" || isGenerating) {
@@ -240,6 +240,7 @@ export const Generate = ({
         {/* Right Side */}
         <BlogCard
           generatedBlog={generatedBlog}
+          setGeneratedBlog={setGeneratedBlog}
           isGenerating={isGenerating}
           wordCount={wordCount}
           expanded={expanded}

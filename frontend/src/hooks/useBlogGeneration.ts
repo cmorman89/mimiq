@@ -3,6 +3,7 @@ import { FormValues } from "../types/blog";
 
 interface UseBlogGenerationReturn {
   generatedBlog: string;
+  setGeneratedBlog: (blog: string) => void;
   isGenerating: boolean;
   handleGenerate: (formValues: FormValues) => Promise<void>;
   handleCopy: () => void;
@@ -56,6 +57,7 @@ export const useBlogGeneration = (): UseBlogGenerationReturn => {
   return {
     generatedBlog,
     isGenerating,
+    setGeneratedBlog,
     handleGenerate,
     handleCopy,
   };

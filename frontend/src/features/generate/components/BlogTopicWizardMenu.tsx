@@ -68,7 +68,7 @@ export const BlogTopicWizardMenu = () => {
               </label>
               <p className="text-xs text-gray-500">(Optional)</p>
             </div>
-            <div className="flex flex-1">
+            <div className="flex flex-1 relative">
               <textarea
                 id="direction"
                 name="direction"
@@ -79,12 +79,11 @@ export const BlogTopicWizardMenu = () => {
                 value={direction}
                 onChange={handleSetDirection}
               />
-            </div>
-            <div className="flex">
+
               <FaTimes
                 className={`${
                   direction ? "opacity-100" : "opacity-0"
-                } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
+                } text-gray-400 text-sm cursor-pointer transition-all duration-300 absolute right-2 top-2`}
                 onClick={() => setDirection("")}
               />
             </div>
@@ -105,10 +104,10 @@ export const BlogTopicWizardMenu = () => {
             </Button>
             <Button
               type={isGenerating ? "disabled" : "primary"}
-              className="flex-0 text-sm"
+              className="flex-0 text-sm hover:bg-red-950"
               onClick={handleClear}
             >
-              Clear
+              Clear Results
             </Button>
           </div>
         </Card>

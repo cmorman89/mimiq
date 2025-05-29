@@ -8,6 +8,7 @@ import Markdown from "react-markdown";
 
 export const BlogCard = ({
   generatedBlog,
+  setGeneratedBlog,
   isGenerating,
   wordCount,
   expanded,
@@ -15,6 +16,7 @@ export const BlogCard = ({
   setShowModelList,
 }: {
   generatedBlog: string;
+  setGeneratedBlog: (blog: string) => void;
   isGenerating: boolean;
   wordCount: number;
   expanded: boolean;
@@ -23,6 +25,10 @@ export const BlogCard = ({
 }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(generatedBlog);
+  };
+
+  const handleClear = () => {
+    setGeneratedBlog("");
   };
 
   return (
@@ -36,6 +42,10 @@ export const BlogCard = ({
         <div className="flex items-center gap-2">
           <FaExpandArrowsAlt onClick={() => setExpanded(!expanded)} />
           <h2 className="text-lg font-semibold">AI Output</h2>
+          <ModelBadge
+            activeModel={"GPT-4.1"}
+            onClick={() => setShowModelList(true)}
+          />
         </div>
         <div
           className={`${
@@ -45,10 +55,14 @@ export const BlogCard = ({
           {wordCount} words
         </div>
         <div className="flex flex-col transition-all duration-300">
-          <ModelBadge
-            activeModel={"GPT-4.1"}
-            onClick={() => setShowModelList(true)}
-          />
+          <Button
+            type="primary"
+            onClick={handleClear}
+            itemsRow={true}
+            className="opacity-50 hover:opacity-100 transition-opacity duration-300 items-center justify-center text-sm "
+          >
+            Clear Blog
+          </Button>
         </div>
         {generatedBlog && (
           <div className="flex items-center gap-2 absolute bottom-0 right-0 bg-gray-950/50 backdrop-blur-lg p-2 rounded-lg">
