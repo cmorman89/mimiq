@@ -12,6 +12,48 @@ export interface BlogTopicWizardResultItem {
   keywords: string[];
 }
 
+export const useBlogTopicWizard = () => {
+  const [direction, setDirection] = useState<string>("");
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [result, setResult] = useState<string>("");
+  const [ideas, setIdeas] = useState<BlogTopicWizardResultItem[]>([]);
+  
+  const apiEndpoint = "http://localhost:8000/api/v1/generate/topics";
+  const handleGenerate = async (direction: string = "") => {
+    setIsGenerating(true);
+    setDirection(direction);
+    const response = await fetch(apiEndpoint, {
+      method: "POST",
+      body: JSON.stringify({ direction }),
+    });
+    const data = await response.json();
+    setResult(data);
+    setIsGenerating(false);
+  };
+
+  const parseResult = (result: string) => {
+    try {
+      const parsedResult = JSON.parse(result);
+      setIdeas(parsedResult);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    parseResult(result);
+  }, [result]);
+
+  return {
+    direction,
+    setDirection,
+    isGenerating,
+    result,
+    ideas,
+    handleGenerate,
+  };
+}
+
 export const BlogTopicWizardMenu = () => {
   const example_result = {
     content: [
