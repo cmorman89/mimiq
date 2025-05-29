@@ -1,6 +1,6 @@
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
-import { FaTimes } from "react-icons/fa";
+import { FaSpinner, FaTimes } from "react-icons/fa";
 import { BlogTopicWizardResults } from "./BlogTopicWizardResults";
 import { useBlogTopicWizard } from "../../../hooks/useBlogTopicWizard";
 
@@ -58,13 +58,16 @@ export const BlogTopicWizardMenu = () => {
           padding="tight"
           className="flex flex-col w-full gap-2"
         >
-          <div className="flex flex-col md:flex-row justify-between w-full gap-2 rounded-2xl min-h-20">
-            <label
-              htmlFor="topic"
-              className="text-sm text-gray-400 whitespace-nowrap min-w-20 pt-2"
-            >
-              Have a direction?
-            </label>
+          <div className="flex flex-col md: justify-between w-full gap-2 rounded-2xl min-h-20">
+            <div className="flex gap-2 items-baseline">
+              <label
+                htmlFor="topic"
+                className="text-lg font-semibold text-gray-200 whitespace-nowrap min-w-20 pt-2"
+              >
+                Have an idea in mind?
+              </label>
+              <p className="text-xs text-gray-500">(Optional)</p>
+            </div>
             <div className="flex flex-1">
               <textarea
                 id="direction"
@@ -92,7 +95,13 @@ export const BlogTopicWizardMenu = () => {
               className="flex-1 text-sm"
               onClick={() => handleGenerate(direction)}
             >
-              {isGenerating ? "Generating..." : "Generate"}
+              {isGenerating ? (
+                <div className="flex items-center gap-2">
+                  <FaSpinner className="animate-spin" />
+                  Generating...
+                </div>
+              ) : (
+                "Generate")}
             </Button>
             <Button
               type={isGenerating ? "disabled" : "primary"}
