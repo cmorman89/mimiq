@@ -10,6 +10,7 @@ import { useBlogGeneration } from "../hooks/useBlogGeneration";
 import { FormValues } from "../types/blog";
 import { BlogOverlayButtons } from "../features/generate/components/BlogOverlayButtons";
 import { BlogCard } from "../features/generate/components/BlogCard";
+import { BlogTopicWizardMenu } from "../features/generate/components/BlogTopicWizardMenu";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.
@@ -45,7 +46,7 @@ export const Generate = ({
   const [activeStep, setActiveStep] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [scrollInterupted, setScrollInterupted] = useState(false);
-
+  const [isWizard, setIsWizard] = useState(false);
   // Form and Content States
   const [formValues, setFormValues] = useState<FormValues>({
     topic: "",
@@ -120,7 +121,12 @@ export const Generate = ({
       name: "Blog Topic",
       description: "Set the topic and details for your blog post.",
       component: (
-        <BlogTopicForm formValues={formValues} setFormValues={setFormValues} />
+        <BlogTopicForm
+          formValues={formValues}
+          setFormValues={setFormValues}
+          isWizard={isWizard}
+          setIsWizard={setIsWizard}
+        />
       ),
     },
     {
@@ -154,7 +160,10 @@ export const Generate = ({
   const stepDescriptions = steps.map((step) => step.description);
   const stepComponents = steps.map((step) => step.component);
 
-  const useContent = (step: number) => {
+  const useContent = (step: number, isWizard: boolean) => {
+    if (isWizard) {
+      return <BlogTopicWizardMenu />;
+    }
     return step < steps.length ? stepComponents[step] : null;
   };
 
@@ -178,20 +187,24 @@ export const Generate = ({
             expanded
               ? "h-px xl:w-1/12 opacity-20 overflow-hidden"
               : "xl:w-1/2 opacity-100"
-          } gap-2 h-full transition-all duration-300`}
+            } gap-2 h-full transition-all duration-300`}
+          padding="tight"
           overrideDims={true}
         >
-          <div className="flex justify-between">
+          <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold">
               {activeStep + 1}. {stepNames[activeStep]}
             </h2>
+            <Button type="primary" onClick={() => setIsWizard(!isWizard)} className="text-xs text-gray-400">
+              {isWizard ? "Manual" : "Wizard"}
+            </Button>
           </div>
           <div className="w-full h-px bg-gray-700 "></div>
           <div className="flex flex-col gap-2">
             <div className="mb-2 text-sm text-gray-400">
               {stepDescriptions[activeStep]}
             </div>
-            {useContent(activeStep)}
+            {useContent(activeStep, isWizard)}
             <div className="w-full h-px bg-gray-700 my-4"></div>
             <div className="flex items-center gap-2 justify-between">
               {/* Generate Button */}
