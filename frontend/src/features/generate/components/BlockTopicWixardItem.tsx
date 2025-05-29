@@ -38,7 +38,7 @@ export const BlockTopicWixardItem = ({
     <Card
       type="dark"
       padding="tight"
-      className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px]"
+      className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px] p-2"
       style={{
         maxHeight: isOpen ? `${contentHeight + 100}px` : "",
       }}

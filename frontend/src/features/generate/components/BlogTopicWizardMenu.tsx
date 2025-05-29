@@ -151,9 +151,9 @@ export const BlogTopicWizardMenu = () => {
   const { direction, setDirection } =
     useBlogTopicWizard();
   return (
-    <div className="flex flex-col w-full gap-4">
-      <Card type="dark" padding="tight" className="flex flex-col w-full gap-2">
-        <div className="flex items-center justify-between w-full gap-2 rounded-2xl">
+    <div className="flex flex-col w-full gap-2 lg:p-2 max-w-3xl mx-auto">
+         <div className="flex items-center justify-between w-full gap-2">
+        {/*
           <h3 className="text-lg font-semibold">Blog Topic Wizard</h3>
           <div className="flex items-center gap-2">
             <Button type="primary">Generate</Button>
@@ -166,25 +166,25 @@ export const BlogTopicWizardMenu = () => {
             <p className="text-sm text-gray-400">
               This is a wizard that will help you generate a blog topic.
             </p>
-          </div>
+          </div> */}
           <Card
             type="dark"
             padding="tight"
             className="flex flex-col w-full gap-2"
           >
-            <div className="flex lg:flex-col justify-between w-full gap-2 rounded-2xl min-h-20">
+            <div className="flex flex-col md:flex-row justify-between w-full gap-2 rounded-2xl min-h-20">
               <label
                 htmlFor="topic"
                 className="text-sm text-gray-400 whitespace-nowrap min-w-20 pt-2"
               >
                 Have a direction?
               </label>
-              <div className="flex gap-2 flex-1">
+              <div className="flex flex-1">
                 <textarea
                   id="direction"
                   name="direction"
                   placeholder="Enter a direction for the blog topic"
-                  className="h-full w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600 min-h-18"
+                  className="h-full w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600 min-h-18 border border-gray-800"
                   rows={4}
                   autoComplete="off"
                   value={direction}
@@ -202,8 +202,7 @@ export const BlogTopicWizardMenu = () => {
             </div>
           </Card>
         </div>
-        <BlogTopicWizardResults content={example_result.content} />
-      </Card>
+      <BlogTopicWizardResults content={example_result.content} />
     </div>
   );
 };

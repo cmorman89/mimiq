@@ -26,11 +26,17 @@ import { BlogTopicWizardMenu } from "./BlogTopicWizardMenu";
 export const BlogTopicForm = ({
   formValues,
   setFormValues,
+  isWizard,
+  setIsWizard,
 }: {
   formValues: FormValues;
   setFormValues: (formValues: FormValues) => void;
+  isWizard?: boolean;
+  setIsWizard?: (isWizard: boolean) => void;
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>("wizard");
+  const [selectedOption, setSelectedOption] = useState<string>(
+    isWizard ? "wizard" : "manual"
+  );
 
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -92,7 +98,7 @@ export const BlogTopicForm = ({
           </Card>
         </div>
       ) : (
-        <div className="flex flex-col w-full gap-4 px-4">
+        <div className="flex flex-col w-full gap-4">
           {selectedOption === "wizard" && <BlogTopicWizardMenu />}
           {selectedOption === "manual" && (
             <div className="flex flex-col gap-4">

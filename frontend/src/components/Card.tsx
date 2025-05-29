@@ -49,7 +49,7 @@ export const Card = ({
   const paddingClass = {
     default: "p-6",
     tight: "px-6 py-3",
-    none: "px-6 py-0",
+    none: "",
   }[padding];
   return (
     <div
