@@ -10,7 +10,10 @@ import { useBlogGeneration } from "../hooks/useBlogGeneration";
 import { FormValues } from "../types/blog";
 import { BlogOverlayButtons } from "../features/generate/components/BlogOverlayButtons";
 import { BlogCard } from "../features/generate/components/BlogCard";
-import { BlogTopicWizardMenu } from "../features/generate/components/BlogTopicWizardMenu";
+import {
+  BlogTopicWizardMenu,
+  BlogTopicWizardResultItem,
+} from "../features/generate/components/BlogTopicWizardMenu";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.
@@ -47,14 +50,29 @@ export const Generate = ({
   const [wordCount, setWordCount] = useState(0);
   const [scrollInterupted, setScrollInterupted] = useState(false);
   const [isWizard, setIsWizard] = useState(false);
+  const [initialChoice, setInitialChoice] = useState(false);
   // Form and Content States
   const [formValues, setFormValues] = useState<FormValues>({
     topic: "",
+    title: "",
     details: "",
     keywords: [],
+    sections: [],
   });
 
-  const { generatedBlog, isGenerating, handleGenerate, setGeneratedBlog } = useBlogGeneration();
+  const { generatedBlog, isGenerating, handleGenerate, setGeneratedBlog } =
+    useBlogGeneration();
+
+  const handleItemOnClick = (
+    item: BlogTopicWizardResultItem,
+    label: keyof BlogTopicWizardResultItem
+  ) => {
+    if (label === "title") {
+      label = "topic";
+    }
+    setFormValues({ ...formValues, [label]: item[label] });
+    setIsWizard(false);
+  };
 
   const handleGenerateClick = () => {
     if (formValues.topic === "" || isGenerating) {
@@ -126,6 +144,9 @@ export const Generate = ({
           setFormValues={setFormValues}
           isWizard={isWizard}
           setIsWizard={setIsWizard}
+          handleItemOnClick={handleItemOnClick}
+          initialChoice={initialChoice}
+          setInitialChoice={setInitialChoice}
         />
       ),
     },
@@ -162,7 +183,7 @@ export const Generate = ({
 
   const useContent = (step: number, isWizard: boolean | null) => {
     if (isWizard) {
-      return <BlogTopicWizardMenu />;
+      return <BlogTopicWizardMenu handleItemOnClick={handleItemOnClick} />;
     }
     return step < steps.length ? stepComponents[step] : null;
   };
@@ -187,7 +208,7 @@ export const Generate = ({
             expanded
               ? "h-px xl:w-1/12 opacity-20 overflow-hidden"
               : "xl:w-1/2 opacity-100"
-            } gap-2 h-full transition-all duration-300`}
+          } gap-2 h-full transition-all duration-300`}
           padding="tight"
           overrideDims={true}
         >
@@ -195,7 +216,11 @@ export const Generate = ({
             <h2 className="text-lg font-semibold">
               {activeStep + 1}. {stepNames[activeStep]}
             </h2>
-            <Button type="primary" onClick={() => setIsWizard(!isWizard)} className="text-xs text-gray-400">
+            <Button
+              type="primary"
+              onClick={() => setIsWizard(!isWizard)}
+              className="text-xs text-gray-400"
+            >
               {isWizard ? "Manual" : "Wizard"}
             </Button>
           </div>

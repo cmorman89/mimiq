@@ -1,15 +1,18 @@
-import { FaArrowDown, FaCaretDown } from "react-icons/fa";
+import { FaArrowDown, FaCaretDown, FaPlus } from "react-icons/fa";
 import { Card } from "../../../components/Card";
 import { BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
 import { useState, useRef, useEffect } from "react";
 import { toTitleCase } from "../../../utils/stringUtils";
+import { Button } from "../../../components/Button";
 
 export const BlockTopicWixardItem = ({
   item,
   index,
+  handleItemOnClick,
 }: {
   item: BlogTopicWizardResultItem;
   index: number;
+  handleItemOnClick: (item: BlogTopicWizardResultItem, label: keyof BlogTopicWizardResultItem) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -24,7 +27,7 @@ export const BlockTopicWixardItem = ({
 
     // Initial height calculation
     updateHeight();
-
+    
     // Add resize listener
     window.addEventListener("resize", updateHeight);
 
@@ -56,6 +59,7 @@ export const BlockTopicWixardItem = ({
           <h3 className="text-heading-1 text-xl">
             {index + 1}. {item.topic}
           </h3>
+
           {/* Expand Button */}
           <div
             className="flex-0 flex items-center cursor-pointer"
@@ -69,20 +73,35 @@ export const BlockTopicWixardItem = ({
           </div>
         </div>
         <hr className="w-full border-rose-400/50" />
+
         {/* Content panel */}
         <div ref={contentRef} className="flex flex-col flex-1 gap-4">
           {/* Title */}
           <Card
             type="light"
             padding="tight"
-            className="flex w-full gap-2 items-center"
+            className="flex w-full gap-2 items-center justify-between"
             overrideDims={true}
           >
+            <div className="flex flex-1 gap-2 items-center">
             <span className="text-sm text-gray-400 px-2">Title:</span>
-            <h4 className="text-heading-2 text-sm font-semibold">
-              {item.title}
-            </h4>
+              <h4 className="text-heading-2 text-sm font-semibold">
+                {item.title}
+              </h4>
+            </div>
+            <Button
+              type="primary"
+              onClick={() => {
+                handleItemOnClick(item, "title");
+              }}
+            >
+              <div className="text-xs text-gray-400 flex items-center gap-1">
+                <FaPlus className="text-xs" />
+                <span>Use this title</span>
+              </div>
+            </Button>
           </Card>
+
           {/* Keyword Chips*/}
           <Card
             type="light"

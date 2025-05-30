@@ -1,9 +1,8 @@
 import { FaWandMagicSparkles } from "react-icons/fa6";
 import { Card } from "../../../components/Card";
 import { FaList, FaTimes } from "react-icons/fa";
-import { useState } from "react";
 import { FormValues } from "../../../types/blog";
-import { BlogTopicWizardMenu } from "./BlogTopicWizardMenu";
+import { BlogTopicWizardMenu, BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
 
 /**
  * A form component for generating blog content with topic selection and input options.
@@ -28,13 +27,21 @@ export const BlogTopicForm = ({
   setFormValues,
   isWizard,
   setIsWizard,
+  handleItemOnClick,
+  initialChoice,
+  setInitialChoice,
 }: {
   formValues: FormValues;
   setFormValues: (formValues: FormValues) => void;
   isWizard?: boolean;
   setIsWizard?: (isWizard: boolean) => void;
+  handleItemOnClick: (
+    item: BlogTopicWizardResultItem,
+    label: keyof BlogTopicWizardResultItem
+  ) => void;
+  initialChoice: boolean;
+  setInitialChoice: (initialChoice: boolean) => void;
 }) => {
-  const [initialChoice, setInitialChoice] = useState<boolean>(false);
 
   const handleOptionClick = (wizard: boolean = false) => {
     setInitialChoice(true);
@@ -98,7 +105,9 @@ export const BlogTopicForm = ({
         </div>
       ) : (
         <div className="flex flex-col w-full gap-4">
-          {isWizard === true && <BlogTopicWizardMenu />}
+          {isWizard === true && (
+            <BlogTopicWizardMenu handleItemOnClick={handleItemOnClick} />
+          )}
           {isWizard === false && (
             <div className="flex flex-col gap-4">
               <Card
