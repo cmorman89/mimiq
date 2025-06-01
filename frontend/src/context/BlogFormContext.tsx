@@ -32,7 +32,7 @@ const initialState: BlogFormState = {
 };
 
 // Main idea section
-type BlogIdeaState = {
+export type BlogIdeaState = {
   topic: string;
   title: string;
   details: string;
@@ -40,19 +40,19 @@ type BlogIdeaState = {
 };
 
 // Structure section
-type BlogStructureItemState = {
+export type BlogStructureItemState = {
   title: string;
   description: string;
   keywords: string[];
 };
 
-type BlogStructureState = {
+export type BlogStructureState = {
   length: number;
   sections: BlogStructureItemState[];
 };
 
 // Style section
-type BlogStyleState = {
+export type BlogStyleState = {
   tone: string;
   purpose: string;
   audience: string;
@@ -61,32 +61,35 @@ type BlogStyleState = {
 };
 
 // Example section
-type BlogExampleState = {
+export type BlogExampleState = {
   examples: string[];
 };
 
 // Main form state
-type BlogFormState = {
+export type BlogFormState = {
   idea: BlogIdeaState;
   structure: BlogStructureState;
   style: BlogStyleState;
   example: BlogExampleState;
 };
 
-// Action types
-type BlogFormAction = {
+export type BlogFormAction = {
   type: "UPDATE_FIELD";
   payload: {
     field: keyof BlogFormState;
-    subfield?: keyof BlogFormState[keyof BlogFormState];
-    value: string | string[] | number;
+    subfield: string;
+    value: string | string[] | number | BlogStructureItemState[];
   };
 };
 
-// Context type
-type BlogFormContextType = {
+export type BlogFormContextType = {
   state: BlogFormState;
   dispatch: Dispatch<BlogFormAction>;
+  handleUpdateField: (
+    field: keyof BlogFormState,
+    subfield: string,
+    value: string | string[] | number | BlogStructureItemState[]
+  ) => void;
 };
 
 export const BlogFormContext = createContext<BlogFormContextType | undefined>(
@@ -96,18 +99,12 @@ export const BlogFormContext = createContext<BlogFormContextType | undefined>(
 const blogFormReducer = (state: BlogFormState, action: BlogFormAction) => {
   switch (action.type) {
     case "UPDATE_FIELD":
-      if (action.payload.field && action.payload.subfield) {
-        return {
-          ...state,
-          [action.payload.field]: {
-            ...state[action.payload.field],
-            [action.payload.subfield]: action.payload.value,
-          },
-        };
-      }
       return {
         ...state,
-        [action.payload.field]: action.payload.value,
+        [action.payload.field]: {
+          ...state[action.payload.field],
+          [action.payload.subfield]: action.payload.value,
+        },
       };
     default:
       return state;
@@ -121,8 +118,16 @@ export const BlogFormProvider = ({
 }) => {
   const [state, dispatch] = useReducer(blogFormReducer, initialState);
 
+  const handleUpdateField = (
+    field: keyof BlogFormState,
+    subfield: string,
+    value: string | string[] | number | BlogStructureItemState[]
+  ) => {
+    dispatch({ type: "UPDATE_FIELD", payload: { field, subfield, value } });
+  };
+
   return (
-    <BlogFormContext.Provider value={{ state, dispatch }}>
+    <BlogFormContext.Provider value={{ state, dispatch, handleUpdateField }}>
       {children}
     </BlogFormContext.Provider>
   );
