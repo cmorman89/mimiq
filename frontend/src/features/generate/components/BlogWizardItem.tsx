@@ -19,11 +19,16 @@ export const BlogWizardItem = ({
   ) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const titleHeightRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState<number>(0);
+  const [titleHeight, setTitleHeight] = useState<number>(0);
 
   useEffect(() => {
     const updateHeight = () => {
+      if (titleHeightRef.current) {
+        setTitleHeight(titleHeightRef.current.scrollHeight);
+      }
       if (contentRef.current) {
         setContentHeight(contentRef.current.scrollHeight);
       }
@@ -39,7 +44,7 @@ export const BlogWizardItem = ({
     return () => {
       window.removeEventListener("resize", updateHeight);
     };
-  }, []);
+  }, [item]);
 
   return (
     <Card
@@ -47,19 +52,19 @@ export const BlogWizardItem = ({
       padding="tight"
       className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px] p-2"
       style={{
-        maxHeight: isOpen ? `${contentHeight + 100}px` : "",
+        maxHeight: isOpen ? `${contentHeight + 100}px` : `${titleHeight + 100}px`,
       }}
     >
       <div
-        className={`flex flex-col w-full gap-4 relative overflow-hidden ${
+        className={`flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out ${
           !isOpen && "fade-mask"
         }`}
         style={{
-          maxHeight: isOpen ? `${contentHeight + 100}px` : "",
+          maxHeight: isOpen ? `${contentHeight + 100}px` : `${titleHeight}px`,
         }}
       >
         {/* Header */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between" ref={titleHeightRef}>
           <h3 className="text-heading-1 text-xl">
             {index + 1}. {item.topic}
           </h3>
