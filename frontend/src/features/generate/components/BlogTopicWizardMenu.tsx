@@ -27,7 +27,6 @@ export const BlogTopicWizardMenu = () => {
   const handleSetDirection = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setDirection(value);
-    console.log(value);
   };
   
   return (
