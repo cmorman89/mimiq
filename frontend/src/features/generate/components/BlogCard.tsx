@@ -1,6 +1,5 @@
 import { Card } from "../../../components/Card";
 import { FaExpandArrowsAlt } from "react-icons/fa";
-import { ModelBadge } from "../../../features/models/ModelBadge";
 import { Button } from "../../../components/Button";
 import { FaCopy } from "react-icons/fa";
 import { BlogSkeleton } from "../../../components/BlogSkeleton";
