@@ -24,7 +24,7 @@ export const BlogTopicWizardResults = ({
     <>
       {content.map((item, index) => (
         <BlogWizardItem
-          key={index}
+          key={item.topic}
           item={item}
           index={index}
           handleItemOnClick={handleItemOnClick}
