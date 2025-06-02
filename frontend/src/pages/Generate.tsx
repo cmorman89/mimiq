@@ -45,7 +45,7 @@ export const Generate = ({
   const [expanded, setExpanded] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [wordCount, setWordCount] = useState(0);
-  const [scrollInterupted, setScrollInterupted] = useState(false);
+  const [scrollInterrupted, setScrollInterrupted] = useState(false);
   // // Form and Content States
   // const [formValues, setFormValues] = useState<FormValues>({
   //   topic: "",
@@ -71,7 +71,7 @@ export const Generate = ({
   // Event listeners for stop scrolling
   useEffect(() => {
     const handleStopScrolling = () => {
-      setScrollInterupted(true);
+      setScrollInterrupted(true);
     };
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === "ArrowUp" || e.key === "ArrowDown") {
@@ -93,7 +93,7 @@ export const Generate = ({
   // Auto scroll to bottom when generating
   useEffect(() => {
     if (generatedBlog && isGenerating) {
-      if (!scrollInterupted) {
+      if (!scrollInterrupted) {
         const scrollToBottom = () => {
           window.scrollTo({
             top: document.body.scrollHeight,
@@ -103,7 +103,7 @@ export const Generate = ({
         scrollToBottom();
       }
     }
-  }, [generatedBlog, isGenerating, scrollInterupted]);
+  }, [generatedBlog, isGenerating, scrollInterrupted]);
 
   interface Step {
     name: string;
@@ -175,7 +175,7 @@ export const Generate = ({
             <BlogActionMenu
               isGenerating={isGenerating}
               handleGenerate={handleGenerate}
-              setScrollInterupted={setScrollInterupted}
+              setScrollInterrupted={setScrollInterrupted}
               setActiveStep={setActiveStep}
               activeStep={activeStep}
             />
@@ -194,8 +194,8 @@ export const Generate = ({
       </BlogFormProvider>
       <BlogOverlayButtons
         isGenerating={isGenerating}
-        scrollInterupted={scrollInterupted}
-        setScrollInterupted={setScrollInterupted}
+        scrollInterrupted={scrollInterrupted}
+        setScrollInterrupted={setScrollInterrupted}
         generatedBlog={generatedBlog}
       />
     </PageContainer>

@@ -22,7 +22,7 @@ export const BlogActionMenu = ({
     if (state.idea.topic === "" || isGenerating) {
       return;
     }
-    setScrollInterupted(false);
+    setScrollInterrupted(false);
     handleGenerate(state);
   };
   return (

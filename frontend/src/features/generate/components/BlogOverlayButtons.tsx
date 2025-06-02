@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 
 export const BlogOverlayButtons = ({
   isGenerating,
-  scrollInterupted,
-  setScrollInterupted,
+  scrollInterrupted,
+  setScrollInterrupted,
   generatedBlog,
 }: {
   isGenerating: boolean;
-  scrollInterupted: boolean;
-  setScrollInterupted: (scrollInterupted: boolean) => void;
+  scrollInterrupted: boolean;
+  setScrollInterrupted: (scrollInterrupted: boolean) => void;
   generatedBlog: string;
 }) => {
   const handleCopy = () => {
@@ -50,11 +50,11 @@ export const BlogOverlayButtons = ({
 
   return createPortal(
     <div className="lg:hidden">
-      {isGenerating && scrollInterupted && (
+      {isGenerating && scrollInterrupted && (
         <div
           className="lg:hidden fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50  mr-2 opacity-50 hover:opacity-100 transition-opacity duration-300 aspect-square items-center justify-center rounded-full bg-gray-950/90 p-4"
           onClick={() => {
-            setScrollInterupted(false);
+            setScrollInterrupted(false);
           }}
         >
           <FaChevronDown className="text-3xl" />
@@ -68,7 +68,7 @@ export const BlogOverlayButtons = ({
               top: 0,
               behavior: "smooth",
             });
-            setScrollInterupted(true);
+            setScrollInterrupted(true);
             setScrollUpVisible(true);
           }}
           className={`${
@@ -84,7 +84,7 @@ export const BlogOverlayButtons = ({
             isCopied
               ? "opacity-100"
               : "opacity-50 hover:opacity-100 aspect-square"
-            }  items-center justify-center transition-all duration-300
+          }  items-center justify-center transition-all duration-300
           ${!copyVisible && "opacity-0"}`}
         >
           <FaCopy className="text-base" />
