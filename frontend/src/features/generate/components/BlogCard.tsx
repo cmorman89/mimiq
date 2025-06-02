@@ -13,7 +13,6 @@ export const BlogCard = ({
   wordCount,
   expanded,
   setExpanded,
-  setShowModelList,
 }: {
   generatedBlog: string;
   setGeneratedBlog: (blog: string) => void;
@@ -38,28 +37,26 @@ export const BlogCard = ({
       } gap-2 h-full overflow-y-hidden transition-all duration-300 pb-2`}
       overrideDims={true}
     >
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <FaExpandArrowsAlt onClick={() => setExpanded(!expanded)} />
-          <h2 className="text-lg font-semibold">AI Output</h2>
-          <ModelBadge
-            activeModel={"GPT-4.1"}
-            onClick={() => setShowModelList(true)}
-          />
-        </div>
-        <div
-          className={`${
-            wordCount > 1 ? "opacity-100" : "opacity-0"
-          } transition-opacity duration-1000 text-sm text-gray-400 rounded-full bg-gray-700 px-2 py-1 border border-white/10`}
-        >
-          {wordCount} words
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <div className="flex items-center gap-2">
+            <FaExpandArrowsAlt onClick={() => setExpanded(!expanded)} />
+            <h2 className="text-lg font-semibold whitespace-nowrap">AI Output</h2>
+          </div>
+          <div
+            className={`${
+              wordCount > 1 ? "opacity-100" : "opacity-0"
+            } flex items-center justify-center transition-opacity duration-1000 text-xs sm:text-sm text-gray-400 rounded-full bg-gray-700 px-2 py-1 border border-white/10`}
+          >
+            <span className="whitespace-nowrap">{wordCount} words</span>
+          </div>
         </div>
         <div className="flex flex-col transition-all duration-300">
           <Button
             type="primary"
             onClick={handleClear}
             itemsRow={true}
-            className="opacity-50 hover:opacity-100 transition-opacity duration-300 items-center justify-center text-sm "
+            className="opacity-50 hover:opacity-100 transition-opacity duration-300 items-center justify-center text-xs sm:text-sm !px-1"
           >
             Clear Blog
           </Button>
