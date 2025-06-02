@@ -28,7 +28,7 @@ export const PageContainer = ({ children }: { children: React.ReactNode }) => {
   return (
     <div
       id="page-container"
-      className="max-w-[1400px] h-full w-full mx-auto pt-32 px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col transition-all duration-300"
+      className="max-w-[1400px] h-full w-full mx-auto pt-32 px-4 md:px-6 xl:px-8 relative z-10 flex flex-col transition-all duration-300"
     >
       <Breadcrumbs breadcrumbs={breadcrumbs} isHome={isHome} />
       <div

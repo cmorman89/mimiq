@@ -3,13 +3,14 @@ import { PageContainer } from "../features/page_container/PageContainer";
 import { GenerateWorkflow } from "../features/generate/components/GenerateWorkflow";
 import { useState, useEffect } from "react";
 import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { UnderDev } from "../components/UnderDev";
-import { Button } from "../components/Button";
 import { useBlogGeneration } from "../hooks/useBlogGeneration";
-import { FormValues } from "../types/blog";
 import { BlogOverlayButtons } from "../features/generate/components/BlogOverlayButtons";
 import { BlogCard } from "../features/generate/components/BlogCard";
+import { BlogFormProvider } from "../context/BlogFormContext";
+import { BlogFormPanel } from "../features/generate/BlogFormPanel";
+import { BlogActionMenu } from "../features/generate/components/BlogActionMenu";
+import { Divider } from "../components/Divider";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.
@@ -44,25 +45,19 @@ export const Generate = ({
   const [expanded, setExpanded] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [wordCount, setWordCount] = useState(0);
-  const [scrollInterupted, setScrollInterupted] = useState(false);
+  const [scrollInterrupted, setScrollInterrupted] = useState(false);
+  // // Form and Content States
+  // const [formValues, setFormValues] = useState<FormValues>({
+  //   topic: "",
+  //   title: "",
+  //   details: "",
+  //   keywords: [],
+  //   sections: [],
+  // });
 
-  // Form and Content States
-  const [formValues, setFormValues] = useState<FormValues>({
-    topic: "",
-    details: "",
-    keywords: [],
-  });
-
-  const { generatedBlog, isGenerating, handleGenerate } =
+  const { generatedBlog, isGenerating, handleGenerate, setGeneratedBlog } =
     useBlogGeneration();
 
-  const handleGenerateClick = () => {
-    if (formValues.topic === "" || isGenerating) {
-      return;
-    }
-    setScrollInterupted(false);
-    handleGenerate(formValues);
-  };
   // Effects
   useEffect(() => {
     localStorage.setItem("generatedBlog", generatedBlog);
@@ -76,7 +71,7 @@ export const Generate = ({
   // Event listeners for stop scrolling
   useEffect(() => {
     const handleStopScrolling = () => {
-      setScrollInterupted(true);
+      setScrollInterrupted(true);
     };
     const handleKeydown = (e: KeyboardEvent) => {
       if (e.key === "ArrowUp" || e.key === "ArrowDown") {
@@ -98,7 +93,7 @@ export const Generate = ({
   // Auto scroll to bottom when generating
   useEffect(() => {
     if (generatedBlog && isGenerating) {
-      if (!scrollInterupted) {
+      if (!scrollInterrupted) {
         const scrollToBottom = () => {
           window.scrollTo({
             top: document.body.scrollHeight,
@@ -108,7 +103,7 @@ export const Generate = ({
         scrollToBottom();
       }
     }
-  }, [generatedBlog, isGenerating, scrollInterupted]);
+  }, [generatedBlog, isGenerating, scrollInterrupted]);
 
   interface Step {
     name: string;
@@ -120,9 +115,7 @@ export const Generate = ({
     {
       name: "Blog Topic",
       description: "Set the topic and details for your blog post.",
-      component: (
-        <BlogTopicForm formValues={formValues} setFormValues={setFormValues} />
-      ),
+      component: <BlogTopicForm />,
     },
     {
       name: "Blog Structure",
@@ -151,13 +144,6 @@ export const Generate = ({
     },
   ];
   // Content Components
-  const stepNames = steps.map((step) => step.name);
-  const stepDescriptions = steps.map((step) => step.description);
-  const stepComponents = steps.map((step) => step.component);
-
-  const useContent = (step: number) => {
-    return step < steps.length ? stepComponents[step] : null;
-  };
 
   return (
     <PageContainer>
@@ -165,80 +151,51 @@ export const Generate = ({
       <div className="flex flex-col gap-2">
         <Card className="flex flex-col">
           <GenerateWorkflow
-            steps={stepNames}
+            steps={steps.map((step) => step.name)}
             activeIndex={activeStep}
             onStepChange={setActiveStep}
           />
         </Card>
       </div>
       {/* Main Content */}
-      <div className="flex flex-col lg:flex-row gap-4 h-full w-full overflow-y-hidden justify-between">
-        {/* Left Side */}
-        <Card
-          className={`flex flex-col ${
-            expanded
-              ? "h-px lg:w-1/12 opacity-20 overflow-hidden"
-              : "lg:w-1/3 opacity-100"
-          } gap-2 h-full transition-all duration-300`}
-          overrideDims={true}
-        >
-          <div className="flex justify-between">
-            <h2 className="text-lg font-semibold">
-              {activeStep + 1}. {stepNames[activeStep]}
-            </h2>
-          </div>
-          <div className="w-full h-px bg-gray-700 "></div>
-          <div className="flex flex-col gap-2">
-            <div className="mb-2 text-sm text-gray-400">
-              {stepDescriptions[activeStep]}
-            </div>
-            {useContent(activeStep)}
-            <div className="w-full h-px bg-gray-700 my-4"></div>
-            <div className="flex items-center gap-2 justify-between">
-              {/* Generate Button */}
-              <Button
-                type={isGenerating ? "disabled" : "accent"}
-                className={`w-full transition-all duration-300 ${
-                  formValues.topic !== "" ? "opacity-100" : "opacity-0"
-                }`}
-                onClick={handleGenerateClick}
-              >
-                {isGenerating ? "Generating..." : "Generate Blog"}
-              </Button>
-              {/* Navigation Buttons */}
-              <div className="flex items-center gap-2 justify-between">
-                <Button
-                  type="primary"
-                  onClick={() => setActiveStep(activeStep - 1)}
-                  className="opacity-50 hover:opacity-100 transition-opacity duration-300 backdrop-blur-lg  items-center justify-center h-full"
-                >
-                  <FaArrowLeft className="my-1" />
-                </Button>
-                <Button
-                  type="primary"
-                  onClick={() => setActiveStep(activeStep + 1)}
-                  className="opacity-50 hover:opacity-100 transition-opacity duration-300 backdrop-blur-lg  items-center justify-center h-full"
-                >
-                  <FaArrowRight className="my-1" />
-                </Button>
-              </div>
-            </div>
-          </div>
-        </Card>
-        {/* Right Side */}
-        <BlogCard
-          generatedBlog={generatedBlog}
-          isGenerating={isGenerating}
-          wordCount={wordCount}
-          expanded={expanded}
-          setExpanded={setExpanded}
-          setShowModelList={setShowModelList}
-        />
-      </div>
+      <BlogFormProvider>
+        <div className="flex flex-col xl:flex-row gap-4 h-full w-full overflow-y-hidden justify-between">
+          {/* Left Side */}
+          <Card
+            className={`flex flex-col ${
+              expanded
+                ? "h-px xl:w-1/12 opacity-20 overflow-hidden"
+                : "xl:w-1/2 opacity-100"
+            } gap-4 h-full transition-all duration-300`}
+            padding="tight"
+            overrideDims={true}
+          >
+            <BlogFormPanel steps={steps} activeStep={activeStep} />
+            <Divider className="bg-gray-700" />
+            <BlogActionMenu
+              isGenerating={isGenerating}
+              handleGenerate={handleGenerate}
+              setScrollInterrupted={setScrollInterrupted}
+              setActiveStep={setActiveStep}
+              activeStep={activeStep}
+            />
+          </Card>
+          {/* Right Side */}
+          <BlogCard
+            generatedBlog={generatedBlog}
+            setGeneratedBlog={setGeneratedBlog}
+            isGenerating={isGenerating}
+            wordCount={wordCount}
+            expanded={expanded}
+            setExpanded={setExpanded}
+            setShowModelList={setShowModelList}
+          />
+        </div>
+      </BlogFormProvider>
       <BlogOverlayButtons
         isGenerating={isGenerating}
-        scrollInterupted={scrollInterupted}
-        setScrollInterupted={setScrollInterupted}
+        scrollInterrupted={scrollInterrupted}
+        setScrollInterrupted={setScrollInterrupted}
         generatedBlog={generatedBlog}
       />
     </PageContainer>

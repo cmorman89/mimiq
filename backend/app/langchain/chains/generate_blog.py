@@ -3,12 +3,19 @@ This file contains the chain for generating a blog post from user-specified data
 """
 
 import os
+import json
+from pprint import pprint
 
 from dotenv import load_dotenv
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_core.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_openai import ChatOpenAI
+from pydantic import BaseModel, Field
+from app.langchain.prompts.blog.blog_topic_wizard import (
+    SYSTEM_TEMPLATE as BLOG_TOPIC_WIZARD_SYSTEM_TEMPLATE,
+    HUMAN_TEMPLATE as BLOG_TOPIC_WIZARD_HUMAN_TEMPLATE,
+)
 
 load_dotenv()
 
@@ -88,11 +95,80 @@ def generate_blog(
     return chain.stream(input_data) if stream else chain.invoke(input_data)
 
 
+class BlogTopicIdeas(BaseModel):
+    topic: str
+    title: str = Field(default="")
+    details: str = Field(default="")
+    sections: list[str] = Field(default=[])
+    keywords: list[str] = Field(default=[])
+
+
+class BlogTopicIdeasResponse(BaseModel):
+    content: list[BlogTopicIdeas]
+
+
+def generate_blog_topic_ideas(
+    direction: str,
+    model: str = "gpt-4.1",
+    temperature: float = 1.2,
+    stream: bool = False,
+    **kwargs,
+):
+    """
+    Generate blog topic ideas from a direction.
+    """
+    llm = ChatOpenAI(
+        model=model,
+        temperature=temperature,
+        streaming=stream,
+        **kwargs,
+    )
+
+    prompt = ChatPromptTemplate.from_messages(
+        [
+            SystemMessage(content=BLOG_TOPIC_WIZARD_SYSTEM_TEMPLATE),
+            HumanMessagePromptTemplate.from_template(BLOG_TOPIC_WIZARD_HUMAN_TEMPLATE),
+        ]
+    )
+
+    response = llm.invoke(prompt.format(direction=direction))
+
+    try:
+        json_response = json.loads(response.content)
+        model_response = BlogTopicIdeasResponse(content=json_response)
+        return model_response
+    except json.JSONDecodeError as e:
+        print(f"Failed to parse JSON response: {e}")
+        print(f"Raw response: {response.content}")
+        return None
+    except Exception as e:
+        print(f"Validation error: {e}")
+        print(f"Raw response: {response.content}")
+        return None
+
+
 # Testing/demo purposes
 if __name__ == "__main__":
-    BLOG_TOPIC = "The future of AI"
-    for chunk in generate_blog(BLOG_TOPIC, stream=True):
-        print(chunk, end="", flush=True)
+    print("1. Generate blog")
+    print("2. Generate blog topic ideas")
+    selection = input("Enter a choice: ")
+    if selection == "1":
+        BLOG_TOPIC = input("Enter a topic: ")
+        if not BLOG_TOPIC:
+            BLOG_TOPIC = "The future of AI"
+        print("Generating blog...")
+        for chunk in generate_blog(BLOG_TOPIC, stream=True):
+            print(chunk, end="", flush=True)
+    elif not selection or selection == "2":
+        BLOG_DIRECTION = input("Enter a direction: ")
+        if not BLOG_DIRECTION:
+            BLOG_DIRECTION = "The future of AI"
+        print("Generating blog topic ideas...")
+        response = generate_blog_topic_ideas(BLOG_DIRECTION)
+        if response:
+            pprint(response.content)
+        else:
+            print("Failed to generate blog topic ideas")
 
     # BLOG_KEYWORDS = ["AI", "future", "technology"]
     # BLOG_DETAILS = "The future of AI is bright. It will change the world in a way that we can't even imagine."

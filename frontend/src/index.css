@@ -75,6 +75,25 @@ body {
     z-index: -1;
   }
 
+  .blog-form-container {
+    @apply flex gap-4 w-full px-4 max-w-[800px] mx-auto;
+  }
+
+  .fade-mask {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 700%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: bottom;
+    mask-position: bottom;
+  }
+
   .mimiq-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
@@ -103,22 +122,32 @@ body {
   }
 
   .markdown h1 {
-    @apply text-3xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-fuchsia-400 border-b border-rose-400/50 pb-6  ;
+    @apply text-3xl text-heading-1 pb-6 border-rose-400/50 border-b;
   }
 
   .markdown h2 {
-    @apply text-2xl font-bold text-pink-300 pt-4;
+    @apply text-2xl text-heading-2 pt-4;
   }
 
   .markdown h3 {
-    @apply text-lg font-bold text-violet-200;
+    @apply text-lg text-heading-3;
   }
 
   .markdown p {
-    @apply text-gray-300 leading-relaxed pb-3 ;
+    @apply text-content pb-3;
   }
-  
-  
+  .text-heading-1 {
+    @apply font-bold text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-fuchsia-400;
+  }
+  .text-heading-2 {
+    @apply font-semibold text-pink-300;
+  }
+  .text-heading-3 {
+    @apply font-semibold text-violet-200;
+  }
+  .text-content {
+    @apply text-gray-300 leading-relaxed;
+  }
 }
 
 @keyframes blink {
