@@ -3,6 +3,7 @@ import { Card } from "../../../components/Card";
 import { FaSpinner, FaTimes } from "react-icons/fa";
 import { BlogTopicWizardResults } from "./BlogTopicWizardResults";
 import { useBlogTopicWizard } from "../../../hooks/useBlogTopicWizard";
+import { Divider } from "../../../components/Divider";
 
 export interface BlogTopicWizardResultItem {
   topic: string;
@@ -28,8 +29,9 @@ export const BlogTopicWizardMenu = () => {
     setDirection(value);
     console.log(value);
   };
+  
   return (
-    <div className="flex flex-col w-full gap-2 lg:p-2 max-w-3xl mx-auto">
+    <div className="flex flex-col w-full gap-6 lg:p-2 max-w-3xl mx-auto">
       <div className="flex items-center justify-between w-full gap-2">
         {/*
           <h3 className="text-lg font-semibold">Blog Topic Wizard</h3>
@@ -60,6 +62,7 @@ export const BlogTopicWizardMenu = () => {
               </label>
               <p className="text-xs text-gray-500">(Optional)</p>
             </div>
+            <Divider className="bg-gray-700" />
             <div className="flex flex-1 relative">
               <textarea
                 id="direction"
@@ -80,6 +83,7 @@ export const BlogTopicWizardMenu = () => {
               />
             </div>
           </div>
+          
           <div className="flex items-center gap-2">
             <Button
               type={isGenerating ? "disabled" : "accent"}
@@ -104,6 +108,7 @@ export const BlogTopicWizardMenu = () => {
           </div>
         </Card>
       </div>
+      <Divider className={`bg-gray-700 transition-all duration-300 ease-in-out ${ideas.length > 0 ? "opacity-100" : "opacity-0"}`} />
       <BlogTopicWizardResults content={ideas}/>
     </div>
   );

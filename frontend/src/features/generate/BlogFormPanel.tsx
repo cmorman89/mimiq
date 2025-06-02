@@ -2,9 +2,7 @@ import { useState } from "react";
 import { BlogWizardSelection } from "./components/BlogWizardSelection";
 import {
   BlogTopicWizardMenu,
-  BlogTopicWizardResultItem,
 } from "./components/BlogTopicWizardMenu";
-import { useBlogForm } from "../../context/BlogFormContext";
 import { Button } from "../../components/Button";
 import { Divider } from "../../components/Divider";
 import { FaPencil, FaWandMagicSparkles } from "react-icons/fa6";
@@ -22,14 +20,6 @@ export const BlogFormPanel = ({
 }) => {
   const [initialChoice, setInitialChoice] = useState(false);
   const [isWizard, setIsWizard] = useState(false);
-  const { handleUpdateField } = useBlogForm();
-
-  const handleItemOnClick = (
-    item: BlogTopicWizardResultItem,
-    label: keyof BlogTopicWizardResultItem
-  ) => {
-    handleUpdateField("idea", label, item[label]);
-  };
 
   return (
     // Title and wizard switcher
@@ -41,7 +31,9 @@ export const BlogFormPanel = ({
         <Button
           type="primary"
           onClick={() => setIsWizard(!isWizard)}
-          className="text-xs text-gray-400 flex items-center gap-2"
+          className={`text-xs text-gray-400 flex items-center gap-2 ${
+            initialChoice ? "opacity-100" : "opacity-0"
+          }`}
           itemsRow={true}
         >
           {isWizard ? (
@@ -64,7 +56,7 @@ export const BlogFormPanel = ({
             setIsWizard={setIsWizard}
           />
         ) : isWizard ? (
-          <BlogTopicWizardMenu handleItemOnClick={handleItemOnClick} />
+          <BlogTopicWizardMenu />
         ) : (
           steps[activeStep].component
         )}
