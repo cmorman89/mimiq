@@ -1,8 +1,6 @@
-import { FaWandMagicSparkles } from "react-icons/fa6";
 import { Card } from "../../../components/Card";
-import { FaList, FaTimes } from "react-icons/fa";
-import { FormValues } from "../../../types/blog";
-import { BlogTopicWizardMenu, BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
+import { FaTimes } from "react-icons/fa";
+import { useBlogForm } from "../../../context/BlogFormContext";
 
 /**
  * A form component for generating blog content with topic selection and input options.
@@ -22,93 +20,19 @@ import { BlogTopicWizardMenu, BlogTopicWizardResultItem } from "./BlogTopicWizar
  * @component
  * @returns {JSX.Element} A form component for blog topic generation
  */
-export const BlogTopicForm = ({
-  formValues,
-  setFormValues,
-  isWizard,
-  setIsWizard,
-  handleItemOnClick,
-  initialChoice,
-  setInitialChoice,
-}: {
-  formValues: FormValues;
-  setFormValues: (formValues: FormValues) => void;
-  isWizard?: boolean;
-  setIsWizard?: (isWizard: boolean) => void;
-  handleItemOnClick: (
-    item: BlogTopicWizardResultItem,
-    label: keyof BlogTopicWizardResultItem
-  ) => void;
-  initialChoice: boolean;
-  setInitialChoice: (initialChoice: boolean) => void;
-}) => {
+export const BlogTopicForm = () => {
+  const { state, handleUpdateField } = useBlogForm();
 
-  const handleOptionClick = (wizard: boolean = false) => {
-    setInitialChoice(true);
-    setIsWizard?.(wizard);
-  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
 
-  const handleKeywordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormValues({
-      ...formValues,
-      [name]: value.split(",").map((keyword) => keyword.trim()),
-    });
-  };
 
-  return (
+  return (  
     <div
       className={`flex flex-col ${
-        initialChoice === false
-          ? "items-center justify-center"
-          : "items-start justify-start"
+        "items-center justify-center"
       } h-full`}
     >
-      {initialChoice === false ? (
-        <div className="flex flex-col gap-4 px-4">
-          <Card
-            type="dark"
-            padding="tight"
-            className="flex items-center gap-4 overflow-hidden transition-all duration-300 border-orange-700 cursor-pointer hover:scale-105 bg-orange-400/80 bg-gradient-to-r from-transparent to-rose-400/80"
-            onClick={() => handleOptionClick(true)}
-          >
-            <FaWandMagicSparkles className="text-4xl text-rose-950" />
-            <div className="flex flex-col gap-1 pl-4 overflow-hidden border-l-2 border-rose-900">
-              <h3 className="text-xl font-semibold text-rose-950">
-                Help Me Decide
-              </h3>
-              <p className="text-sm text-rose-950">
-                Use AI to generate topics and keywords (Coming Soon)
-              </p>
-            </div>
-          </Card>
-
-          <Card
-            type="dark"
-            padding="tight"
-            className="flex items-center gap-4 transition-all duration-300 cursor-pointer hover:scale-105"
-            onClick={() => handleOptionClick(false)}
-          >
-            <FaList className="text-4xl text-gray-400" />
-            <div className="flex flex-col gap-1 pl-4 border-l-2 border-gray-700">
-              <h3 className="text-lg font-semibold">I Have a Topic</h3>
-              <p className="text-sm text-gray-400">
-                I have a topic and keywords in mind
-              </p>
-            </div>
-          </Card>
-        </div>
-      ) : (
         <div className="flex flex-col w-full gap-4">
-          {isWizard === true && (
-            <BlogTopicWizardMenu handleItemOnClick={handleItemOnClick} />
-          )}
-          {isWizard === false && (
             <div className="flex flex-col gap-4">
               <Card
                 type="dark"
@@ -129,16 +53,16 @@ export const BlogTopicForm = ({
                     placeholder="Enter blog topic"
                     className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                     autoComplete="off"
-                    value={formValues.topic}
-                    onChange={(e) => handleInputChange(e)}
+                    value={state.idea.topic}
+                    onChange={(e) => handleUpdateField("idea", "topic", e.target.value)}
                   />
                   <div className="flex">
                     <FaTimes
                       className={`${
-                        formValues.topic ? "opacity-100" : "opacity-0"
+                        state.idea.topic ? "opacity-100" : "opacity-0"
                       } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
                       onClick={() =>
-                        setFormValues({ ...formValues, topic: "" })
+                        handleUpdateField("idea", "topic", "")
                       }
                     />
                   </div>
@@ -163,17 +87,17 @@ export const BlogTopicForm = ({
                     placeholder="Enter details (optional)"
                     className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                     autoComplete="off"
-                    value={formValues.details}
-                    onChange={(e) => handleInputChange(e)}
+                    value={state.idea.details}
+                    onChange={(e) =>
+                      handleUpdateField("idea", "details", e.target.value)
+                    }
                   />
                   <div className="flex">
                     <FaTimes
                       className={`${
-                        formValues.details ? "opacity-100" : "opacity-0"
+                        state.idea.details ? "opacity-100" : "opacity-0"
                       } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
-                      onClick={() =>
-                        setFormValues({ ...formValues, details: "" })
-                      }
+                      onClick={() => handleUpdateField("idea", "details", "")}
                     />
                   </div>
                 </div>
@@ -198,27 +122,25 @@ export const BlogTopicForm = ({
                     placeholder="Enter keywords separated by commas (optional)"
                     className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                     autoComplete="off"
-                    value={formValues.keywords.join(", ")}
-                    onChange={(e) => handleKeywordChange(e)}
+                    value={state.idea.keywords.join(", ")}
+                    onChange={(e) => handleUpdateField("idea", "keywords", e.target.value)}
                   />
                   <div className="flex">
                     <FaTimes
                       className={`${
-                        formValues.keywords.length > 0
+                        state.idea.keywords.length > 0
                           ? "opacity-100"
                           : "opacity-0"
                       } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
                       onClick={() =>
-                        setFormValues({ ...formValues, keywords: [] })
+                        handleUpdateField("idea", "keywords", [])
                       }
                     />
                   </div>
                 </div>
               </Card>
             </div>
-          )}
         </div>
-      )}
     </div>
   );
 };
