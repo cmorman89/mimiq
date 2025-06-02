@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
-import { BlogTopicWizardMenuProps } from "../features/generate/components/BlogTopicWizardMenu";
-
-export interface BlogTopicWizardResultItem {
-  topic: string;
-  title: string;
-  details: string;
-  sections: string[];
-  keywords: string[];
-}
+import {
+  BlogTopicWizardMenuProps,
+  BlogTopicWizardResultItem,
+} from "../types/blog";
 
 export const useBlogTopicWizard = (): BlogTopicWizardMenuProps => {
   const apiBaseUrl = import.meta.env.VITE_APP_API_URL;
