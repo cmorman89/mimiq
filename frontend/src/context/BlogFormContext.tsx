@@ -73,6 +73,11 @@ export type BlogFormState = {
   example: BlogExampleState;
 };
 
+export type BlogFormFieldIndex = {
+  field: keyof BlogFormState;
+  subfield: string;
+};
+
 export type BlogFormAction = {
   type: "UPDATE_FIELD";
   payload: {
