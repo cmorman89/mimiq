@@ -196,7 +196,7 @@ export const BlogWizardItem = ({
             >
               <div className="text-xs text-gray-400 flex items-center gap-1">
                 <FaPlus className="text-xs" />
-                <span>Use this details</span>
+                <span>Use these details</span>
               </div>
             </Button>
           </Card>
