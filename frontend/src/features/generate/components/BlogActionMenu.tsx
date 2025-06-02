@@ -6,13 +6,13 @@ import { BlogFormState, useBlogForm } from "../../../context/BlogFormContext";
 export const BlogActionMenu = ({
   isGenerating,
   handleGenerate,
-  setScrollInterupted,
+  setScrollInterrupted,
   setActiveStep,
   activeStep,
 }: {
   isGenerating: boolean;
   handleGenerate: (state: BlogFormState) => Promise<void>;
-  setScrollInterupted: (scrollInterupted: boolean) => void;
+  setScrollInterrupted: (scrollInterrupted: boolean) => void;
   setActiveStep: (step: number) => void;
   activeStep: number;
 }) => {
