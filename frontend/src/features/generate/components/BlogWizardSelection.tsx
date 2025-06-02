@@ -1,5 +1,3 @@
-import { Card } from "../../../components/Card";
-import { FaList } from "react-icons/fa6";
 import { FaArrowRight, FaMagic } from "react-icons/fa";
 
 export const BlogWizardSelection = ({
@@ -26,22 +24,11 @@ export const BlogWizardSelection = ({
         </div>
       </button>
 
+      <button className="border-2 border-gray-700 text-xl flex items-center justify-center gap-4  text-white font-semibold px-5 py-3 rounded-xl shadow-md hover:scale-105 transition-all duration-200 cursor-pointer"
+      onClick={() => handleOptionClick(false)}>
+        <span className="text-white">Manual Mode</span>
+      </button>
 
-
-      <Card
-        type="dark"
-        padding="tight"
-        className="flex items-center gap-4 transition-all duration-300 cursor-pointer hover:scale-105"
-        onClick={() => handleOptionClick(false)}
-      >
-        <FaList className="text-4xl text-gray-400" />
-        <div className="flex flex-col gap-1 pl-4 border-l-2 border-gray-700">
-          <h3 className="text-lg font-semibold">Manual Mode</h3>
-          <p className="text-sm text-gray-400">
-            I already have an idea in mind
-          </p>
-        </div>
-      </Card>
     </div>
   );
 };

@@ -25,13 +25,13 @@ export const BlogFormPanel = ({
     // Title and wizard switcher
     <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">
+        <h2 className={`text-lg font-semibold transition-all duration-300 ${initialChoice && !isWizard ? "opacity-100" : "opacity-0"}`}>
           {activeStep + 1}. {steps[activeStep].name}
         </h2>
         <Button
           type="primary"
           onClick={() => setIsWizard(!isWizard)}
-          className={`text-xs text-gray-400 flex items-center gap-2 ${
+          className={`text-xs text-gray-400 flex items-center gap-2 transition-all duration-300 ${
             initialChoice ? "opacity-100" : "opacity-0"
           }`}
           itemsRow={true}
@@ -47,8 +47,8 @@ export const BlogFormPanel = ({
           )}
         </Button>
       </div>
-      <Divider className="bg-gray-700" />
-      <p className="text-sm text-gray-400">{steps[activeStep].description}</p>
+      <Divider className={`bg-gray-700 transition-all duration-300 ${initialChoice && !isWizard ? "opacity-100" : "opacity-0"}`} />
+      <p className={`text-sm text-gray-400 transition-all duration-300 ${initialChoice && !isWizard ? "opacity-100" : "opacity-0"}`}>{steps[activeStep].description}</p>
       <div className="blog-form-container flex-col">
         {!initialChoice ? (
           <BlogWizardSelection
