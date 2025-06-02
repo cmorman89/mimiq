@@ -1,6 +1,7 @@
 import { Card } from "../../../components/Card";
 import { FaTimes } from "react-icons/fa";
 import { useBlogForm } from "../../../context/BlogFormContext";
+import { useEffect, useState } from "react";
 
 /**
  * A form component for generating blog content with topic selection and input options.
@@ -22,9 +23,22 @@ import { useBlogForm } from "../../../context/BlogFormContext";
  */
 export const BlogTopicForm = () => {
   const { state, handleUpdateField } = useBlogForm();
+  const [keywordString, setKeywordString] = useState("");
 
+  const handleKeywordsOnBlur = () => {
+    let value: string[] = [];
+    if (keywordString !== "") {
+      value = keywordString.split(",").map((keyword) => keyword.trim());
+    }
+    handleUpdateField("idea", "keywords", value);
+  };
+  const handleKeywordsFocus = () => {
+    setKeywordString(state.idea.keywords.join(", "));
+  };
 
-
+  useEffect(() => {
+    setKeywordString(state.idea.keywords.join(", "));
+  }, [state.idea.keywords]);
 
   return (
     <div className={`flex flex-col ${"items-center justify-center"} h-full`}>
@@ -93,7 +107,7 @@ export const BlogTopicForm = () => {
                   className={`${
                     state.idea.title ? "opacity-100" : "opacity-0"
                   } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
-                    onClick={() => handleUpdateField("idea", "title", "")}
+                  onClick={() => handleUpdateField("idea", "title", "")}
                 />
               </div>
             </div>
@@ -152,15 +166,17 @@ export const BlogTopicForm = () => {
                 placeholder="Enter keywords separated by commas (optional)"
                 className="w-full p-2 text-sm text-gray-200 bg-transparent rounded-md outline-none placeholder:text-gray-600"
                 autoComplete="off"
-                value={state.idea.keywords.join(", ")}
-                onChange={(e) =>
-                  handleUpdateField("idea", "keywords", e.target.value)
-                }
+                value={keywordString}
+                onChange={(e) => setKeywordString(e.target.value)}
+                onBlur={handleKeywordsOnBlur}
+                onFocus={handleKeywordsFocus}
               />
               <div className="flex">
                 <FaTimes
                   className={`${
-                    state.idea.keywords.length > 0 ? "opacity-100" : "opacity-0"
+                    state.idea.keywords.length > 0 || keywordString !== ""
+                      ? "opacity-100"
+                      : "opacity-0"
                   } text-gray-400 text-sm cursor-pointer transition-all duration-300`}
                   onClick={() => handleUpdateField("idea", "keywords", [])}
                 />
