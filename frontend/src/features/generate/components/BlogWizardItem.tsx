@@ -5,14 +5,17 @@ import { useState, useRef, useEffect } from "react";
 import { toTitleCase } from "../../../utils/stringUtils";
 import { Button } from "../../../components/Button";
 
-export const BlockTopicWixardItem = ({
+export const BlogWizardItem = ({
   item,
   index,
   handleItemOnClick,
 }: {
   item: BlogTopicWizardResultItem;
   index: number;
-  handleItemOnClick: (item: BlogTopicWizardResultItem, label: keyof BlogTopicWizardResultItem) => void;
+  handleItemOnClick: (
+    item: BlogTopicWizardResultItem,
+    label: keyof BlogTopicWizardResultItem
+  ) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -27,7 +30,7 @@ export const BlockTopicWixardItem = ({
 
     // Initial height calculation
     updateHeight();
-    
+
     // Add resize listener
     window.addEventListener("resize", updateHeight);
 
@@ -84,7 +87,7 @@ export const BlockTopicWixardItem = ({
             overrideDims={true}
           >
             <div className="flex flex-1 gap-2 items-center">
-            <span className="text-sm text-gray-400 px-2">Title:</span>
+              <span className="text-sm text-gray-400 px-2">Title:</span>
               <h4 className="text-heading-2 text-sm font-semibold">
                 {item.title}
               </h4>

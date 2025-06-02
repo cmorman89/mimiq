@@ -1,5 +1,5 @@
 import { BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
-import { BlockTopicWixardItem } from "./BlockTopicWixardItem";
+import { BlogWizardItem } from "./BlogWizardItem";
 
 export const BlogTopicWizardResults = ({
   content,
@@ -14,7 +14,7 @@ export const BlogTopicWizardResults = ({
   return (
     <>
       {content.map((item, index) => (
-        <BlockTopicWixardItem
+        <BlogWizardItem
           key={index}
           item={item}
           index={index}
