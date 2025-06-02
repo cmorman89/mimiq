@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { BlogWizardSelection } from "./components/BlogWizardSelection";
-import {
-  BlogTopicWizardMenu,
-} from "./components/BlogTopicWizardMenu";
+import { BlogTopicWizardMenu } from "./components/BlogTopicWizardMenu";
 import { Button } from "../../components/Button";
 import { Divider } from "../../components/Divider";
 import { FaPencil, FaWandMagicSparkles } from "react-icons/fa6";
@@ -23,10 +21,14 @@ export const BlogFormPanel = ({
 
   return (
     // Title and wizard switcher
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-2 sm:gap-4">
       <div className="flex justify-between items-center">
-        <h2 className={`text-lg font-semibold transition-all duration-300 ${initialChoice && !isWizard ? "opacity-100" : "opacity-0"}`}>
-          {activeStep + 1}. {steps[activeStep].name}
+        <h2 className={`text-lg font-semibold transition-all duration-300`}>
+          {initialChoice
+            ? !isWizard
+              ? `${activeStep + 1}. ${steps[activeStep].name}`
+              : "Brainstorm with AI"
+            : "Getting Started"}
         </h2>
         <Button
           type="primary"
@@ -47,8 +49,10 @@ export const BlogFormPanel = ({
           )}
         </Button>
       </div>
-      <Divider className={`bg-gray-700 transition-all duration-300 ${initialChoice && !isWizard ? "opacity-100" : "opacity-0"}`} />
-      <p className={`text-sm text-gray-400 transition-all duration-300 ${initialChoice && !isWizard ? "opacity-100" : "opacity-0"}`}>{steps[activeStep].description}</p>
+      <Divider className={`bg-gray-700 transition-all duration-300`} />
+      <p className={`text-sm text-gray-400 transition-all duration-300`}>
+        {steps[activeStep].description}
+      </p>
       <div className="blog-form-container flex-col">
         {!initialChoice ? (
           <BlogWizardSelection
