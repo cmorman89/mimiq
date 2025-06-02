@@ -1,9 +1,7 @@
 import { BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
 import { BlogWizardItem } from "./BlogWizardItem";
-import {
-  BlogFormFieldIndex,
-  useBlogForm,
-} from "../../../context/BlogFormContext";
+import { useBlogForm } from "../../../context/useBlogFormContext";
+import { BlogFormFieldIndex } from "../../../context/BlogFormContext";
 
 export const BlogTopicWizardResults = ({
   content,

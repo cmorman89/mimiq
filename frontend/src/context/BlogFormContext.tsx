@@ -6,7 +6,8 @@
 // - Style reducer
 // - Example reducer
 
-import { createContext, Dispatch, useContext, useReducer } from "react";
+import { Dispatch, useReducer } from "react";
+import { BlogFormContext } from "./blog_form_context/createBlogFormContext";
 
 const initialState: BlogFormState = {
   idea: {
@@ -97,9 +98,7 @@ export type BlogFormContextType = {
   ) => void;
 };
 
-export const BlogFormContext = createContext<BlogFormContextType | undefined>(
-  undefined
-);
+
 
 const blogFormReducer = (state: BlogFormState, action: BlogFormAction) => {
   switch (action.type) {
@@ -138,10 +137,3 @@ export const BlogFormProvider = ({
   );
 };
 
-export const useBlogForm = () => {
-  const context = useContext(BlogFormContext);
-  if (!context) {
-    throw new Error("useBlogForm must be used within a BlogFormProvider");
-  }
-  return context;
-};
