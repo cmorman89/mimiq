@@ -4,6 +4,7 @@ import { BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
 import { useState, useRef, useEffect } from "react";
 import { toTitleCase } from "../../../utils/stringUtils";
 import { Button } from "../../../components/Button";
+import { BlogFormFieldIndex } from "../../../context/BlogFormContext";
 
 export const BlogWizardItem = ({
   item,
@@ -14,7 +15,7 @@ export const BlogWizardItem = ({
   index: number;
   handleItemOnClick: (
     item: BlogTopicWizardResultItem,
-    label: keyof BlogTopicWizardResultItem
+    fieldIndex: BlogFormFieldIndex
   ) => void;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +80,34 @@ export const BlogWizardItem = ({
 
         {/* Content panel */}
         <div ref={contentRef} className="flex flex-col flex-1 gap-4">
+          {/* Topic */}
+          <Card
+            type="light"
+            padding="tight"
+            className="flex w-full gap-2 items-center justify-between"
+            overrideDims={true}
+          >
+            <div className="flex flex-1 gap-2 items-center">
+              <span className="text-sm text-gray-400 px-2">Topic:</span>
+              <h4 className="text-heading-2 text-sm font-semibold">
+                {item.topic}
+              </h4>
+            </div>
+            <Button
+              type="primary"
+              onClick={() => {
+                handleItemOnClick(item, {
+                  field: "idea",
+                  subfield: "topic",
+                });
+              }}
+            >
+              <div className="text-xs text-gray-400 flex items-center gap-1">
+                <FaPlus className="text-xs" />
+                <span>Use this topic</span>
+              </div>
+            </Button>
+          </Card>
           {/* Title */}
           <Card
             type="light"
@@ -95,7 +124,10 @@ export const BlogWizardItem = ({
             <Button
               type="primary"
               onClick={() => {
-                handleItemOnClick(item, "title");
+                handleItemOnClick(item, {
+                  field: "idea",
+                  subfield: "title",
+                });
               }}
             >
               <div className="text-xs text-gray-400 flex items-center gap-1">
@@ -109,56 +141,104 @@ export const BlogWizardItem = ({
           <Card
             type="light"
             padding="tight"
-            className="flex flex-col w-full gap-2"
+            className="flex w-full gap-2 items-center justify-between"
             overrideDims={true}
           >
-            <p className="text-sm text-gray-400 px-2">Keywords:</p>
-            <div className="flex flex-wrap gap-2 px-6">
-              {item.keywords.map((keyword) => (
-                <div
-                  key={keyword}
-                  className="px-2 border-2 border-gray-600/50 rounded-full bg-gray-400/20 hover:bg-gray-400/20 transition-all duration-300 cursor-default"
-                >
-                  <p className="text-xs text-gray-400 px-2">
-                    {toTitleCase(keyword)}
-                  </p>
-                </div>
-              ))}
+            <div className="flex flex-1 flex-col w-full gap-2">
+              <p className="text-sm text-gray-400 px-2">Keywords:</p>
+              <div className="flex flex-wrap gap-2 px-6">
+                {item.keywords.map((keyword) => (
+                  <div
+                    key={keyword}
+                    className="px-2 border-2 border-gray-600/50 rounded-full bg-gray-400/20 hover:bg-gray-400/20 transition-all duration-300 cursor-default"
+                  >
+                    <p className="text-xs text-gray-400 px-2">
+                      {toTitleCase(keyword)}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
+            <Button
+              type="primary"
+              onClick={() => {
+                handleItemOnClick(item, {
+                  field: "idea",
+                  subfield: "keywords",
+                });
+              }}
+            >
+              <div className="text-xs text-gray-400 flex items-center gap-1">
+                <FaPlus className="text-xs" />
+                <span>Use these keywords</span>
+              </div>
+            </Button>
           </Card>
           <Card
             type="light"
             padding="tight"
-            className="flex flex-col w-full gap-2"
+            className="flex w-full gap-2 items-center justify-between"
             overrideDims={true}
           >
             {/* Details */}
-            <p className="text-sm text-gray-400 px-2">Details:</p>
-            <p className="text-sm text-content px-6">{item.details}</p>
+            <div className="flex flex-1 flex-col w-full gap-2">
+              <p className="text-sm text-gray-400 px-2">Details:</p>
+              <p className="text-sm text-content px-6">{item.details}</p>
+            </div>
+            <Button
+              type="primary"
+              onClick={() => {
+                handleItemOnClick(item, {
+                  field: "idea",
+                  subfield: "details",
+                });
+              }}
+            >
+              <div className="text-xs text-gray-400 flex items-center gap-1">
+                <FaPlus className="text-xs" />
+                <span>Use this details</span>
+              </div>
+            </Button>
           </Card>
           <Card
             type="light"
             padding="tight"
-            className="flex flex-col w-full gap-2"
+            className="flex w-full gap-2 items-center justify-between"
             overrideDims={true}
           >
-            {/* Sections */}
-            <p className="text-sm text-gray-400 px-2">Sections:</p>
-            <div className="flex flex-col items-start gap-2">
-              {item.sections.map((section, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center gap-2 px-6"
-                >
-                  <div className="text-sm text-content p-3 rounded-md bg-gray-400/20 hover:bg-gray-400/20 cursor-default flex items-center">
-                    {index + 1}. {toTitleCase(section)}
+            <div className="flex flex-1 flex-col w-full gap-2">
+              {/* Sections */}
+              <p className="text-sm text-gray-400 px-2">Sections:</p>
+              <div className="flex flex-col items-start gap-2">
+                {item.sections.map((section, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col items-center gap-2 px-6"
+                  >
+                    <div className="text-sm text-content p-3 rounded-md bg-gray-400/20 hover:bg-gray-400/20 cursor-default flex items-center">
+                      {index + 1}. {toTitleCase(section)}
+                    </div>
+                    {index !== item.sections.length - 1 && (
+                      <FaArrowDown className="text-gray-400" />
+                    )}
                   </div>
-                  {index !== item.sections.length - 1 && (
-                    <FaArrowDown className="text-gray-400" />
-                  )}
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
+            <Button
+              type="primary"
+              onClick={() => {
+                handleItemOnClick(item, {
+                  field: "structure",
+                  subfield: "sections",
+                });
+              }}
+            >
+              <div className="text-xs text-gray-400 flex items-center gap-1">
+                <FaPlus className="text-xs" />
+                <span>Use these sections</span>
+              </div>
+            </Button>
           </Card>
         </div>
       </div>

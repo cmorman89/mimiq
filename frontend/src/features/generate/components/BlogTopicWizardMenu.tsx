@@ -21,14 +21,7 @@ export interface BlogTopicWizardMenuProps {
   handleClear: () => void;
 }
 
-export const BlogTopicWizardMenu = ({
-  handleItemOnClick,
-}: {
-  handleItemOnClick: (
-    item: BlogTopicWizardResultItem,
-    label: keyof BlogTopicWizardResultItem
-  ) => void;
-}) => {
+export const BlogTopicWizardMenu = () => {
   const {
     direction,
     setDirection,
@@ -119,7 +112,7 @@ export const BlogTopicWizardMenu = ({
           </div>
         </Card>
       </div>
-      <BlogTopicWizardResults content={ideas} handleItemOnClick={handleItemOnClick} />
+      <BlogTopicWizardResults content={ideas}/>
     </div>
   );
 };
