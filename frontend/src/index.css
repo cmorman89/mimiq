@@ -75,8 +75,16 @@ body {
     z-index: -1;
   }
 
+  .blog-form-container {
+    @apply flex gap-4 w-full px-4 max-w-[800px] mx-auto;
+  }
+
   .fade-mask {
-    -webkit-mask-image: linear-gradient(to bottom, black 700%, transparent 100%);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 700%,
+      transparent 100%
+    );
     mask-image: linear-gradient(to bottom, black 70%, transparent 100%);
     -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;

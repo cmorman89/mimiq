@@ -26,7 +26,7 @@ export const BlogActionMenu = ({
     handleGenerate(state);
   };
   return (
-    <div className="flex justify-between items-center gap-4 ">
+    <div className="blog-form-container justify-between">
       {/* Generate Button */}
       <Button
         type={isGenerating ? "disabled" : "accent"}

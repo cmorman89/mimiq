@@ -447,3 +447,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 frontend/branding.html
+backend/uvicorn.txt

@@ -45,19 +45,19 @@ export const BlogFormPanel = ({
           itemsRow={true}
         >
           {isWizard ? (
-            <>
+            <span className="flex items-center gap-2">
               <FaPencil className="my-1" /> Manual Mode
-            </>
+            </span>
           ) : (
-            <>
+            <span className="flex items-center gap-2">
               <FaWandMagicSparkles className="my-1" /> Open Wizard
-            </>
+            </span>
           )}
         </Button>
       </div>
       <Divider className="bg-gray-700" />
       <p className="text-sm text-gray-400">{steps[activeStep].description}</p>
-      <div className="flex flex-col gap-4 w-full md:w-3/4 lg:w-2/3 xl:w-full xl:px-4 mx-auto">
+      <div className="blog-form-container flex-col">
         {!initialChoice ? (
           <BlogWizardSelection
             setInitialChoice={setInitialChoice}
