@@ -1,21 +1,30 @@
 import { Button } from "../../../components/Button";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
-import { useBlogForm } from "../../../context/BlogFormContext";
+import { BlogFormState, useBlogForm } from "../../../context/BlogFormContext";
 
 export const BlogActionMenu = ({
   isGenerating,
-  handleGenerateClick,
+  handleGenerate,
+  setScrollInterupted,
   setActiveStep,
   activeStep,
 }: {
   isGenerating: boolean;
-  handleGenerateClick: () => void;
+  handleGenerate: (state: BlogFormState) => Promise<void>;
+  setScrollInterupted: (scrollInterupted: boolean) => void;
   setActiveStep: (step: number) => void;
   activeStep: number;
 }) => {
   const { state } = useBlogForm();
 
+  const handleGenerateClick = () => {
+    if (state.idea.topic === "" || isGenerating) {
+      return;
+    }
+    setScrollInterupted(false);
+    handleGenerate(state);
+  };
   return (
     <div className="flex justify-between items-center gap-4 ">
       {/* Generate Button */}

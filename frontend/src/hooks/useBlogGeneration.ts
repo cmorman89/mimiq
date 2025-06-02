@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { FormValues } from "../types/blog";
+import { BlogFormState } from "../context/BlogFormContext";
 
 interface UseBlogGenerationReturn {
   generatedBlog: string;
   setGeneratedBlog: (blog: string) => void;
   isGenerating: boolean;
-  handleGenerate: (formValues: FormValues) => Promise<void>;
+  handleGenerate: (state: BlogFormState) => Promise<void>;
   handleCopy: () => void;
 }
 
@@ -16,7 +16,9 @@ export const useBlogGeneration = (): UseBlogGenerationReturn => {
   });
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const handleGenerate = async (formValues: FormValues) => {
+  const handleGenerate = async (state: BlogFormState) => {
+    const { topic, details, keywords } = state.idea;
+
     setIsGenerating(true);
     setGeneratedBlog("");
 
@@ -26,9 +28,9 @@ export const useBlogGeneration = (): UseBlogGenerationReturn => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        topic: formValues.topic,
-        details: formValues.details,
-        keywords: formValues.keywords,
+        topic,
+        details,
+        keywords,
       }),
     });
 

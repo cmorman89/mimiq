@@ -58,13 +58,6 @@ export const Generate = ({
   const { generatedBlog, isGenerating, handleGenerate, setGeneratedBlog } =
     useBlogGeneration();
 
-  const handleGenerateClick = () => {
-    if (formValues.topic === "" || isGenerating) {
-      return;
-    }
-    setScrollInterupted(false);
-    handleGenerate(formValues);
-  };
   // Effects
   useEffect(() => {
     localStorage.setItem("generatedBlog", generatedBlog);
@@ -122,9 +115,7 @@ export const Generate = ({
     {
       name: "Blog Topic",
       description: "Set the topic and details for your blog post.",
-      component: (
-        <BlogTopicForm />
-      ),
+      component: <BlogTopicForm />,
     },
     {
       name: "Blog Structure",
@@ -153,13 +144,6 @@ export const Generate = ({
     },
   ];
   // Content Components
-  const stepNames = steps.map((step) => step.name);
-  const stepDescriptions = steps.map((step) => step.description);
-  const stepComponents = steps.map((step) => step.component);
-
-  const useContent = (step: number) => {
-    return step < steps.length ? stepComponents[step] : null;
-  };
 
   return (
     <PageContainer>
@@ -167,7 +151,7 @@ export const Generate = ({
       <div className="flex flex-col gap-2">
         <Card className="flex flex-col">
           <GenerateWorkflow
-            steps={stepNames}
+            steps={steps.map((step) => step.name)}
             activeIndex={activeStep}
             onStepChange={setActiveStep}
           />
@@ -186,13 +170,12 @@ export const Generate = ({
             padding="tight"
             overrideDims={true}
           >
-            <BlogFormPanel activeStep={activeStep} stepNames={stepNames}>
-              {useContent(activeStep)}
-            </BlogFormPanel>
+            <BlogFormPanel steps={steps} activeStep={activeStep} />
             <Divider className="bg-gray-700" />
             <BlogActionMenu
               isGenerating={isGenerating}
-              handleGenerateClick={handleGenerateClick}
+              handleGenerate={handleGenerate}
+              setScrollInterupted={setScrollInterupted}
               setActiveStep={setActiveStep}
               activeStep={activeStep}
             />

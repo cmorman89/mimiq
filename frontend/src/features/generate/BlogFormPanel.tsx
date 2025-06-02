@@ -10,19 +10,20 @@ import { Divider } from "../../components/Divider";
 import { FaPencil, FaWandMagicSparkles } from "react-icons/fa6";
 
 export const BlogFormPanel = ({
-  children,
   activeStep,
-  stepNames,
+  steps,
 }: {
-  children?: React.ReactNode;
   activeStep: number;
-  stepNames: string[];
+  steps: {
+    name: string;
+    description: string;
+    component: React.ReactNode;
+  }[];
 }) => {
   const [initialChoice, setInitialChoice] = useState(false);
   const [isWizard, setIsWizard] = useState(false);
   const { handleUpdateField } = useBlogForm();
 
-  
   const handleItemOnClick = (
     item: BlogTopicWizardResultItem,
     label: keyof BlogTopicWizardResultItem
@@ -35,7 +36,7 @@ export const BlogFormPanel = ({
     <div className="flex flex-col gap-4">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">
-          {activeStep + 1}. {stepNames[activeStep]}
+          {activeStep + 1}. {steps[activeStep].name}
         </h2>
         <Button
           type="primary"
@@ -55,6 +56,7 @@ export const BlogFormPanel = ({
         </Button>
       </div>
       <Divider className="bg-gray-700" />
+      <p className="text-sm text-gray-400">{steps[activeStep].description}</p>
       <div className="flex flex-col gap-4 w-full md:w-3/4 lg:w-2/3 xl:w-full xl:px-4 mx-auto">
         {!initialChoice ? (
           <BlogWizardSelection
@@ -64,7 +66,7 @@ export const BlogFormPanel = ({
         ) : isWizard ? (
           <BlogTopicWizardMenu handleItemOnClick={handleItemOnClick} />
         ) : (
-          children
+          steps[activeStep].component
         )}
       </div>
     </div>
