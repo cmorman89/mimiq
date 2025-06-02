@@ -58,7 +58,7 @@ export const BlogTopicWizardMenu = () => {
           padding="tight"
           className="flex flex-col w-full gap-2"
         >
-          <div className="flex flex-col md: justify-between w-full gap-2 rounded-2xl min-h-20">
+          <div className="flex flex-col md:justify-between w-full gap-2 rounded-2xl min-h-20">
             <div className="flex gap-2 items-baseline">
               <label
                 htmlFor="topic"
