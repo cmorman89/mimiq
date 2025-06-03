@@ -2,8 +2,6 @@ import { Card } from "../components/Card";
 import { PageContainer } from "../features/page_container/PageContainer";
 import { GenerateWorkflow } from "../features/generate/components/GenerateWorkflow";
 import { useState, useEffect } from "react";
-import { BlogTopicForm } from "../features/generate/components/BlogTopicForm";
-import { UnderDev } from "../components/UnderDev";
 import { useBlogGeneration } from "../hooks/useBlogGeneration";
 import { BlogOverlayButtons } from "../features/generate/components/BlogOverlayButtons";
 import { BlogCard } from "../features/generate/components/BlogCard";
@@ -11,6 +9,7 @@ import { BlogFormProvider } from "../context/BlogFormContext";
 import { BlogFormPanel } from "../features/generate/BlogFormPanel";
 import { BlogActionMenu } from "../features/generate/components/BlogActionMenu";
 import { Divider } from "../components/Divider";
+import { steps } from "../features/generate/BlogStepComponents";
 
 /**
  * The Generate page component that provides a multi-step blog generation workflow.
@@ -46,14 +45,6 @@ export const Generate = ({
   const [activeStep, setActiveStep] = useState(0);
   const [wordCount, setWordCount] = useState(0);
   const [scrollInterrupted, setScrollInterrupted] = useState(false);
-  // // Form and Content States
-  // const [formValues, setFormValues] = useState<FormValues>({
-  //   topic: "",
-  //   title: "",
-  //   details: "",
-  //   keywords: [],
-  //   sections: [],
-  // });
 
   const { generatedBlog, isGenerating, handleGenerate, setGeneratedBlog } =
     useBlogGeneration();
@@ -105,44 +96,7 @@ export const Generate = ({
     }
   }, [generatedBlog, isGenerating, scrollInterrupted]);
 
-  interface Step {
-    name: string;
-    description: string;
-    component: React.ReactNode;
-  }
 
-  const steps: Step[] = [
-    {
-      name: "Blog Topic",
-      description: "Set the topic and details for your blog post.",
-      component: <BlogTopicForm />,
-    },
-    {
-      name: "Blog Structure",
-      description: "Define the structure of your blog post.",
-      component: <UnderDev name="Blog Structure" />,
-    },
-    {
-      name: "Blog Style",
-      description: "Define the style of your blog post.",
-      component: <UnderDev name="Blog Style" />,
-    },
-    {
-      name: "Blog Examples",
-      description: "Provide writing examples for your blog post.",
-      component: <UnderDev name="Blog Examples" />,
-    },
-    {
-      name: "Fact Checking",
-      description: "Fact check the content of your blog post.",
-      component: <UnderDev name="Fact Checking" />,
-    },
-    {
-      name: "Finalize Blog Post",
-      description: "Finalize the content of your blog post.",
-      component: <UnderDev name="Finalize Blog Post" />,
-    },
-  ];
   // Content Components
 
   return (
