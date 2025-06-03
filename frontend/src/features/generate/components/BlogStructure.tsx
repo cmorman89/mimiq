@@ -1,0 +1,54 @@
+import { BlogStructureItemState } from "../../../context/BlogFormContext";
+import { Divider } from "../../../components/Divider";
+import { Card } from "../../../components/Card";
+import { FaArrowDown } from "react-icons/fa";
+export const BlogStructure = ({
+  structure,
+  setStructure,
+}: {
+  structure: BlogStructureItemState[];
+  setStructure: (structure: BlogStructureItemState[]) => void;
+}) => {
+  return (
+    <div className="flex flex-col gap-2">
+      {structure.map((item, index) => (
+        <>
+          <Card
+            key={index}
+            className="flex flex-col gap-2"
+            padding="tight"
+            type="dark"
+            overrideDims={true}
+          >
+            <h3 className="text-lg font-semibold">{item.title}</h3>
+            <Divider className="bg-gray-700" />
+            <p className="text-sm text-gray-500">{item.description}</p>
+            {item.keywords.length > 0 && (
+              <div className="flex flex-col gap-2">
+                <h4 className="text-sm font-semibold">Keywords</h4>
+                <ul className="list-inside text-xs flex flex-wrap gap-2">
+                  {item.keywords.map((keyword, index) => (
+                    <li
+                      key={index}
+                      className="bg-gray-700 px-2 py-1 rounded-md"
+                    >
+                      {keyword}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </Card>
+          {index < structure.length - 1 && (
+            <div className="flex justify-center">
+                      <div className="flex aspect-square items-center justify-center bg-gray-700/50 rounded-full shadow-md border-2
+               border-gray-700">
+                <FaArrowDown className="text-gray-500 text-2xl m-1" />
+              </div>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+  );
+};
