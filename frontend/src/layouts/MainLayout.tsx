@@ -30,8 +30,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
       message: "This is a test banner",
       type: "info",
     });
-  }, []);
-  
+  }, [handleSetBannerMessage]);
+
   return (
     <div
       id="main-layout"

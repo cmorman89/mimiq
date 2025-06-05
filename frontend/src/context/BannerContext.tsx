@@ -1,4 +1,4 @@
-import { Dispatch, useReducer } from "react";
+import { Dispatch, useCallback, useReducer } from "react";
 import { BannerContext } from "./banner_context/createBannerFormContext";
 
 export type BannerMessageType = {
@@ -35,7 +35,7 @@ const bannerReducer = (state: BannerState, action: BannerAction) => {
   switch (action.type) {
     case "SET_BANNER_MESSAGE":
         return {
-        ...state,
+        ...state, 
         bannerMessage: action.payload.message,
         bannerType: action.payload.type || "info",
         isBannerVisible: true,
@@ -50,7 +50,7 @@ const bannerReducer = (state: BannerState, action: BannerAction) => {
 export const BannerProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(bannerReducer, initialState);
 
-  const handleSetBannerMessage = (message: BannerMessageType) => {
+  const handleSetBannerMessage = useCallback((message: BannerMessageType) => {
     dispatch({
       type: "SET_BANNER_MESSAGE",
       payload: {
@@ -58,7 +58,7 @@ export const BannerProvider = ({ children }: { children: React.ReactNode }) => {
         type: message.type || "info",
       },
     });
-  };
+  }, [dispatch]);
 
   const handleCloseBanner = () => {
     dispatch({
