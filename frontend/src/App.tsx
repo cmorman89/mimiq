@@ -11,6 +11,7 @@ import { KnowledgeTypeSelectionView } from "./features/knowledge/KnowledgeTypeSe
 import { useState } from "react";
 import ModelList from "./features/models/components/ModelList";
 import { Login } from "./pages/Login";
+import { BannerProvider } from "./context/BannerContext";
 
 /**
  * Main application component that serves as the root of the React application.
@@ -42,50 +43,55 @@ function App() {
   };
   return (
     <Router>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/generate"
-            element={<Generate setShowModelList={setShowModelList} />}
-          />
-          <Route path="/knowledge" element={<Knowledge />}>
-            <Route path="/knowledge" element={<KnowledgeTypeSelectionView />} />
+      <BannerProvider>
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<Home />} />
             <Route
-              path="blog"
-              element={<KnowledgeDocListView docType="blog" />}
+              path="/generate"
+              element={<Generate setShowModelList={setShowModelList} />}
             />
-            <Route
-              path="books"
-              element={<KnowledgeDocListView docType="books" />}
-            />
-            <Route
-              path="videos"
-              element={<KnowledgeDocListView docType="videos" />}
-            />
-            <Route
-              path="podcasts"
-              element={<KnowledgeDocListView docType="podcasts" />}
-            />
-            <Route
-              path="articles"
-              element={<KnowledgeDocListView docType="articles" />}
-            />
-            <Route
-              path="other"
-              element={<KnowledgeDocListView docType="other" />}
-            />
-            <Route
-              path="all"
-              element={<KnowledgeDocListView docType="all" />}
-            />
-          </Route>
-          <Route path="/workflow" element={<Workflow />} />
-          <Route path="/utilities" element={<Utilities />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/login" element={<Login />} />
-        </Routes>
-      </MainLayout>
+            <Route path="/knowledge" element={<Knowledge />}>
+              <Route
+                path="/knowledge"
+                element={<KnowledgeTypeSelectionView />}
+              />
+              <Route
+                path="blog"
+                element={<KnowledgeDocListView docType="blog" />}
+              />
+              <Route
+                path="books"
+                element={<KnowledgeDocListView docType="books" />}
+              />
+              <Route
+                path="videos"
+                element={<KnowledgeDocListView docType="videos" />}
+              />
+              <Route
+                path="podcasts"
+                element={<KnowledgeDocListView docType="podcasts" />}
+              />
+              <Route
+                path="articles"
+                element={<KnowledgeDocListView docType="articles" />}
+              />
+              <Route
+                path="other"
+                element={<KnowledgeDocListView docType="other" />}
+              />
+              <Route
+                path="all"
+                element={<KnowledgeDocListView docType="all" />}
+              />
+            </Route>
+            <Route path="/workflow" element={<Workflow />} />
+            <Route path="/utilities" element={<Utilities />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </MainLayout>
+      </BannerProvider>
       {showModelList && (
         <ModelList
           setShowModelList={() => handleClose("modelList")}
