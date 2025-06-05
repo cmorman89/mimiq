@@ -2,13 +2,33 @@ import { BlogStructureItemState } from "../../../context/BlogFormContext";
 import { Divider } from "../../../components/Divider";
 import { Card } from "../../../components/Card";
 import { FaArrowDown } from "react-icons/fa";
+import { useMemo } from "react";
 export const BlogStructure = ({
   structure,
-  setStructure,
+  size = "default",
 }: {
   structure: BlogStructureItemState[];
-  setStructure: (structure: BlogStructureItemState[]) => void;
+  size?: "default" | "small";
 }) => {
+  const sizeClass = useMemo(
+    () => ({
+      default: {
+        title: "text-lg",
+        description: "text-sm",
+        keywords: "text-sm",
+        arrow: "text-2xl",
+      },
+      small: {
+        title: "text-sm",
+        description: "text-xs",
+        keywords: "text-xs",
+        arrow: "text-lg",
+      },
+    }),
+    []
+  );
+
+  const useSizeClass = useMemo(() => sizeClass[size], [size, sizeClass]);
   return (
     <div className="flex flex-col gap-2">
       {structure.map((item, index) => (
@@ -20,12 +40,23 @@ export const BlogStructure = ({
             type="dark"
             overrideDims={true}
           >
-            <h3 className="text-lg font-semibold">{item.title}</h3>
-            <Divider className="bg-gray-700" />
-            <p className="text-sm text-gray-500">{item.description}</p>
+            <h3 className={`${useSizeClass.title} font-semibold flex items-center gap-2`}>
+              <span className="text-gray-400 mr-1">{index + 1}.</span>
+              {item.title}
+            </h3>
+            {(item.description || item.keywords.length > 0) && (
+              <Divider className="bg-gray-700" />
+            )}
+            {item.description && (
+              <p className={`${useSizeClass.description} text-gray-500`}>
+                {item.description}
+              </p>
+            )}
             {item.keywords.length > 0 && (
               <div className="flex flex-col gap-2">
-                <h4 className="text-sm font-semibold">Keywords</h4>
+                <h4 className={`${useSizeClass.keywords} font-semibold`}>
+                  Keywords
+                </h4>
                 <ul className="list-inside text-xs flex flex-wrap gap-2">
                   {item.keywords.map((keyword, index) => (
                     <li
@@ -41,9 +72,13 @@ export const BlogStructure = ({
           </Card>
           {index < structure.length - 1 && (
             <div className="flex justify-center">
-                      <div className="flex aspect-square items-center justify-center bg-gray-700/50 rounded-full shadow-md border-2
-               border-gray-700">
-                <FaArrowDown className="text-gray-500 text-2xl m-1" />
+              <div
+                className="flex aspect-square items-center justify-center bg-gray-700/50 rounded-full shadow-md border-2
+               border-gray-700"
+              >
+                <FaArrowDown
+                  className={`text-gray-500 ${useSizeClass.arrow} m-1`}
+                />
               </div>
             </div>
           )}

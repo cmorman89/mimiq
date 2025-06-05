@@ -1,10 +1,11 @@
-import { FaArrowDown, FaCaretDown, FaPlus } from "react-icons/fa";
+import { FaCaretDown, FaPlus } from "react-icons/fa";
 import { Card } from "../../../components/Card";
 import { BlogTopicWizardResultItem } from "./BlogTopicWizardMenu";
 import { useState, useRef, useEffect } from "react";
 import { toTitleCase } from "../../../utils/stringUtils";
 import { Button } from "../../../components/Button";
 import { BlogFormFieldIndex } from "../../../context/BlogFormContext";
+import { BlogStructure } from "./BlogStructure";
 
 export const BlogWizardItem = ({
   item,
@@ -52,7 +53,9 @@ export const BlogWizardItem = ({
       padding="tight"
       className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px] p-2"
       style={{
-        maxHeight: isOpen ? `${contentHeight + 100}px` : `${titleHeight + 100}px`,
+        maxHeight: isOpen
+          ? `${contentHeight + 100}px`
+          : `${titleHeight + 100}px`,
       }}
     >
       <div
@@ -215,19 +218,14 @@ export const BlogWizardItem = ({
               {/* Sections */}
               <p className="text-sm text-gray-400 px-2">Sections:</p>
               <div className="flex flex-col items-start gap-2">
-                {item.sections.map((section, index) => (
-                  <div
-                    key={index}
-                    className="flex flex-col items-center gap-2 px-6"
-                  >
-                    <div className="text-sm text-content p-3 rounded-md bg-gray-400/20 hover:bg-gray-400/20 cursor-default flex items-center">
-                      {index + 1}. {toTitleCase(section)}
-                    </div>
-                    {index !== item.sections.length - 1 && (
-                      <FaArrowDown className="text-gray-400" />
-                    )}
-                  </div>
-                ))}
+                <BlogStructure
+                  size="small"
+                  structure={item.sections.map((section) => ({
+                    title: section,
+                    description: "",
+                    keywords: [],
+                  }))}
+                />
               </div>
             </div>
             <Button
