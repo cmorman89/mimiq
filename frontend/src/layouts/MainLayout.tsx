@@ -42,7 +42,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         id="main-content"
         className="flex flex-col w-full h-full pb-6 relative"
       >
-        <BannerMessage message={state.bannerMessage} type={state.bannerType} />
+        <BannerMessage
+          message={state.bannerMessage}
+          type={state.bannerType}
+        />
         {children}
       </main>
     </div>

@@ -32,15 +32,16 @@ export const BlogStructure = ({
   return (
     <div className="flex flex-col gap-2">
       {structure.map((item, index) => (
-        <>
+        <div key={index}>
           <Card
-            key={index}
             className="flex flex-col gap-2"
             padding="tight"
             type="dark"
             overrideDims={true}
           >
-            <h3 className={`${useSizeClass.title} font-semibold flex items-center gap-2`}>
+            <h3
+              className={`${useSizeClass.title} font-semibold flex items-center gap-2`}
+            >
               <span className="text-gray-400 mr-1">{index + 1}.</span>
               {item.title}
             </h3>
@@ -82,7 +83,7 @@ export const BlogStructure = ({
               </div>
             </div>
           )}
-        </>
+        </div>
       ))}
     </div>
   );

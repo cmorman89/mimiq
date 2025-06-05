@@ -1,17 +1,27 @@
-
 import { FaXmark } from "react-icons/fa6";
 import { useBannerContext } from "../context/useBannerMessage";
+import { useEffect } from "react";
 
 export const BannerMessage = ({
   message,
   type,
+  persistent = false,
 }: {
   message: string;
   type?: "error" | "warning" | "info" | "success";
+  persistent?: boolean;
 }) => {
   const { state, handleCloseBanner } = useBannerContext();
 
-  console.log(state);
+  // Close banner after 5 seconds if not persistent
+  useEffect(() => {
+    if (!persistent && state.isBannerVisible) {
+      setTimeout(() => {
+        handleCloseBanner();
+      }, 5000);
+    }
+  }, [persistent, handleCloseBanner, state.isBannerVisible]);
+
   const getColor = () => {
     switch (type) {
       case "error":
@@ -35,19 +45,39 @@ export const BannerMessage = ({
   };
   return (
     <div
-      className={`absolute left-0 w-full z-50 navbar-offset transition-all duration-300 ${transitionClass}`}
+      className={`fixed left-0 flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8`}
     >
+      {!persistent && (
+        <div
+          className={`flex items-center gap-2 w-full rounded-t-lg ${getColor()} border-t border-white/10 pt-1 px-2 pr-8`}        >
+          <div className="flex w-full border border-white/40 bg-white/20 rounded-full p-0.5">
+            <div
+              className={`flex w-full ${
+                !persistent ? "progress-bar" : ""
+              } h-3 bg-white/50 rounded-full`}
+            ></div>
+          </div>
+        </div>
+      )}
       <div
-        className={`py-2 px-4 flex items-center justify-center h-full min-h-12 max-h-20 ${getColor()} rounded-lg mt-8 mx-auto max-w-6xl relative shadow-xl border border-white/10`}
+        className={`py-2 px-4 flex flex-col w-full items-center justify-center h-full min-h-12 max-h-20 ${getColor()} rounded-lg mx-auto max-w-6xl relative shadow-xl border border-white/10 ${
+          !persistent ? "rounded-t-none border-t-0" : ""
+        }`}
       >
-        <p className="text-sm text-white">{message || "Banner Message"}</p>
-        <button
-          onClick={handleClose}
-          className="rounded-full bg-white/40 hover:bg-white/60 absolute right-4 p-1"
-        >
-          <FaXmark className="w-4 h-4" />
-        </button>
+        <div className="flex items-center gap-2">
+          <p className="text-sm text-white">
+            {message || "Test, Timed Banner Message"}
+          </p>
+        </div>
       </div>
+      <button
+        onClick={handleClose}
+        className={`rounded-full bg-white/40 hover:bg-white/20 absolute border border-white/40 ${
+          persistent ? "top-3 p-1.5" : "top-1.5 p-0.5"
+        } right-6`}
+      >
+        <FaXmark className={`${persistent ? "w-4 h-4" : "w-3 h-3"}`} />
+      </button>
     </div>
   );
 };

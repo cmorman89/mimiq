@@ -137,9 +137,22 @@ body {
     @apply text-content pb-3;
   }
 
-
   .navbar-offset {
     @apply top-[80px];
+  }
+
+  .progress-bar {
+    @apply transition-all;
+    animation: progress-bar 5000ms linear forwards;
+  }
+
+  @keyframes progress-bar {
+    0% {
+      width: 100%;
+    }
+    100% {
+      width: 0%;
+    }
   }
 
   .text-heading-1 {
