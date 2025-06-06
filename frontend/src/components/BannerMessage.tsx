@@ -1,6 +1,6 @@
 import { FaXmark } from "react-icons/fa6";
 import { useBannerContext } from "../context/useBannerMessage";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export const BannerMessage = ({
   message,
@@ -12,9 +12,10 @@ export const BannerMessage = ({
   persistent?: boolean;
 }) => {
   const { state, handleCloseBanner } = useBannerContext();
-
+  const [messageKey, setMessageKey] = useState(0);
   // Close banner after 5 seconds if not persistent
   useEffect(() => {
+    setMessageKey((prev) => prev + 1);
     if (!persistent && state.isBannerVisible) {
       setTimeout(() => {
         handleCloseBanner();
@@ -53,6 +54,7 @@ export const BannerMessage = ({
         >
           <div className="flex w-full border border-white/40 bg-white/20 rounded-full p-0.5">
             <div
+              key={messageKey}
               className={`flex w-full ${
                 !persistent ? "progress-bar" : ""
               } h-3 bg-white/50 rounded-full`}
