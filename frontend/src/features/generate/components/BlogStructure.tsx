@@ -74,8 +74,8 @@ export const BlogStructure = ({
           {index < structure.length - 1 && (
             <div className="flex justify-center">
               <div
-                className="flex aspect-square items-center justify-center bg-gray-700/50 rounded-full shadow-md border-2
-               border-gray-700"
+                className="flex aspect-square items-center justify-center bg-gray-700/50 rounded-full shadow-xl border-2
+               border-gray-700 mt-2"
               >
                 <FaArrowDown
                   className={`text-gray-500 ${useSizeClass.arrow} m-1`}

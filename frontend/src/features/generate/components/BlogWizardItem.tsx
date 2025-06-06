@@ -91,8 +91,9 @@ export const BlogWizardItem = ({
       padding="tight"
       className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px] p-2"
       style={{
+        height: isOpen ? `${contentHeight + titleHeight + 64}px` : `${titleHeight + 32}px`,
         maxHeight: isOpen
-          ? `${contentHeight + titleHeight + 100}px`
+          ? `${contentHeight + titleHeight + 64}px`
           : `${titleHeight + 32}px`,
       }}
     >
