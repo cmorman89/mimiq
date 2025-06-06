@@ -13,12 +13,17 @@ export const BannerMessage = ({
 }) => {
   const { state, handleCloseBanner } = useBannerContext();
   const [messageKey, setMessageKey] = useState(0);
+  const [isHidden, setIsHidden] = useState(true);
   // Close banner after 5 seconds if not persistent
   useEffect(() => {
+    setIsHidden(false);
     setMessageKey((prev) => prev + 1);
     if (!persistent && state.isBannerVisible) {
       setTimeout(() => {
         handleCloseBanner();
+        setTimeout(() => {
+          setIsHidden(true);
+        }, 300);
       }, 5000);
     }
   }, [persistent, handleCloseBanner, state.isBannerVisible]);
@@ -40,13 +45,19 @@ export const BannerMessage = ({
 
   const transitionClass = state.isBannerVisible
     ? "opacity-100 translate-y-0"
-    : "opacity-0 -translate-y-full";
+    : "opacity-10 -translate-y-full";
+
   const handleClose = () => {
     handleCloseBanner();
+    setTimeout(() => {
+      setIsHidden(true);
+    }, 300);
   };
   return (
     <div
-      className={`fixed flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8 max-w-xl left-0 right-0 mx-auto`}
+      className={`fixed flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8 max-w-xl left-0 right-0 mx-auto ${
+        isHidden ? "hidden" : ""
+      }`}
     >
       {!persistent && (
         <div
