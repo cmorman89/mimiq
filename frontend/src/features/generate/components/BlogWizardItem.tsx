@@ -57,22 +57,26 @@ export const BlogWizardItem = ({
     fieldIndex: BlogFormFieldIndex
   ) => void;
 }) => {
+  const VERTICAL_PADDING = 32;
   const [isOpen, setIsOpen] = useState(false);
   const titleHeightRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = useState<number>(0);
-  const [titleHeight, setTitleHeight] = useState<number>(0);
+  const [contentHeight, setContentHeight] = useState<number>(VERTICAL_PADDING);
+  const [titleHeight, setTitleHeight] = useState<number>(VERTICAL_PADDING);
 
+  const updateHeight = () => {
+    let titleHeight = VERTICAL_PADDING;
+    if (titleHeightRef.current) {
+      titleHeight = titleHeightRef.current.scrollHeight + VERTICAL_PADDING;
+      setTitleHeight(titleHeight);
+    }
+    if (contentRef.current) {
+      const contentHeight =
+        contentRef.current.scrollHeight + titleHeight + VERTICAL_PADDING;
+      setContentHeight(contentHeight);
+    }
+  };
   useEffect(() => {
-    const updateHeight = () => {
-      if (titleHeightRef.current) {
-        setTitleHeight(titleHeightRef.current.scrollHeight);
-      }
-      if (contentRef.current) {
-        setContentHeight(contentRef.current.scrollHeight);
-      }
-    };
-
     // Initial height calculation
     updateHeight();
 
@@ -83,7 +87,7 @@ export const BlogWizardItem = ({
     return () => {
       window.removeEventListener("resize", updateHeight);
     };
-  }, [item]);
+  }, [item, isOpen]);
 
   return (
     <Card
@@ -91,10 +95,8 @@ export const BlogWizardItem = ({
       padding="tight"
       className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px] p-2"
       style={{
-        height: isOpen ? `${contentHeight + titleHeight + 64}px` : `${titleHeight + 32}px`,
-        maxHeight: isOpen
-          ? `${contentHeight + titleHeight + 64}px`
-          : `${titleHeight + 32}px`,
+        height: isOpen ? `${contentHeight}px` : `${titleHeight}px`,
+        maxHeight: isOpen ? `${contentHeight}px` : `${titleHeight}px`,
       }}
     >
       <div
@@ -108,7 +110,11 @@ export const BlogWizardItem = ({
         // }}
       >
         {/* Header */}
-        <div className="flex items-start justify-between" ref={titleHeightRef}>
+        <div
+          className="flex items-start justify-between"
+          ref={titleHeightRef}
+          onLoad={updateHeight}
+        >
           <h3 className="text-heading-1 text-xl">
             {index + 1}. {item.topic}
           </h3>
@@ -128,7 +134,11 @@ export const BlogWizardItem = ({
         <hr className="w-full border-rose-400/50" />
 
         {/* Content panel */}
-        <div ref={contentRef} className="flex flex-col flex-1 gap-4">
+        <div
+          onLoad={updateHeight}
+          ref={contentRef}
+          className="flex flex-col flex-1 gap-4"
+        >
           {/* Topic */}
           <Card
             type="light"
