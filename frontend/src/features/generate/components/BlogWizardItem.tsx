@@ -54,17 +54,19 @@ export const BlogWizardItem = ({
       className="flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out max-h-40 xl:max-h-[300px] p-2"
       style={{
         maxHeight: isOpen
-          ? `${contentHeight + 100}px`
-          : `${titleHeight + 100}px`,
+          ? `${contentHeight + titleHeight + 100}px`
+          : `${titleHeight + 32}px`,
       }}
     >
       <div
         className={`flex flex-col w-full gap-4 relative overflow-hidden transition-all duration-300 ease-in-out ${
           !isOpen && "fade-mask"
         }`}
-        style={{
-          maxHeight: isOpen ? `${contentHeight + 100}px` : `${titleHeight}px`,
-        }}
+        // style={{
+        //   maxHeight: isOpen
+        //     ? `${contentHeight + titleHeight + 100}px`
+        //     : `${titleHeight}px`,
+        // }}
       >
         {/* Header */}
         <div className="flex items-start justify-between" ref={titleHeightRef}>

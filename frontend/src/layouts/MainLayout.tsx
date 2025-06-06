@@ -26,10 +26,14 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const { state, handleSetBannerMessage } = useBannerContext();
 
   useEffect(() => {
-    handleSetBannerMessage({
-      message: "This is a test banner",
-      type: "info",
-    });
+    const subdomain = window.location.hostname.split(".")[0];
+    if (subdomain === "dev" || subdomain === "127") {
+      handleSetBannerMessage({
+        message:
+          "Development Version: Some features may produce unexpected results or errors.",
+        type: "info",
+      });
+    }
   }, [handleSetBannerMessage]);
 
   return (
@@ -42,10 +46,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         id="main-content"
         className="flex flex-col w-full h-full pb-6 relative"
       >
-        <BannerMessage
-          message={state.bannerMessage}
-          type={state.bannerType}
-        />
+        <BannerMessage message={state.bannerMessage} type={state.bannerType} />
         {children}
       </main>
     </div>
