@@ -6,6 +6,42 @@ import { toTitleCase } from "../../../utils/stringUtils";
 import { Button } from "../../../components/Button";
 import { BlogFormFieldIndex } from "../../../context/BlogFormContext";
 import { BlogStructure } from "./BlogStructure";
+import { useBannerContext } from "../../../context/useBannerMessage";
+
+const AddButton = ({
+  label,
+  item,
+  field,
+  subfield,
+  onClick,
+}: {
+  label: string;
+  item: BlogTopicWizardResultItem;
+  field: BlogFormFieldIndex["field"];
+  subfield: BlogFormFieldIndex["subfield"];
+  onClick: (
+    item: BlogTopicWizardResultItem,
+    fieldIndex: BlogFormFieldIndex
+  ) => void;
+}) => {
+  const { handleSetBannerMessage } = useBannerContext();
+  const handleClick = () => {
+    onClick(item, { field: field, subfield: subfield });
+    handleSetBannerMessage({
+      message: `Added ${label}`,
+      type: "success",
+    });
+  };
+
+  return (
+    <Button type="primary" onClick={handleClick}>
+      <div className="text-xs text-gray-400 flex items-center gap-1">
+        <FaPlus className="text-xs" />
+        <span>Add {label}</span>
+      </div>
+    </Button>
+  );
+};
 
 export const BlogWizardItem = ({
   item,
@@ -103,20 +139,13 @@ export const BlogWizardItem = ({
                 {item.topic}
               </h4>
             </div>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleItemOnClick(item, {
-                  field: "idea",
-                  subfield: "topic",
-                });
-              }}
-            >
-              <div className="text-xs text-gray-400 flex items-center gap-1">
-                <FaPlus className="text-xs" />
-                <span>Use this topic</span>
-              </div>
-            </Button>
+            <AddButton
+              label="topic"
+              item={item}
+              field="idea"
+              subfield="topic"
+              onClick={handleItemOnClick}
+            />
           </Card>
           {/* Title */}
           <Card
@@ -131,20 +160,13 @@ export const BlogWizardItem = ({
                 {item.title}
               </h4>
             </div>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleItemOnClick(item, {
-                  field: "idea",
-                  subfield: "title",
-                });
-              }}
-            >
-              <div className="text-xs text-gray-400 flex items-center gap-1">
-                <FaPlus className="text-xs" />
-                <span>Use this title</span>
-              </div>
-            </Button>
+            <AddButton
+              label="title"
+              item={item}
+              field="idea"
+              subfield="title"
+              onClick={handleItemOnClick}
+            />
           </Card>
 
           {/* Keyword Chips*/}
@@ -169,20 +191,13 @@ export const BlogWizardItem = ({
                 ))}
               </div>
             </div>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleItemOnClick(item, {
-                  field: "idea",
-                  subfield: "keywords",
-                });
-              }}
-            >
-              <div className="text-xs text-gray-400 flex items-center gap-1">
-                <FaPlus className="text-xs" />
-                <span>Use these keywords</span>
-              </div>
-            </Button>
+            <AddButton
+              label="keywords"
+              item={item}
+              field="idea"
+              subfield="keywords"
+              onClick={handleItemOnClick}
+            />
           </Card>
           <Card
             type="light"
@@ -195,20 +210,13 @@ export const BlogWizardItem = ({
               <p className="text-sm text-gray-400 px-2">Details:</p>
               <p className="text-sm text-content px-6">{item.details}</p>
             </div>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleItemOnClick(item, {
-                  field: "idea",
-                  subfield: "details",
-                });
-              }}
-            >
-              <div className="text-xs text-gray-400 flex items-center gap-1">
-                <FaPlus className="text-xs" />
-                <span>Use these details</span>
-              </div>
-            </Button>
+            <AddButton
+              label="details"
+              item={item}
+              field="idea"
+              subfield="details"
+              onClick={handleItemOnClick}
+            />
           </Card>
           <Card
             type="light"
@@ -230,20 +238,13 @@ export const BlogWizardItem = ({
                 />
               </div>
             </div>
-            <Button
-              type="primary"
-              onClick={() => {
-                handleItemOnClick(item, {
-                  field: "structure",
-                  subfield: "sections",
-                });
-              }}
-            >
-              <div className="text-xs text-gray-400 flex items-center gap-1">
-                <FaPlus className="text-xs" />
-                <span>Use these sections</span>
-              </div>
-            </Button>
+            <AddButton
+              label="sections"
+              item={item}
+              field="structure"
+              subfield="sections"
+              onClick={handleItemOnClick}
+            />
           </Card>
         </div>
       </div>
