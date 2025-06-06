@@ -46,7 +46,7 @@ export const BlogStructure = ({
       {structure.map((item, index) => (
         <div key={index} className="">
           <div id={`section-${index}`} className="flex gap-2 items-center">
-            <div className="flex flex-col gap-2 text-white">
+            <div className="flex flex-col gap-4 text-white">
               <FaArrowUp
                 className="cursor-pointer"
                 onClick={() => handleMoveSectionUp(index)}

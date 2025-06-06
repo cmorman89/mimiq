@@ -248,6 +248,8 @@ export const BlogWizardItem = ({
                     description: "",
                     keywords: [],
                   }))}
+                  handleRemoveSection={() => {}}
+                  handleSwapSections={() => {}}
                 />
               </div>
             </div>
