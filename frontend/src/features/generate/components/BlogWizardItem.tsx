@@ -37,7 +37,9 @@ const AddButton = ({
     <Button type="primary" onClick={handleClick}>
       <div className="text-xs text-gray-400 flex items-center gap-1">
         <FaPlus className="text-xs" />
-        <span>Add {label}</span>
+        <span className="hidden md:inline">
+          Add <span className="hidden xl:inline">{label}</span>
+        </span>
       </div>
     </Button>
   );
