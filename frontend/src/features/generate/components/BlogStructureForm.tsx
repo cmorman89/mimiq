@@ -46,11 +46,46 @@ export const BlogStructureForm = () => {
     setStructure([]);
   };
 
+  const handleSwapSections = (initiatorIndex: number, targetIndex: number) => {
+    const initiator = document.getElementById(`section-${initiatorIndex}`);
+    const target = document.getElementById(`section-${targetIndex}`);
+    const newStructure = [...structure];
+    const originalInitiator = newStructure[initiatorIndex];
+    const originalTarget = newStructure[targetIndex];
+    newStructure[initiatorIndex] = originalTarget;
+    newStructure[targetIndex] = originalInitiator;
+
+    if (initiator && target) {
+      const initiatorRect = initiator.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const distance = targetRect.top - initiatorRect.top;
+
+      // Apply transition styles
+      initiator.style.transition = "transform 300ms ease-out";
+      target.style.transition = "transform 300ms ease-out";
+
+      // Apply transforms
+      initiator.style.transform = `translateY(${distance}px)`;
+      target.style.transform = `translateY(${-distance}px)`;
+
+      // Update structure after animation completes
+      setTimeout(() => {
+        setStructure(newStructure);
+        // Reset transforms and transitions
+        initiator.style.transform = "";
+        target.style.transform = "";
+        initiator.style.transition = "";
+        target.style.transition = "";
+      }, 300);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <BlogStructure
         structure={structure}
         handleRemoveSection={handleRemoveSection}
+        handleSwapSections={handleSwapSections}
       />
       <div className="flex gap-4 justify-end">
         <Button onClick={handleAddSection}>
