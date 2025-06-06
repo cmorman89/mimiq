@@ -46,7 +46,7 @@ export const BannerMessage = ({
   };
   return (
     <div
-      className={`fixed flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8 max-w-6xl left-0 right-0 mx-auto`}
+      className={`fixed flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8 max-w-xl left-0 right-0 mx-auto`}
     >
       {!persistent && (
         <div
