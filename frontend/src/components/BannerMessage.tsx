@@ -29,7 +29,7 @@ export const BannerMessage = ({
       case "warning":
         return "bg-yellow-500";
       case "info":
-        return "bg-blue-500";
+        return "bg-gray-700";
       case "success":
         return "bg-green-500";
       default:
@@ -45,11 +45,12 @@ export const BannerMessage = ({
   };
   return (
     <div
-      className={`fixed left-0 flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8`}
+      className={`fixed flex flex-col w-full z-50 navbar-offset transition-all duration-300 ${transitionClass} px-4 mt-8 max-w-6xl left-0 right-0 mx-auto`}
     >
       {!persistent && (
         <div
-          className={`flex items-center gap-2 w-full rounded-t-lg ${getColor()} border-t border-white/10 pt-1 px-2 pr-8`}        >
+          className={`flex items-center gap-2 w-full rounded-t-lg ${getColor()} border border-b-0 border-white/30 pt-1 px-2 pr-8 mx-auto max-w-6xl`}
+        >
           <div className="flex w-full border border-white/40 bg-white/20 rounded-full p-0.5">
             <div
               className={`flex w-full ${
@@ -60,7 +61,7 @@ export const BannerMessage = ({
         </div>
       )}
       <div
-        className={`py-2 px-4 flex flex-col w-full items-center justify-center h-full min-h-12 max-h-20 ${getColor()} rounded-lg mx-auto max-w-6xl relative shadow-xl border border-white/10 ${
+        className={`py-2 px-4 flex flex-col w-full items-center justify-center h-full min-h-12 max-h-20 ${getColor()} rounded-lg mx-auto max-w-6xl relative shadow-xl border border-white/30 ${
           !persistent ? "rounded-t-none border-t-0" : ""
         }`}
       >
