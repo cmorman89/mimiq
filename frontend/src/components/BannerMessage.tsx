@@ -26,13 +26,13 @@ export const BannerMessage = ({
   const getColor = () => {
     switch (type) {
       case "error":
-        return "bg-red-500";
+        return "bg-red-700";
       case "warning":
-        return "bg-yellow-500";
+        return "bg-yellow-700";
       case "info":
         return "bg-gray-700";
       case "success":
-        return "bg-green-500";
+        return "bg-green-900";
       default:
         return "bg-gray-700";
     }
