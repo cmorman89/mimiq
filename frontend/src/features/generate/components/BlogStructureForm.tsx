@@ -33,9 +33,7 @@ export const BlogStructureForm = () => {
     setStructure(dummyStructure);
   }, []);
 
-  return (
-    <BlogStructure structure={structure} setStructure={setStructure} />
-  );
+  return <BlogStructure structure={structure} />;
 };
 
 export default BlogStructureForm;
