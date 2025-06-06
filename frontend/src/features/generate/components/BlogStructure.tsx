@@ -1,14 +1,16 @@
 import { BlogStructureItemState } from "../../../context/BlogFormContext";
 import { Divider } from "../../../components/Divider";
 import { Card } from "../../../components/Card";
-import { FaArrowDown } from "react-icons/fa";
+import { FaArrowDown, FaTimes } from "react-icons/fa";
 import { useMemo } from "react";
 export const BlogStructure = ({
   structure,
   size = "default",
+  handleRemoveSection,
 }: {
   structure: BlogStructureItemState[];
   size?: "default" | "small";
+  handleRemoveSection: (index: number) => void;
 }) => {
   const sizeClass = useMemo(
     () => ({
@@ -39,6 +41,12 @@ export const BlogStructure = ({
             type="dark"
             overrideDims={true}
           >
+            <div
+              className="flex items-center justify-center aspect-square cursor-pointer absolute top-3 right-3 rounded-full bg-white/40 hover:bg-red-500/60 transition-all duration-300 p-1"
+              onClick={() => handleRemoveSection(index)}
+            >
+              <FaTimes className="text-white text-xs" />
+            </div>
             <h3
               className={`${useSizeClass.title} font-semibold flex items-center gap-2`}
             >
